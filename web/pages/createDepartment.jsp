@@ -4,12 +4,19 @@
     Author     : Игорь
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="controller.ControllerDAO"%>
+<%@page import="model.Employee"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>main</title>
+        <%
+            ControllerDAO controller = ControllerDAO.getInstance();
+            List<Employee> directors = controller.getEmployeeDAO().getEmployeeByFunction("директор");
+        %>
     </head>
 
     <body>
@@ -39,23 +46,36 @@
         </main>
                     </header>
         <main>
-            <blockquote>
+            <form action="/InformationSystemWEB/servlets/CreateDepartment" method="POST">
+                <blockquote>
                 <h2 style="text-align: center">Создание отдела</h2>
-                <table width="50" border="0" align="center">
-                    <tbody>                        
+                <table width="50" border="0" align="center">                    
+                    <tbody>                  
                         <tr>
                             <td>Название </td>
-                            <td><input type="text" name="id" value="Введите название отдела" size="30" maxlength="30"></td>
+                            <td><input type="text" name="departmentName" value="Введите название отдела" size="30" maxlength="30"></td>
                         </tr>
                         <tr>
-                            <td>Директор </td>
-                            <td><input type="text" name="id" value="Введите директора" size="30" maxlength="15"></td>
+                            <td>Директор</td>
+                            <td>
+                                <select name="directorID">
+                                    <option selected="selected" disabled>Выберите директора<option>
+                                    <%
+                                        for(Employee emp : directors){
+                                    %>
+                                    <option value="<%=emp.getId()%>"><%=emp.getFirstName() + " " + emp.getLastName()%></option>
+                                    <%
+                                        }
+                                    %>
+                               </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
                 <p style="text-align: center"><input type="submit" value="Создать">
                     <input type="reset" value="Очистить"></p>
             </blockquote>
+            </form>            
         </main>
         <footer>
             <p style="text-align: center">2016 год</p></footer>

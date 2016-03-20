@@ -7,6 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -27,13 +28,13 @@ public class Department implements Serializable {
     @Column(name="NAME")
     private String name;    
     @OneToOne(cascade = CascadeType.ALL)    
-    @JoinColumn(name = "ID")
+    @JoinColumn(name = "DIRECTOR_ID", referencedColumnName = "ID")
     private Employee director;
     @XmlElement
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "DEPARTMENT_ID")
     private Set<Employee> employees = new LinkedHashSet(); 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="COMPANY_ID")
     Company company;
     
@@ -88,5 +89,44 @@ public class Department implements Serializable {
         this.company = company;
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.director);
+        hash = 41 * hash + Objects.hashCode(this.employees);
+        hash = 41 * hash + Objects.hashCode(this.company);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Department other = (Department) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.director, other.director)) {
+            return false;
+        }
+        if (!Objects.equals(this.employees, other.employees)) {
+            return false;
+        }
+        if (!Objects.equals(this.company, other.company)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }
