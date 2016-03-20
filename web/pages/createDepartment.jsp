@@ -4,6 +4,7 @@
     Author     : Игорь
 --%>
 
+<%@page import="model.Company"%>
 <%@page import="java.util.List"%>
 <%@page import="controller.ControllerDAO"%>
 <%@page import="model.Employee"%>
@@ -15,11 +16,13 @@
         <title>main</title>
         <%
             ControllerDAO controller = ControllerDAO.getInstance();
-            List<Employee> directors = controller.getEmployeeDAO().getEmployeeByFunction("директор");
+            Long companyID = Long.valueOf(request.getParameter("companyID"));
+            Company c = controller.getCompanyDAO().getCompanyById(companyID);
+            session.setAttribute("company", c);
         %>
     </head>
 
-    <body>
+   <body>
         <header>
             <table width="849" border="0" align="center">
                 <tbody>
@@ -46,36 +49,34 @@
         </main>
                     </header>
         <main>
-            <form action="/InformationSystemWEB/servlets/CreateDepartment" method="POST">
-                <blockquote>
-                <h2 style="text-align: center">Создание отдела</h2>
-                <table width="50" border="0" align="center">                    
-                    <tbody>                  
+            <blockquote>
+                <form action="/InformationSystemWEB/servlets/CreateDepartment" method="POST">
+                    <h2 style="text-align: center">Изменение отдела</h2>
+                <table width="50" border="0" align="center">
+                    <tbody>                        
                         <tr>
                             <td>Название </td>
-                            <td><input type="text" name="departmentName" value="Введите название отдела" size="30" maxlength="30"></td>
+                            <td><input type="text" name="name" value="Введите названи отдела" size="30" maxlength="30"></td>
                         </tr>
                         <tr>
-                            <td>Директор</td>
+                            <td>Директор </td>
                             <td>
-                                <select name="directorID">
-                                    <option selected="selected" disabled>Выберите директора<option>
+                                <select name="directorID">                         
                                     <%
-                                        for(Employee emp : directors){
+                                        List<Employee> emps = ControllerDAO.getInstance().getEmployeeDAO().getlEmployeeByCompany(c);
+                                        for(Employee e : emps){
                                     %>
-                                    <option value="<%=emp.getId()%>"><%=emp.getFirstName() + " " + emp.getLastName()%></option>
-                                    <%
-                                        }
-                                    %>
-                               </select>
+                                    <option value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>
+                                    <%}%>
+                                </select>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <p style="text-align: center"><input type="submit" value="Создать">
+                <p style="text-align: center"><input type="submit" value="Сохранить">
                     <input type="reset" value="Очистить"></p>
+                </form>                
             </blockquote>
-            </form>            
         </main>
         <footer>
             <p style="text-align: center">2016 год</p></footer>

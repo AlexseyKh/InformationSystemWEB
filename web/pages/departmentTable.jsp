@@ -46,11 +46,7 @@
         </main>
         </header>
         <main>
-            <blockquote>
-                <h2 style="text-align: center">Таблица отделов</h2>
-            </blockquote>
-            <table width="500" border="1" align="center" cellpadding="10" cellspacing="0">
-                <%
+            <%
                     String s = request.getParameter("companyID");
                     long companyID = Long.valueOf(s);
                     ControllerDAO con = ControllerDAO.getInstance();
@@ -60,6 +56,12 @@
                     
                     
                 %>
+            <blockquote>
+                <h2 style="text-align: center">Таблица отделов</h2>
+            </blockquote>
+                <div align="right"><a href="/InformationSystemWEB/pages/createDepartment.jsp?companyID=<%=companyID%>">Добавить отдел</a></div>
+            <table width="500" border="1" align="center" cellpadding="10" cellspacing="0">
+                
                 <tbody>
                     <tr>
                         <td align="center">id </td>

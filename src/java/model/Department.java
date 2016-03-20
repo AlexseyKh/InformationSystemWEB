@@ -27,7 +27,7 @@ public class Department implements Serializable {
     private long id;
     @Column(name="NAME")
     private String name;    
-    @OneToOne(cascade = CascadeType.ALL)    
+    @OneToOne()    
     @JoinColumn(name = "DIRECTOR_ID", referencedColumnName = "ID")
     private Employee director;
     @XmlElement
@@ -82,12 +82,8 @@ public class Department implements Serializable {
         return company;
     }
 
-    public void setCompany(Company company) {
-        if(this.company != company){
-        if(this.company != null) this.company.getDepartments().remove(this);
-        company.getDepartments().add(this);
-        this.company = company;
-        }
+    public void setCompany(Company company) {       
+        this.company = company;        
     }
 
     @Override
