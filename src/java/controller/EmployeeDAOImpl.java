@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.Company;
 import model.Department;
@@ -72,11 +73,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public List<Employee> getlEmployeeByCompany(Company comp) {
         Session s = HibernateUtil.getSessionFactory().openSession();
         Transaction t = s.beginTransaction();
-        Query query = s.createQuery("from Employee, DEPARTMENT where DEPARTMENT_ID = DEPARTMENT.ID AND DEPARTMENT.COMPANY_ID = :COMPANY_ID").setLong("COMPANY_ID", comp.getId());
-        List<Employee> list = query.list();
+        Query query = s.createQuery("from Employee e, Department d where e.department = d.id AND d.company = :COMPANY_ID").setLong("COMPANY_ID", comp.getId());
+        List<Object[]> list = query.list();
         t.commit();
         s.close();
-        return list;
+        ArrayList<Employee> emps = new ArrayList<>();
+        for(Object[] obj : list) emps.add((Employee)obj[0]);
+        return emps;
     }
 
     @Override
