@@ -10,6 +10,10 @@
     <head>
         <meta charset="utf-8">
         <title>main</title>
+        <%
+            Object obj = session.getAttribute("department");
+            
+        %>
     </head>
 
     <body>
@@ -42,11 +46,7 @@
             <blockquote>
                 <h2 style="text-align: center">Изменение отдела</h2>
                 <table width="50" border="0" align="center">
-                    <tbody>
-                        <tr>
-                            <td>id</td>
-                            <td><input type="text" name="id" value="" size="30" maxlength="5"> </td>
-                        </tr>
+                    <tbody>                        
                         <tr>
                             <td>Название </td>
                             <td><input type="text" name="id" value="" size="30" maxlength="30"></td>

@@ -42,11 +42,7 @@
             <blockquote>
                 <h2 style="text-align: center">Изменение сотрудника</h2>
                 <table width="50" border="0" align="center">
-                    <tbody>
-                        <tr>
-                            <td>id</td>
-                            <td><input type="text" name="id" value="" size="30" maxlength="5"> </td>
-                        </tr>
+                    <tbody>                        
                         <tr>
                             <td>Фамилия</td>
                             <td><input type="text" name="id" value="" size="30" maxlength="30"></td>
