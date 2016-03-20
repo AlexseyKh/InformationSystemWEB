@@ -56,7 +56,7 @@
                     DepartmentDAO depDAO = con.getDepartmentDAO();
                     EmployeeDAO empDAO = con.getEmployeeDAO();
                     
-                    Company comp = new Company("Музыкальный Магазин");
+                    /*Company comp = new Company("Музыкальный Магазин");
                     compDAO.addCompany(comp);
                     
                     Department dep = new Department("Руководство");
@@ -85,9 +85,9 @@
                     emp = new Employee("Генадий", "Плут", "продавец", 15000);
                     empDAO.addEmployee(emp, dep);
                     emp = new Employee("Валерия", "Тимофеева", "консультант", 14000);
-                    empDAO.addEmployee(emp, dep);
+                    empDAO.addEmployee(emp, dep);*/
                     List<Department> list = depDAO.getDepartmentByCompany(compDAO.getCompanyByName("Музыкальный Магазин").get(0));
-                    empDAO.addEmployee(director, dep);
+                    //empDAO.addEmployee(director, dep);
                     
                     
                 %>
