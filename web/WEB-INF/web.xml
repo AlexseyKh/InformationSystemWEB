@@ -6,6 +6,17 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <!--   <jsp-config>
+        <jsp-property-group>
+            <description>настройка колонтитулов
+            </description>
+            <url-pattern>/index.jsp</url-pattern>
+            <url-pattern>/pages/*</url-pattern>
+            <include-prelude>/jspf/header.jspf</include-prelude>
+            <include-coda>/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+    </jsp-config>
+    -->
 </web-app>

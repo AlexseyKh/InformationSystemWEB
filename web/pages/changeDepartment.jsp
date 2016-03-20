@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 17.03.2016, 20:22:49
+    Document   : changeDepartment
+    Created on : 20.03.2016, 15:22:57
     Author     : Игорь
 --%>
 
@@ -38,8 +38,30 @@
             </table>
         </main>
                     </header>
+        <main>
+            <blockquote>
+                <h2 style="text-align: center">Изменение отдела</h2>
+                <table width="50" border="0" align="center">
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td><input type="text" name="id" value="" size="30" maxlength="5"> </td>
+                        </tr>
+                        <tr>
+                            <td>Название </td>
+                            <td><input type="text" name="id" value="" size="30" maxlength="30"></td>
+                        </tr>
+                        <tr>
+                            <td>Директор </td>
+                            <td><input type="text" name="id" value="" size="30" maxlength="15"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: center"><input type="submit" value="Сохранить">
+                    <input type="reset" value="Очистить"></p>
+            </blockquote>
+        </main>
         <footer>
-            <p style="text-align: center">2016 год</p>
-        </footer>
+            <p style="text-align: center">2016 год</p></footer>
     </body>
 </html>
