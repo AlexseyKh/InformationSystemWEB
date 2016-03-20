@@ -94,7 +94,6 @@ public class Employee implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + (int) (this.id ^ (this.id >>> 32));
         hash = 29 * hash + Objects.hashCode(this.firstName);
         hash = 29 * hash + Objects.hashCode(this.lastName);
         hash = 29 * hash + Objects.hashCode(this.function);

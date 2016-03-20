@@ -1,31 +1,28 @@
 <%-- 
-    Document   : departmentTable
-    Created on : 17.03.2016, 20:24:36
-    Author     : Игорь
+    Document   : companyTable
+    Created on : Mar 20, 2016, 5:27:04 PM
+    Author     : Alexey
 --%>
 
 <%@page import="model.Employee"%>
-<%@page import="controller.EmployeeDAO"%>
-<%@page import="controller.DepartmentDAO"%>
-<%@page import="controller.CompanyDAO"%>
-<%@page import="model.Company"%>
 <%@page import="model.Department"%>
 <%@page import="java.util.List"%>
+<%@page import="model.Company"%>
+<%@page import="controller.CompanyDAO"%>
 <%@page import="controller.ControllerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>main</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Company</title>
     </head>
-
     <body>
         <header>
             <table width="849" border="0" align="center">
                 <tbody>
                     <tr>
-                        <th scope="col"><img src="/InformationSystemWEB/images/nc-logo.jpg" width="200" height="55" alt="" /></th>
+                        <th scope="col"><img src="/InformationSystemWEB/pages/nc-logo.jpg" width="200" height="55" alt=""/></th>
                         <th scope="col"><h1>Информационная система</h1></th>
                     </tr>
                 </tbody>
@@ -44,48 +41,42 @@
                 </tbody>
             </table>
         </main>
-        </header>
         <main>
             <blockquote>
-                <h2 style="text-align: center">Таблица отделов</h2>
+                <h2 style="text-align: center">Таблица компаний</h2>
             </blockquote>
             <table width="500" border="1" align="center" cellpadding="10" cellspacing="0">
-                <%
-                    String s = request.getParameter("companyID");
-                    long companyID = Long.valueOf(s);
-                    ControllerDAO con = ControllerDAO.getInstance();
+                <%  
+                    ControllerDAO con = ControllerDAO.getInstance();   
                     CompanyDAO compDAO = con.getCompanyDAO();
-                    DepartmentDAO depDAO = con.getDepartmentDAO();                    
-                    List<Department> list = depDAO.getDepartmentByCompany(compDAO.getCompanyById(companyID));                  
-                    
-                    
+                    List<Company> companys = compDAO.getAllCompany();                    
                 %>
                 <tbody>
                     <tr>
-                        <td align="center">id </td>
+                        <td align="center">ID </td>
                         <td align="center">Название</td>
-                        <td align="center">Директор</td>
-                        <td align="center">Сотрудники</td>
+                        <td align="center">Отделы</td>
                         <td align="center">Изменить</td>
                         <td align="center">Удалить</td>
                     </tr>
                     <%
-                        for (Department d : list) {
-                            String director = (d.getDirector() != null)?(d.getDirector().getFirstName() + " " + d.getDirector().getLastName()):("null");
+                        for(Company c : companys) {                           
                     %>
                     <tr>
-                        <td><%=d.getId()%></td>
-                        <td><%=d.getName()%></td>
-                        <td><%=director%></td>
-                        <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?departmentID=<%=d.getId()%>">Просмотреть</a></td>
-                        <td><a href="/InformationSystemWEB/pages/changeDepartment.jsp?departmentID=<%=d.getId()%>">Изменить</a></td>
-                        <td><a href="/InformationSystemWEB/servlets/DeleteDepartment?departmentID=<%=d.getId()%>">Удалить</a></td>
+                        <td align="center"><%=c.getId()%></td>
+                        <td align="center"><%=c.getName()%></td>
+                        <td><a href="/InformationSystemWEB/pages/departmentTable.jsp?companyID=<%=c.getId()%>">Просмотреть</a></td>
+                        <td><a href="/InformationSystemWEB/pages/changeCompany.jsp?companyID=<%=c.getId()%>">Изменить</a></td>
+                        <td><a href="/InformationSystemWEB/servlets/DeleteCompany?companyID=<%=c.getId()%>">Удалить</a></td>
                     </tr>
                     <%}%>
+                    
                 </tbody>
             </table> 
         </main>
         <footer>
-            <p style="text-align: center">2016 год</p></footer>
+            <p style="text-align: center"> 2016 год</p>
+        </footer>
+        </header>
     </body>
 </html>
