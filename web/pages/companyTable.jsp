@@ -43,8 +43,9 @@
         </main>
         <main>
             <blockquote>
-                <h2 style="text-align: center">Таблица компаний</h2>
+                <h2 style="text-align: center">Таблица компаний</h2>                
             </blockquote>
+            <div align="right"><a href="/InformationSystemWEB/pages/createCompany.jsp">Добавить компанию</a></div>
             <table width="500" border="1" align="center" cellpadding="10" cellspacing="0">
                 <%  
                     ControllerDAO con = ControllerDAO.getInstance();   
