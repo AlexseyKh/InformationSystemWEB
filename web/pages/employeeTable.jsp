@@ -3,6 +3,7 @@
     Created on : 17.03.2016, 20:23:40
     Author     : Игорь
 --%>
+<%@page import="java.util.LinkedList"%>
 <%@page import="model.Employee"%>
 <%@page import="controller.EmployeeDAO"%>
 <%@page import="controller.DepartmentDAO"%>
@@ -55,8 +56,11 @@
                     DepartmentDAO depDAO = con.getDepartmentDAO();
                     EmployeeDAO empDAO = con.getEmployeeDAO();
                     
-                    Department dep = depDAO.getDepartmentByName("Руководство").get(0);
-                    List<Employee> list = empDAO.getEmployeeeByDepartment(dep);
+                    List<Department> deps = depDAO.getDepartmentByCompany(compDAO.getCompanyByName("Музыкальный Магазин").get(0));
+                    List<Employee> list = new LinkedList<Employee>();
+                    for(Department dep : deps){
+                        list.addAll(empDAO.getEmployeeeByDepartment(dep));
+                    }
                     %>
                 <tbody>
                     <tr>
@@ -66,9 +70,22 @@
                         <td align="center">Должность</td>
                         <td align="center">Зарплата</td>
                         <td align="center">Отдел </td>
+                        <td align="center">Редактировать</td>
+                        <td align="center">Удалить</td>
                     </tr>
                     <%
                         for(Employee e : list) {
+                            StringBuffer edit = new StringBuffer("/InformationSystemWEB/employee?");
+                            edit.append("goal=edit");
+                            edit.append("&companyID=" + request.getParameter("companyID"));
+                            edit.append("&id=" + e.getId());
+                            edit.append("&lastName=" + e.getLastName());
+                            edit.append("&firstName=" + e.getFirstName());
+                            edit.append("&function=" + e.getFunction());
+                            edit.append("&salary=" + e.getSalary());
+                            edit.append("&department=" + e.getDepartment().getName());
+                            
+                            String delete = "/InformationSystemWEB/deleteEmployee?id=" + e.getId();
                         %>
                     <tr>
                         <td align="center"><%=e.getId()%></td>
@@ -77,11 +94,14 @@
                         <td align="center"><%=e.getFunction()%></td>
                         <td align="center"><%=e.getSalary()%></td>
                         <td align="center"><%=e.getDepartment().getName()%></td>
+                        <td align="center"><a href="<%=edit.toString()%>">редактировать</a></td>
+                        <td align="center"><a href="<%=delete%>">удалить</a></td>
                     </tr>
                     <%}%>
                     
                 </tbody>
             </table> 
+                    <a href="/InformationSystemWEB/employee?goal=add&companyID=<%=request.getParameter("companyID")%>">Добавить сотрудника</a>
         </main>
         <footer>
             <p style="text-align: center"> 2016 год</p>

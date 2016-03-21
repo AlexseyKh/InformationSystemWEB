@@ -46,65 +46,42 @@
         </main>
         </header>
         <main>
-            <blockquote>
-                <h2 style="text-align: center">Таблица отделов</h2>
-            </blockquote>
-            <table width="500" border="1" align="center" cellpadding="10" cellspacing="0">
-                <%
+            <%
+                    String s = request.getParameter("companyID");
+                    long companyID = Long.valueOf(s);
                     ControllerDAO con = ControllerDAO.getInstance();
                     CompanyDAO compDAO = con.getCompanyDAO();
-                    DepartmentDAO depDAO = con.getDepartmentDAO();
-                    EmployeeDAO empDAO = con.getEmployeeDAO();
-                    
-                    /*Company comp = new Company("Музыкальный Магазин");
-                    compDAO.addCompany(comp);
-                    
-                    Department dep = new Department("Руководство");
-                    depDAO.addDepartment(dep, comp);
-                    Employee director = new Employee("Владимир", "Владимиров", "директор", 14000);
-                    empDAO.addEmployee(director, dep);
-                    dep.setDirector(director);
-                    
-                    
-                    dep = new Department("Гитары");
-                    depDAO.addDepartment(dep, comp);
-                    Employee emp = new Employee("Карл", "Зиновьев", "продавец", 15000);
-                    empDAO.addEmployee(emp, dep);
-                    emp = new Employee("Илья", "Трофимов", "консультант", 14000);
-                    empDAO.addEmployee(emp, dep);
-                    empDAO.addEmployee(director, dep);
-                    
-                    dep = new Department("Ударные и Перкуссия");
-                    depDAO.addDepartment(dep, comp);
-                    emp = new Employee("Сергей", "Коржин", "продавец-консультант", 19000);
-                    empDAO.addEmployee(emp, dep);
-                    empDAO.addEmployee(director, dep);
-                    
-                    dep = new Department("Клавишные");
-                    depDAO.addDepartment(dep, comp);
-                    emp = new Employee("Генадий", "Плут", "продавец", 15000);
-                    empDAO.addEmployee(emp, dep);
-                    emp = new Employee("Валерия", "Тимофеева", "консультант", 14000);
-                    empDAO.addEmployee(emp, dep);*/
-                    List<Department> list = depDAO.getDepartmentByCompany(compDAO.getCompanyByName("Музыкальный Магазин").get(0));
-                    //empDAO.addEmployee(director, dep);
+                    DepartmentDAO depDAO = con.getDepartmentDAO();                    
+                    List<Department> list = depDAO.getDepartmentByCompany(compDAO.getCompanyById(companyID));                  
                     
                     
                 %>
+            <blockquote>
+                <h2 style="text-align: center">Таблица отделов</h2>
+            </blockquote>
+                <div align="right"><a href="/InformationSystemWEB/pages/createDepartment.jsp?companyID=<%=companyID%>">Добавить отдел</a></div>
+            <table width="500" border="1" align="center" cellpadding="10" cellspacing="0">
+                
                 <tbody>
                     <tr>
                         <td align="center">id </td>
                         <td align="center">Название</td>
                         <td align="center">Директор</td>
-                    </tr>
+                        <td align="center">Сотрудники</td>
+                        <td align="center">Изменить</td>
+                        <td align="center">Удалить</td>
                     </tr>
                     <%
                         for (Department d : list) {
+                            String director = (d.getDirector() != null)?(d.getDirector().getFirstName() + " " + d.getDirector().getLastName()):("null");
                     %>
                     <tr>
                         <td><%=d.getId()%></td>
                         <td><%=d.getName()%></td>
-                        <td><%="null"%></td>
+                        <td><%=director%></td>
+                        <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?companyID=<%=s%>&departmentID=<%=d.getId()%>">Просмотреть</a></td>
+                        <td><a href="/InformationSystemWEB/pages/changeDepartment.jsp?departmentID=<%=d.getId()%>">Изменить</a></td>
+                        <td><a href="/InformationSystemWEB/servlets/DeleteDepartment?departmentID=<%=d.getId()%>">Удалить</a></td>
                     </tr>
                     <%}%>
                 </tbody>

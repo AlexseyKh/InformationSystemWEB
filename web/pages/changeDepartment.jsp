@@ -4,6 +4,10 @@
     Author     : Игорь
 --%>
 
+<%@page import="model.Employee"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Department"%>
+<%@page import="controller.ControllerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
@@ -11,8 +15,11 @@
         <meta charset="utf-8">
         <title>main</title>
         <%
-            Object obj = session.getAttribute("department");
-            
+            long departmnetID = Long.valueOf(request.getParameter("departmentID"));
+            ControllerDAO controller = ControllerDAO.getInstance();
+            Department d = controller.getDepartmentDAO().getDepartmentById(departmnetID);
+            session.setAttribute("department", d);
+            Employee director = d.getDirector();
         %>
     </head>
 
@@ -44,21 +51,32 @@
                     </header>
         <main>
             <blockquote>
-                <h2 style="text-align: center">Изменение отдела</h2>
+                <form action="/InformationSystemWEB/servlets/ChangeDepartment" method="POST">
+                    <h2 style="text-align: center">Изменение отдела</h2>
                 <table width="50" border="0" align="center">
                     <tbody>                        
                         <tr>
                             <td>Название </td>
-                            <td><input type="text" name="id" value="" size="30" maxlength="30"></td>
+                            <td><input type="text" name="name" value="<%=d.getName()%>" size="30" maxlength="30"></td>
                         </tr>
                         <tr>
                             <td>Директор </td>
-                            <td><input type="text" name="id" value="" size="30" maxlength="15"></td>
+                            <td>
+                                <select name="directorID">
+                                    <%
+                                        List<Employee> emps = ControllerDAO.getInstance().getEmployeeDAO().getlEmployeeByCompany(d.getCompany());
+                                        for(Employee e : emps){
+                                    %>
+                                    <option <%if(director.getId() == e.getId()){%>selected <%}%>value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>
+                                    <%}%>
+                                </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
                 <p style="text-align: center"><input type="submit" value="Сохранить">
                     <input type="reset" value="Очистить"></p>
+                </form>                
             </blockquote>
         </main>
         <footer>

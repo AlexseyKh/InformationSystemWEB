@@ -1,18 +1,25 @@
 <%-- 
-    Document   : changeEmployee
-    Created on : 20.03.2016, 15:23:56
-    Author     : Игорь
+    Document   : changeCompany.jsp
+    Created on : Mar 20, 2016, 6:18:34 PM
+    Author     : Alexey
 --%>
 
+<%@page import="model.Company"%>
+<%@page import="controller.ControllerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>main</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Change Company</title>
+        <%
+            long companyID = Long.valueOf(request.getParameter("companyID"));
+            ControllerDAO con = ControllerDAO.getInstance();
+            Company c = con.getCompanyDAO().getCompanyById(companyID);
+            session.setAttribute("company", c);
+        %>
     </head>
-
-    <body>
+        <body>
         <header>
             <table width="849" border="0" align="center">
                 <tbody>
@@ -37,32 +44,22 @@
                 </tbody>
             </table>
         </main>
-                    </header>
+       </header>
         <main>
             <blockquote>
-                <h2 style="text-align: center">Изменение сотрудника</h2>
+                <form action="/InformationSystemWEB/servlets/ChangeCompany" method="POST">
+                    <h2 style="text-align: center">Изменение компании</h2>
                 <table width="50" border="0" align="center">
                     <tbody>                        
                         <tr>
-                            <td>Фамилия</td>
-                            <td><input type="text" name="id" value="" size="30" maxlength="30"></td>
-                        </tr>
-                        <tr>
-                            <td>Имя</td>
-                            <td><input type="text" name="id" value="" size="30" maxlength="15"></td>
-                        </tr>
-                        <tr>
-                            <td>Должность</td>
-                            <td><input type="text" name="id" value="" size="30" maxlength="15"></td>
-                        </tr>
-                        <tr>
-                            <td>Отдел</td>
-                            <td><input type="text" name="id" value="" size="30" maxlength="15"></td>
-                        </tr>
+                            <td>Название</td>
+                            <td><input type="text" name="name" value="<%=c.getName()%>" size="30" maxlength="30"></td>
+                        </tr>                       
                     </tbody>
                 </table>
                 <p style="text-align: center"><input type="submit" value="Сохранить">
                     <input type="reset" value="Очистить"></p>
+                </form>                
             </blockquote>
         </main>
         <footer>

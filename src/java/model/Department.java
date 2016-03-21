@@ -7,6 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -26,14 +27,14 @@ public class Department implements Serializable {
     private long id;
     @Column(name="NAME")
     private String name;    
-    @OneToOne(cascade = CascadeType.ALL)    
-    @JoinColumn(name = "ID")
+    @OneToOne()    
+    @JoinColumn(name = "DIRECTOR_ID", referencedColumnName = "ID")
     private Employee director;
     @XmlElement
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "DEPARTMENT_ID")
     private Set<Employee> employees = new LinkedHashSet(); 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="COMPANY_ID")
     Company company;
     
@@ -81,12 +82,47 @@ public class Department implements Serializable {
         return company;
     }
 
-    public void setCompany(Company company) {
-        if(this.company != company){
-        if(this.company != null) this.company.getDepartments().remove(this);
-        company.getDepartments().add(this);
-        this.company = company;
-        }
+    public void setCompany(Company company) {       
+        this.company = company;        
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.director);
+        hash = 41 * hash + Objects.hashCode(this.employees);
+        hash = 41 * hash + Objects.hashCode(this.company);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Department other = (Department) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.director, other.director)) {
+            return false;
+        }
+        if (!Objects.equals(this.employees, other.employees)) {
+            return false;
+        }
+        if (!Objects.equals(this.company, other.company)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

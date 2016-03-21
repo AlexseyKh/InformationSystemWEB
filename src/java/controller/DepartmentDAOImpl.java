@@ -40,7 +40,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
     @Override
     public void deleteDepartment(Department dep) {
         Session s = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = s.beginTransaction();
+        Transaction t = s.beginTransaction();        
         s.delete(dep);
         t.commit();
         s.close();
@@ -50,10 +50,10 @@ public class DepartmentDAOImpl implements DepartmentDAO{
     public Department getDepartmentById(long id) {
         Session s = HibernateUtil.getSessionFactory().openSession();
         Transaction t = s.beginTransaction();
-        Department e = (Department) s.load(Department.class, id);
+        Department d = (Department) s.byId(Department.class).load(id);;
         t.commit();
         s.close();
-        return e;    }
+        return d;    }
 
     @Override
     public List<Department> getDepartmentByName(String name) {
