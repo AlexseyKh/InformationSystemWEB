@@ -15,9 +15,9 @@
         <meta charset="utf-8">
         <title>main</title>
         <%
-            long departmnetID = Long.valueOf(request.getParameter("departmentID"));
+            long departmentID = Long.valueOf(request.getParameter("departmentID"));
             ControllerDAO controller = ControllerDAO.getInstance();
-            Department d = controller.getDepartmentDAO().getDepartmentById(departmnetID);
+            Department d = controller.getDepartmentDAO().getDepartmentById(departmentID);
             session.setAttribute("department", d);
             Employee director = d.getDirector();
         %>
