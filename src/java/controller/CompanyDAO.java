@@ -13,10 +13,36 @@ import model.*;
  * @author Alexey
  */
 public interface CompanyDAO {
+    /**
+     * Добавляет компанию
+     * @param comp добавляемая компания
+     */
     public void addCompany(Company comp);
+    /**
+     * Обновляет компанию
+     * @param comp обновляемая компания
+     */
     public void updateCompany(Company comp);
+    /**
+     * Удаляет компанию
+     * @param comp удаляемая компания
+     */
     public void deleteCompany(Company comp);
+    /**
+     * Получение компании по номеру
+     * @param id номер компании
+     * @return искомая компания, null если такой компании нет
+     */
     public Company getCompanyById(long id);    
+    /**
+     * Получение компаний по названию
+     * @param name название компаний
+     * @return список компаний с подходящими названиями
+     */
     public List<Company> getCompanyByName(String name);
+    /**
+     * Получение спика всех комний
+     * @return саисок всех компаний
+     */
     public List<Company> getAllCompany();
 }
