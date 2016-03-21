@@ -23,12 +23,15 @@ public class ControllerDAO {
     private static EmployeeDAO employeeDAO = null;
     private static DepartmentDAO departmentDAO = null;
     private static CompanyDAO companyDAO = null;
-    
+    /**
+     * Получения состояния контроллера
+     * @return контроллер
+     */
     public static synchronized ControllerDAO getInstance(){
         if(instance == null) instance = new ControllerDAO();
         return instance;
     }
-
+    
     public  EmployeeDAO getEmployeeDAO() {
         if(employeeDAO == null) employeeDAO = new EmployeeDAOImpl();
         return employeeDAO;
