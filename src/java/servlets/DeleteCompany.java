@@ -27,7 +27,7 @@ public class DeleteCompany extends HttpServlet {
         ControllerDAO controller = ControllerDAO.getInstance();
         Company c = controller.getCompanyDAO().getCompanyById(companyID);
         controller.getCompanyDAO().deleteCompany(c);
-        RequestDispatcher rd = req.getRequestDispatcher("/pages/companyTable.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
         rd.forward(req, resp); // Redisplay JSP.SP.
     }
     

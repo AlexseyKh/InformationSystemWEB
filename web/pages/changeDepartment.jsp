@@ -67,7 +67,7 @@
                                         List<Employee> emps = ControllerDAO.getInstance().getEmployeeDAO().getlEmployeeByCompany(d.getCompany());
                                         for(Employee e : emps){
                                     %>
-                                    <option <%if(director.getId() == e.getId()){%>selected <%}%>value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>
+                                    <option <%if(director != null && director.getId() == e.getId()){%>selected <%}%>value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>
                                     <%}%>
                                 </select>
                             </td>

@@ -28,7 +28,7 @@ public class ChangeCompany extends HttpServlet{
         String name = req.getParameter("name");
         c.setName(name);
         ControllerDAO.getInstance().getCompanyDAO().updateCompany(c);
-        RequestDispatcher rd = req.getRequestDispatcher("/pages/companyTable.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
         rd.forward(req, resp); // Redisplay JSP.SP.
     }    
 }
