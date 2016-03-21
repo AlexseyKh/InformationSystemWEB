@@ -33,7 +33,7 @@ public class ChangeDepartment extends HttpServlet{
         controller.getDepartmentDAO().updateDepartment(d);
         RequestDispatcher rd = req.getRequestDispatcher("/pages/departmentTable.jsp?companyID="+d.getCompany().getId());
         rd.forward(req, resp); // Redisplay JSP.SP.                
-    }
+    } 
     
     
 }

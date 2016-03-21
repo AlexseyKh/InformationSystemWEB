@@ -98,7 +98,8 @@
                     
                     <form method="POST" action="/InformationSystemWEB/changeEmployee">
                 <table width="50" border="0" align="center">
-                    <tbody>                        
+                    <tbody>      
+                        <input type="hidden" name="id" value="<%=request.getParameter("id")%>">
                         <tr>
                             <td>Фамилия</td>
                             <td><input type="" name="lastName" value="<%=request.getParameter("lastName")%>" size="30" maxlength="30"></td>
