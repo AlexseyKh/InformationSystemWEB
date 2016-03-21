@@ -75,7 +75,7 @@
                     </tr>
                     <%
                         for(Employee e : list) {
-                            StringBuffer edit = new StringBuffer("/InformationSystemWEB/employee?");
+                            StringBuffer edit = new StringBuffer("/InformationSystemWEB/pages/employee.jsp?");
                             edit.append("goal=edit");
                             edit.append("&companyID=" + request.getParameter("companyID"));
                             edit.append("&id=" + e.getId());
@@ -101,7 +101,7 @@
                     
                 </tbody>
             </table> 
-                    <a href="/InformationSystemWEB/employee?goal=add&companyID=<%=request.getParameter("companyID")%>">Добавить сотрудника</a>
+                    <a href="/InformationSystemWEB/pages/employee.jsp?goal=add&companyID=<%=request.getParameter("companyID")%>">Добавить сотрудника</a>
         </main>
         <footer>
             <p style="text-align: center"> 2016 год</p>
