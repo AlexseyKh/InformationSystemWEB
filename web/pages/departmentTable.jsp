@@ -79,7 +79,7 @@
                         <td><%=d.getId()%></td>
                         <td><%=d.getName()%></td>
                         <td><%=director%></td>
-                        <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?departmentID=<%=d.getId()%>">Просмотреть</a></td>
+                        <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?companyID=<%=s%>&departmentID=<%=d.getId()%>">Просмотреть</a></td>
                         <td><a href="/InformationSystemWEB/pages/changeDepartment.jsp?departmentID=<%=d.getId()%>">Изменить</a></td>
                         <td><a href="/InformationSystemWEB/servlets/DeleteDepartment?departmentID=<%=d.getId()%>">Удалить</a></td>
                     </tr>
