@@ -136,11 +136,7 @@ public class Employee implements Serializable {
     }
 
     public void setDepartment(Department department) {
-        if(this.department != department){
-        if(this.department != null) this.department.getEmployees().remove(this);
-        department.getEmployees().add(this);
-        this.department = department;
-        }
+        this.department = department;  
     }   
     
     
