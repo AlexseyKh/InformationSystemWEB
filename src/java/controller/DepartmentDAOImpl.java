@@ -59,7 +59,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
     public List<Department> getDepartmentByName(String name) {
         Session s = HibernateUtil.getSessionFactory().openSession();
         Transaction t = s.beginTransaction();
-        Query query = s.createQuery("from Department where NAME = :NAME").setString("NAME", name);
+        Query query = s.createQuery("from Department where lower(NAME) LIKE lower(:NAME)").setString("NAME","%" + name + "%");
         List<Department> list = query.list();
         t.commit();
         s.close();

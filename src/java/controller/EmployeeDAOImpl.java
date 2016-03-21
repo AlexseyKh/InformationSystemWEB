@@ -86,7 +86,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public List<Employee> getEmployeeByName(String name) {
         Session s = HibernateUtil.getSessionFactory().openSession();
         Transaction t = s.beginTransaction();
-        Query query = s.createQuery("from Employee where FIRST_NAME = :FIRST_NAME").setString("FIRST_NAME", name);
+        Query query = s.createQuery("from Employee where lower(FIRST_NAME) LIKE lower(:FIRST_NAME)").setString("FIRST_NAME", "%" + name + "%");
         List<Employee> list = query.list();
         t.commit();
         s.close();
@@ -97,7 +97,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public List<Employee> getEmployeeByLastName(String lastName) {
         Session s = HibernateUtil.getSessionFactory().openSession();
         Transaction t = s.beginTransaction();
-        Query query = s.createQuery("from Employee where LAST_NAME = :LAST_NAME").setString("LAST_NAME", lastName);
+        Query query = s.createQuery("from Employee where lower(LAST_NAME) LIKE lower(:LAST_NAME)").setString("LAST_NAME","%" + lastName + "%");
         List<Employee> list = query.list();
         t.commit();
         s.close();
@@ -108,7 +108,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public List<Employee> getEmployeeByFunction(String function) {
         Session s = HibernateUtil.getSessionFactory().openSession();
         Transaction t = s.beginTransaction();
-        Query query = s.createQuery("from Employee where FUNCTION = :FUNCTION").setString("FUNCTION", function);
+        Query query = s.createQuery("from Employee where lower(FUNCTION) LIKE lower(:FUNCTION)").setString("FUNCTION","%" + function + "%");
         List<Employee> list = query.list();
         t.commit();
         s.close();

@@ -58,7 +58,7 @@ public class CompanyDAOImpl implements CompanyDAO{
     public List<Company> getCompanyByName(String name) {
         Session s = HibernateUtil.getSessionFactory().openSession();
         Transaction t = s.beginTransaction();
-        Query query = s.createQuery("from Company where NAME = :NAME").setString("NAME", name);
+        Query query = s.createQuery("from Company where lower(NAME) LIKE lower(:NAME)").setString("NAME", "%"+name+"%");
         List<Company> list = query.list();
         t.commit();
         s.close();

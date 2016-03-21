@@ -21,7 +21,10 @@ public class HibernateUtil {
         throw new ExceptionInInitializerError(ex);
       }
     }
-
+    /**
+     * Получение фабрики сессий
+     * @return фабрика сессий
+     */
     public static SessionFactory getSessionFactory() {
       return sessionFactory;
     }
