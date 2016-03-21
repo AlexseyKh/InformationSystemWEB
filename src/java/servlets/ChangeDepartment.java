@@ -28,6 +28,7 @@ public class ChangeDepartment extends HttpServlet{
         long directorID = Long.valueOf(req.getParameter("directorID"));
         ControllerDAO controller = ControllerDAO.getInstance();
         Department d = (Department) req.getSession().getAttribute("department");
+
         d.setName(name);
         d.setDirector(controller.getEmployeeDAO().getEmployeeById(directorID));
         controller.getDepartmentDAO().updateDepartment(d);

@@ -31,10 +31,10 @@
             <table width="200" border="1" align="center">
                 <tbody>
                     <tr>
-                        <td align="center"><a href="/InformationSystemWEB/pages/departmentTable.jsp"><img src="/InformationSystemWEB/images/department.png" width="198" height="200" alt=""/>
-                                <h3>Список отделов</h3><a></td>
-                        <td align="center"><a href="/InformationSystemWEB/pages/employeeTable.jsp"><img src="/InformationSystemWEB/images/employee.png" width="200" height="200" alt=""/>
-                                <h3>Список сотрудников</h3><a></td>
+                        <td align="center"><img src="/InformationSystemWEB/images/department.png" width="198" height="200" alt=""/>
+                                <h3>Список отделов</h3></td>
+                        <td align="center"><img src="/InformationSystemWEB/images/employee.png" width="200" height="200" alt=""/>
+                                <h3>Список сотрудников</h3></td>
                         <td align="center"><img src="/InformationSystemWEB/images/help.png" width="200" height="200" alt=""/>
                             <h3>Справка</h3></td>
                     </tr>
