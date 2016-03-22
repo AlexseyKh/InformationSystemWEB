@@ -36,7 +36,7 @@ public class CreateDepartment extends HttpServlet{
         Company c = (Company) req.getSession().getAttribute("company");
         d.setCompany(c);
         con.getDepartmentDAO().addDepartment(d, d.getCompany());
-        RequestDispatcher rd = req.getRequestDispatcher("/pages/departmentTable.jsp?companyID="+d.getCompany().getId());
+        RequestDispatcher rd = req.getRequestDispatcher("/pages/departmentTable.jsp");
         rd.forward(req, resp); // Redisplay JSP.SP.    
     }
     

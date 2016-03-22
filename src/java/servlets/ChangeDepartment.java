@@ -32,7 +32,7 @@ public class ChangeDepartment extends HttpServlet{
         d.setName(name);
         d.setDirector(controller.getEmployeeDAO().getEmployeeById(directorID));
         controller.getDepartmentDAO().updateDepartment(d);
-        RequestDispatcher rd = req.getRequestDispatcher("/pages/departmentTable.jsp?companyID="+d.getCompany().getId());
+        RequestDispatcher rd = req.getRequestDispatcher("/pages/departmentTable.jsp");
         rd.forward(req, resp); // Redisplay JSP.SP.                
     } 
     

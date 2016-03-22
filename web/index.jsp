@@ -22,7 +22,7 @@
             <table width="849" border="0" align="center">
                 <tbody>
                     <tr>
-                        <th scope="col"><img src="/InformationSystemWEB/pages/nc-logo.jpg" width="200" height="55" alt=""/></th>
+                        <th scope="col"><img src="/InformationSystemWEB/images/nc-logo.jpg" width="200" height="55" alt=""/></th>
                         <th scope="col"><h1>Информационная система</h1></th>
                     </tr>
                 </tbody>
@@ -54,7 +54,6 @@
                 %>
                 <tbody>
                     <tr>
-                        <td align="center">ID </td>
                         <td align="center">Название</td>
                         <td align="center">Отделы</td>
                         <td align="center">Изменить</td>
@@ -64,9 +63,8 @@
                         for(Company c : companys) {                           
                     %>
                     <tr>
-                        <td align="center"><%=c.getId()%></td>
                         <td align="center"><%=c.getName()%></td>
-                        <td><a href="/InformationSystemWEB/pages/departmentTable.jsp?companyID=<%=c.getId()%>">Просмотреть</a></td>
+                        <td><a href="/InformationSystemWEB/departmentTable?companyID=<%=c.getId()%>">Просмотреть</a></td>
                         <td><a href="/InformationSystemWEB/pages/changeCompany.jsp?companyID=<%=c.getId()%>">Изменить</a></td>
                         <td><a href="/InformationSystemWEB/servlets/DeleteCompany?companyID=<%=c.getId()%>">Удалить</a></td>
                     </tr>

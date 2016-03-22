@@ -62,6 +62,7 @@
                 </form>                
             </blockquote>
         </main>
+                        <div align="left"><a href="/InformationSystemWEB/index.jsp">К списку компаний</a></div>
         <footer>
             <p style="text-align: center">2016 год</p></footer>
     </body>

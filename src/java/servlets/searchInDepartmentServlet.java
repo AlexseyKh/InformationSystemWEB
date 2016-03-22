@@ -10,6 +10,7 @@ import controller.DepartmentDAO;
 import controller.EmployeeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,26 +23,29 @@ import model.Employee;
  *
  * @author Игорь
  */
-@WebServlet(name = "changeEmployeeServlet", urlPatterns = {"/changeEmployee"})
-public class changeEmployeeServlet extends HttpServlet {
+@WebServlet(name = "searchInDepartmentServlet", urlPatterns = {"/searchInDepartment"})
+public class searchInDepartmentServlet extends HttpServlet {
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         ControllerDAO con = ControllerDAO.getInstance();
-        EmployeeDAO empDAO = con.getEmployeeDAO();
         DepartmentDAO depDAO = con.getDepartmentDAO();
-        Employee emp = empDAO.getEmployeeById(Long.parseLong(request.getParameter("id")));
-        emp.setFirstName(request.getParameter("firstName"));
-        emp.setLastName(request.getParameter("lastName"));
-        emp.setFunction(request.getParameter("function"));
-        emp.setSalary(Integer.parseInt(request.getParameter("salary")));
-        Department dep = depDAO.getDepartmentById(Long.parseLong(request.getParameter("department")));
-        emp.setDepartment(dep);
-        empDAO.updateEmployee(emp);
-
-        request.getRequestDispatcher("/pages/departmentTable.jsp").forward(request, response);
+        EmployeeDAO empDAO = con.getEmployeeDAO();
+        long companyID = (long)request.getSession().getAttribute("companyID");
+        
+        List<Department> deps = depDAO.getDepartmentByName("%" + request.getParameter("search") + "%");
+        for(int i = deps.size() - 1; i >= 0; i --) {
+            if(deps.get(i).getCompany().getId() != companyID) {
+                deps.remove(i);
+            }
+        }
+        
+        request.getSession().setAttribute("searchDepartments", deps);
+        
+        request.getRequestDispatcher("/pages/departmentTable.jsp?search="+request.getParameter("search")).forward(request, response);
     }
 
 }
