@@ -55,18 +55,21 @@ public class searchEmployeeByPatternServlet extends HttpServlet {
                 emps.remove(i);
             }
         }
-        /*List<Department> deps = depDAO.getDepartmentByName(request.getParameter("department"));
+        List<Department> deps = depDAO.getDepartmentByName(request.getParameter("department"));
         for (int i = deps.size() - 1; i >= 0; i--) {
             if (deps.get(i).getCompany().getId() != companyID) {
                 deps.remove(i);
             }
         }
+        emps1.clear();
+        for (Department d : deps) {
+            emps1.addAll(empDAO.getEmployeeeByDepartment(d));
+        }
         for (int i = emps.size() - 1; i >= 0; i--) {
-            if (!deps.contains(emps.get(i).getDepartment())) {
+            if (!emps1.contains(emps.get(i))) {
                 emps.remove(i);
             }
-        }*/
-        
+        }
 
         request.getSession().setAttribute("employees", emps);
         request.getSession().setAttribute("lastName", request.getParameter("lastName"));
