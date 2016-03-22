@@ -22,7 +22,7 @@
             <table width="849" border="0" align="center">
                 <tbody>
                     <tr>
-                        <th scope="col"><img src="/InformationSystemWEB/pages/nc-logo.jpg" width="200" height="55" alt=""/></th>
+                        <th scope="col"><img src="/InformationSystemWEB/images/nc-logo.jpg" width="200" height="55" alt=""/></th>
                         <th scope="col"><h1>Информационная система</h1></th>
                     </tr>
                 </tbody>
@@ -31,10 +31,10 @@
             <table width="200" border="1" align="center">
                 <tbody>
                     <tr>
-                        <td align="center"><a href="/InformationSystemWEB/pages/departmentTable.jsp"><img src="/InformationSystemWEB/images/department.png" width="198" height="200" alt=""/>
-                                <h3>Список отделов</h3><a></td>
-                        <td align="center"><a href="/InformationSystemWEB/pages/employeeTable.jsp"><img src="/InformationSystemWEB/images/employee.png" width="200" height="200" alt=""/>
-                                <h3>Список сотрудников</h3><a></td>
+                        <td align="center"><img src="/InformationSystemWEB/images/department.png" width="198" height="200" alt=""/>
+                                <h3>Список отделов</h3></td>
+                        <td align="center"><img src="/InformationSystemWEB/images/employee.png" width="200" height="200" alt=""/>
+                                <h3>Список сотрудников</h3></td>
                         <td align="center"><img src="/InformationSystemWEB/images/help.png" width="200" height="200" alt=""/>
                             <h3>Справка</h3></td>
                     </tr>
@@ -54,7 +54,6 @@
                 %>
                 <tbody>
                     <tr>
-                        <td align="center">ID </td>
                         <td align="center">Название</td>
                         <td align="center">Отделы</td>
                         <td align="center">Изменить</td>
@@ -64,9 +63,8 @@
                         for(Company c : companys) {                           
                     %>
                     <tr>
-                        <td align="center"><%=c.getId()%></td>
                         <td align="center"><%=c.getName()%></td>
-                        <td><a href="/InformationSystemWEB/pages/departmentTable.jsp?companyID=<%=c.getId()%>">Просмотреть</a></td>
+                        <td><a href="/InformationSystemWEB/departmentTable?companyID=<%=c.getId()%>">Просмотреть</a></td>
                         <td><a href="/InformationSystemWEB/pages/changeCompany.jsp?companyID=<%=c.getId()%>">Изменить</a></td>
                         <td><a href="/InformationSystemWEB/servlets/DeleteCompany?companyID=<%=c.getId()%>">Удалить</a></td>
                     </tr>

@@ -9,6 +9,8 @@
 <%@page import="controller.ControllerDAO"%>
 <%@page import="model.Employee"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% long companyID = (Long)session.getAttribute("companyID");%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +18,6 @@
         <title>main</title>
         <%
             ControllerDAO controller = ControllerDAO.getInstance();
-            Long companyID = Long.valueOf(request.getParameter("companyID"));
             Company c = controller.getCompanyDAO().getCompanyById(companyID);
             session.setAttribute("company", c);
         %>
@@ -28,7 +29,7 @@
                 <tbody>
                     <tr>
                         <th scope="col"><img src="/InformationSystemWEB/images/nc-logo.jpg" width="200" height="55" alt=""/></th>
-                        <th scope="col"><h1 style="text-align: center">Информационная система</h1></th>
+                        <th scope="col"><h1 style="text-align: center"><%=session.getAttribute("companyName")%></h1></th>
                     </tr>
                 </tbody>
             </table>
@@ -77,6 +78,7 @@
                     <input type="reset" value="Очистить"></p>
                 </form>                
             </blockquote>
+                                <div align="left"><a href="/InformationSystemWEB/pages/departmentTable.jsp">К отделам</a></div>
         </main>
         <footer>
             <p style="text-align: center">2016 год</p></footer>

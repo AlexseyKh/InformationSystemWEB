@@ -26,10 +26,10 @@
             <table width="200" border="1" align="center">
                 <tbody>
                     <tr>
-                        <td align="center"><a href="/InformationSystemWEB/pages/departmentTable.jsp"><img src="/InformationSystemWEB/images/department.png" width="198" height="200" alt=""/>
-                                <h3>Список отделов</h3><a></td>
-                        <td align="center"><a href="/InformationSystemWEB/pages/employeeTable.jsp"><img src="/InformationSystemWEB/images/employee.png" width="200" height="200" alt=""/>
-                                <h3>Список сотрудников</h3><a></td>
+                        <td align="center"><img src="/InformationSystemWEB/images/department.png" width="198" height="200" alt=""/>
+                                <h3>Список отделов</h3></td>
+                        <td align="center"><img src="/InformationSystemWEB/images/employee.png" width="200" height="200" alt=""/>
+                                <h3>Список сотрудников</h3></td>
                         <td align="center"><img src="/InformationSystemWEB/images/help.png" width="200" height="200" alt=""/>
                             <h3>Справка</h3></td>
                     </tr>
@@ -45,7 +45,7 @@
                     <tbody>                  
                         <tr>
                             <td>Название </td>
-                            <td><input type="text" name="comapnyName" value="Введите название компании" size="30" maxlength="30"></td>
+                            <td><input type="text" name="comapnyName" placeholder="Введите название компании" size="30" maxlength="30"></td>
                         </tr>                        
                     </tbody>
                 </table>
@@ -54,6 +54,7 @@
             </blockquote>
             </form>            
         </main>
+        <div align="left"><a href="/InformationSystemWEB/index.jsp">К списку компаний</a></div>
         <footer>
             <p style="text-align: center">2016 год</p></footer>
     </body>

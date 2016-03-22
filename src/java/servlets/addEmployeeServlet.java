@@ -36,7 +36,7 @@ public class addEmployeeServlet extends HttpServlet {
         Department dep = depDAO.getDepartmentById(Long.parseLong(request.getParameter("department")));
         empDAO.addEmployee(emp, dep);
                 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/departmentTable.jsp").forward(request, response);
     }
 
 }

@@ -30,7 +30,7 @@ public class DeleteDepartment extends HttpServlet{
         Department d = controller.getDepartmentDAO().getDepartmentById(departmentID);
         long companyID = d.getCompany().getId();
         controller.getDepartmentDAO().deleteDepartment(d);
-        RequestDispatcher rd = req.getRequestDispatcher("/pages/departmentTable.jsp?companyID="+companyID);
+        RequestDispatcher rd = req.getRequestDispatcher("/pages/departmentTable.jsp");
         rd.forward(req, resp); // Redisplay JSP.SP.          
     }
     

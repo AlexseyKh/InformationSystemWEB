@@ -27,7 +27,7 @@ public class CreateCompany extends HttpServlet{
         String name = req.getParameter("comapnyName");
         Company c = new Company(name);
         ControllerDAO.getInstance().getCompanyDAO().addCompany(c);
-        RequestDispatcher rd = req.getRequestDispatcher("/pages/companyTable.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
         rd.forward(req, resp); // Redisplay JSP.SP.        
     }
     

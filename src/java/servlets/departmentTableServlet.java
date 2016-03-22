@@ -5,10 +5,7 @@
  */
 package servlets;
 
-import controller.CompanyDAO;
 import controller.ControllerDAO;
-import controller.DepartmentDAO;
-import controller.EmployeeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,20 +13,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Игорь
  */
-@WebServlet(name = "deleteEmployeeServlet", urlPatterns = {"/deleteEmployee"})
-public class deleteEmployeeServlet extends HttpServlet {
+@WebServlet(name = "departmentTableServlet", urlPatterns = {"/departmentTable"})
+public class departmentTableServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ControllerDAO con = ControllerDAO.getInstance();
-        EmployeeDAO empDAO = con.getEmployeeDAO();
-        empDAO.deleteEmployee(empDAO.getEmployeeById(Long.parseLong(request.getParameter("id"))));
+        long companyID = Long.parseLong(request.getParameter("companyID"));
+        HttpSession session = request.getSession(true);
+        session.setAttribute("companyID", companyID);
+        session.setAttribute("companyName", con.getCompanyDAO().getCompanyById(companyID).getName());
+
         request.getRequestDispatcher("/pages/departmentTable.jsp").forward(request, response);
     }
 

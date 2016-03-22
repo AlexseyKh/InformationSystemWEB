@@ -9,15 +9,17 @@
 <%@page import="model.Department"%>
 <%@page import="controller.ControllerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% long companyID = (Long)session.getAttribute("companyID");%>
 <!doctype html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>main</title>
         <%
-            long departmnetID = Long.valueOf(request.getParameter("departmentID"));
+            long departmentID = Long.valueOf(request.getParameter("departmentID"));
             ControllerDAO controller = ControllerDAO.getInstance();
-            Department d = controller.getDepartmentDAO().getDepartmentById(departmnetID);
+            Department d = controller.getDepartmentDAO().getDepartmentById(departmentID);
             session.setAttribute("department", d);
             Employee director = d.getDirector();
         %>
@@ -29,7 +31,7 @@
                 <tbody>
                     <tr>
                         <th scope="col"><img src="/InformationSystemWEB/images/nc-logo.jpg" width="200" height="55" alt=""/></th>
-                        <th scope="col"><h1 style="text-align: center">Информационная система</h1></th>
+                        <th scope="col"><h1 style="text-align: center"><%=session.getAttribute("companyName")%></h1></th>
                     </tr>
                 </tbody>
             </table>
@@ -67,7 +69,7 @@
                                         List<Employee> emps = ControllerDAO.getInstance().getEmployeeDAO().getlEmployeeByCompany(d.getCompany());
                                         for(Employee e : emps){
                                     %>
-                                    <option <%if(director.getId() == e.getId()){%>selected <%}%>value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>
+                                    <option <%if(director != null && director.getId() == e.getId()){%>selected <%}%>value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>
                                     <%}%>
                                 </select>
                             </td>
@@ -78,6 +80,7 @@
                     <input type="reset" value="Очистить"></p>
                 </form>                
             </blockquote>
+                                <div align="left"><a href="/InformationSystemWEB/pages/departmentTable.jsp">К отделам</a></div>
         </main>
         <footer>
             <p style="text-align: center">2016 год</p></footer>
