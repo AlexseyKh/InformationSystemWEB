@@ -126,10 +126,12 @@
 
                     <%
                         List<Employee> emps = (List<Employee>) request.getSession().getAttribute("searchEmployees");
+                        request.getSession().setAttribute("searchEmployees", null);
                             if (emps != null) {
                                 list = emps;
                             } else {
                                 emps = (List<Employee>) request.getSession().getAttribute("employees");
+                                request.getSession().setAttribute("employees", null);
                                 if (emps != null) {
                                     list = emps;
                                 } else if (request.getParameter("departmentID") == null) {

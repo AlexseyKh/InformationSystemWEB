@@ -70,6 +70,7 @@
                                         for(Employee e : emps){
                                     %>
                                     <option <%if(director != null && director.getId() == e.getId()){%>selected <%}%>value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>
+                                    <option value="-1">null</option>
                                     <%}%>
                                 </select>
                             </td>

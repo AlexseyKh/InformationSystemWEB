@@ -43,6 +43,11 @@ public class searchInEmployeeServlet extends HttpServlet {
         emps.addAll(empDAO.getEmployeeByFunction("%"+request.getParameter("search")+"%"));
         List<Employee> emps1 = new LinkedList<Employee>();
         emps1.addAll(emps);
+        for(int i = emps1.size() - 1; i >= 0; i--) {
+            if(emps1.get(i).getDepartment().getCompany().getId() != companyID) {
+                emps1.remove(i);
+            }
+        }
 
         request.getSession().setAttribute("searchEmployees", emps1);
 

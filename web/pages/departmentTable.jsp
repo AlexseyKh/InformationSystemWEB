@@ -101,10 +101,12 @@
                     </tr>
                     <%
                         List<Department> deps = (List<Department>) request.getSession().getAttribute("searchDepartments");
-                            if (deps != null) {
+                        request.getSession().setAttribute("searchDepartments", null);
+                        if (deps != null) {
                                 list = deps;
                             } else {
                                 deps = (List<Department>) request.getSession().getAttribute("departments");
+                                request.getSession().setAttribute("departments", null);
                                 if (deps == null) {
                                     list = depDAO.getDepartmentByCompany(compDAO.getCompanyById(companyID));
                                 } else {
