@@ -40,7 +40,6 @@ public class searchInEmployeeServlet extends HttpServlet {
         LinkedHashSet<Employee> emps = new LinkedHashSet(empDAO.getEmployeeByLastName("%"+request.getParameter("search")+"%"));
         emps.addAll(empDAO.getEmployeeByName("%"+request.getParameter("search")+"%"));
         emps.addAll(empDAO.getEmployeeByFunction("%"+request.getParameter("search")+"%"));
-        emps.addAll(empDAO.getEmployeeByFunction("%"+request.getParameter("search")+"%"));
         List<Employee> emps1 = new LinkedList<Employee>();
         emps1.addAll(emps);
         for(int i = emps1.size() - 1; i >= 0; i--) {

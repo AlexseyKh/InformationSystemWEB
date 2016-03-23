@@ -114,11 +114,17 @@
                                 }
                             }
                         for (Department d : list) {
+                            String name = null;
+                            if(search != null){
+                                name = d.getName().replaceAll(search, "<b>"+search+"</b>");
+                            
+                            } else {
+                                name = d.getName();
+                            }
                             String director = (d.getDirector() != null)?(d.getDirector().getFirstName() + " " + d.getDirector().getLastName()):("null");
-                    
                     %>
                     <tr>
-                        <td><%=d.getName()%></td>
+                        <td><%=name%></td>
                         <td><%=director%></td>
                         <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?departmentID=<%=d.getId()%>">Просмотреть</a></td>
                         <td><a href="/InformationSystemWEB/pages/changeDepartment.jsp?&departmentID=<%=d.getId()%>">Изменить</a></td>
@@ -132,6 +138,7 @@
                 
                 </form>
                     <div align="left"><a href="/InformationSystemWEB/index.jsp">К списку компаний</a></div>
+                    <div align="left"><a href="/InformationSystemWEB/index.jsp">На главную</a></div>
         </main>
         <footer>
             <p style="text-align: center">2016 год</p></footer>

@@ -140,6 +140,7 @@
                     <% } %>
             </blockquote>
             <div align="left"><a href="/InformationSystemWEB/pages/employeeTable.jsp?departmentID=<%=request.getParameter("id")%>">К сотрудникам</a></div>
+            <div align="left"><a href="/InformationSystemWEB/index.jsp">На главную</a></div>
         </main>
         <footer>
             <p style="text-align: center">2016 год</p></footer>

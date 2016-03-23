@@ -82,6 +82,7 @@
                 </form>                
             </blockquote>
                                 <div align="left"><a href="/InformationSystemWEB/pages/departmentTable.jsp">К отделам</a></div>
+                                <div align="left"><a href="/InformationSystemWEB/index.jsp">На главную</a></div>
         </main>
         <footer>
             <p style="text-align: center">2016 год</p></footer>
