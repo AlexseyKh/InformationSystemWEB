@@ -33,7 +33,6 @@ public class changeEmployeeServlet extends HttpServlet {
         EmployeeDAO empDAO = con.getEmployeeDAO();
         DepartmentDAO depDAO = con.getDepartmentDAO();
         Employee emp = empDAO.getEmployeeById(Long.parseLong(request.getParameter("id")));
-        long depID = emp.getDepartment().getId();
         emp.setFirstName(request.getParameter("firstName"));
         emp.setLastName(request.getParameter("lastName"));
         emp.setFunction(request.getParameter("function"));
@@ -42,7 +41,7 @@ public class changeEmployeeServlet extends HttpServlet {
         emp.setDepartment(dep);
         empDAO.updateEmployee(emp);
 
-        request.getRequestDispatcher("/pages/employeeTable.jsp?departmentID=" + depID).forward(request, response);
+        request.getRequestDispatcher("/pages/departmentTable.jsp").forward(request, response);
     }
 
 }

@@ -31,9 +31,8 @@ public class deleteEmployeeServlet extends HttpServlet {
         ControllerDAO con = ControllerDAO.getInstance();
         EmployeeDAO empDAO = con.getEmployeeDAO();
         Employee  e = empDAO.getEmployeeById(Long.parseLong(request.getParameter("id")));
-        long depID = e.getDepartment().getId();
         empDAO.deleteEmployee(e);
-        request.getRequestDispatcher("/pages/departmentTable.jsp?departmentID=" + depID).forward(request, response);
+        request.getRequestDispatcher("/pages/departmentTable.jsp").forward(request, response);
     }
 
 }
