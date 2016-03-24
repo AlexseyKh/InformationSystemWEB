@@ -108,7 +108,7 @@
                         <input type="hidden" name="companyID" value="<%=companyID%>">
                         <tr>
                             <td>Фамилия</td>
-                            <td><input type="" name="lastName" value="<%=request.getParameter("lastName")%>" size="30" maxlength="30"></td>
+                            <td><input type="" name="lastName" value="<%=request.getParameter("lastName")%>" size="90" maxlength="90"></td>
                         </tr>
                         <tr>
                             <td>Имя</td>
