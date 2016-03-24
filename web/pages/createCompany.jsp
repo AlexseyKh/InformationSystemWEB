@@ -9,37 +9,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Create Company</title>
+        <title>Создание компании</title>
+        <link rel="stylesheet" href="/InformationSystemWEB/css/main.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
     </head>
     <body>
-        <header>
-            <table width="849" border="0" align="center">
-                <tbody>
-                    <tr>
-                        <th scope="col"><img src="/InformationSystemWEB/images/nc-logo.jpg" width="200" height="55" alt=""/></th>
-                        <th scope="col"><h1 style="text-align: center">Информационная система</h1></th>
-                    </tr>
-                </tbody>
-            </table>
-
+        <header class="primary-header container group">
+            <img src="/InformationSystemWEB/images/nc-logo.png" width="30%" align="center" class="logo">
+            </img>
+            <h1 class="tagline">Справочная система</h1>
+            <nav class="nav primary-nav">
+                <ul>
+                    <li><a href="/InformationSystemWEB/index.jsp">Главная</a></li><!--
+                    --><li><a href="">Справка</a></li>
+                </ul>
+            </nav>
+        </header>
         <main>
-            <table width="200" border="1" align="center">
-                <tbody>
-                    <tr>
-                        <td align="center"><img src="/InformationSystemWEB/images/department.png" width="198" height="200" alt=""/>
-                                <h3>Список отделов</h3></td>
-                        <td align="center"><img src="/InformationSystemWEB/images/employee.png" width="200" height="200" alt=""/>
-                                <h3>Список сотрудников</h3></td>
-                        <td align="center"><img src="/InformationSystemWEB/images/help.png" width="200" height="200" alt=""/>
-                            <h3>Справка</h3></td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
-                    </header>
-        <main>
+            <section class="row">
             <form action="/InformationSystemWEB/servlets/CreateCompany" method="POST">
-                <blockquote>
+                
                 <h2 style="text-align: center">Создание компании</h2>
                 <table width="50" border="0" align="center">                    
                     <tbody>                  
@@ -49,13 +38,20 @@
                         </tr>                        
                     </tbody>
                 </table>
-                <p style="text-align: center"><input type="submit" value="Создать">
-                    <input type="reset" value="Очистить"></p>
-            </blockquote>
-            </form>            
+                <p style="text-align: center"><input class="btn btn-default" type="submit" value="Создать">
+                    <input class="btn btn-default" type="reset" value="Очистить"></p>
+            
+            </form>  
+            </section>
         </main>
-        <div align="left"><a href="/InformationSystemWEB/index.jsp">К списку компаний</a></div>
         <footer>
-            <p style="text-align: center">2016 год</p></footer>
+            <nav class="navfoot">
+                <ul>
+                  <li><a href="/InformationSystemWEB/index.jsp">К списку компаний</a></li><!--
+                  --><li><a href="/InformationSystemWEB/index.jsp">На главную</a></li>
+                </ul>
+	</nav>
+            <p style="text-align: center">2016 год</p>
+        </footer>
     </body>
 </html>
