@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Employee;
 
 /**
  *
@@ -29,8 +30,10 @@ public class deleteEmployeeServlet extends HttpServlet {
             throws ServletException, IOException {
         ControllerDAO con = ControllerDAO.getInstance();
         EmployeeDAO empDAO = con.getEmployeeDAO();
-        empDAO.deleteEmployee(empDAO.getEmployeeById(Long.parseLong(request.getParameter("id"))));
-        request.getRequestDispatcher("/pages/departmentTable.jsp").forward(request, response);
+        Employee  e = empDAO.getEmployeeById(Long.parseLong(request.getParameter("id")));
+        long depID = e.getDepartment().getId();
+        empDAO.deleteEmployee(e);
+        request.getRequestDispatcher("/pages/departmentTable.jsp?departmentID=" + depID).forward(request, response);
     }
 
 }
