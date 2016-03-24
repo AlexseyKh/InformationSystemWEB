@@ -44,7 +44,7 @@
                     <tbody>                        
                         <tr>
                             <td>Название</td>
-                            <td><input type="text" name="name" value="<%=c.getName()%>" size="30" maxlength="30"></td>
+                            <td><input type="text" name="name" value="<%=c.getName()%>" size="90" maxlength="90"></td>
                         </tr>                       
                     </tbody>
                 </table></p>

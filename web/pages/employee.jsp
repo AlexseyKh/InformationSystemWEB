@@ -69,19 +69,19 @@
                         <input type="hidden" name="companyID" value="<%=companyID%>">
                         <tr>
                             <td>Фамилия</td>
-                            <td><input type="text" name="lastName" placeholder="Введите фамилию" size="30" maxlength="30"></td>
+                            <td><input type="text" name="lastName" placeholder="Введите фамилию" size="90" maxlength="90"></td>
                         </tr>
                         <tr>
                             <td>Имя</td>
-                            <td><input type="text" name="firstName" placeholder="Введите имя" size="30" maxlength="15"></td>
+                            <td><input type="text" name="firstName" placeholder="Введите имя" size="90" maxlength="90"></td>
                         </tr>
                         <tr>
                             <td>Должность</td>
-                            <td><input type="text" name="function" placeholder="Введите должность" size="30" maxlength="15"></td>
+                            <td><input type="text" name="function" placeholder="Введите должность" size="90" maxlength="90"></td>
                         </tr>
                         <tr>
                             <td>Зарплата</td>
-                            <td><input type="text" name="salary" placeholder="Введите зарплату" size="30" maxlength="15"></td>
+                            <td><input type="text" name="salary" placeholder="Введите зарплату" size="90" maxlength="90"></td>
                         </tr>
                         <tr>
                             <td>Отдел</td>
@@ -112,15 +112,15 @@
                         </tr>
                         <tr>
                             <td>Имя</td>
-                            <td><input type="text" name="firstName" value="<%=request.getParameter("firstName")%>" size="30" maxlength="15"></td>
+                            <td><input type="text" name="firstName" value="<%=request.getParameter("firstName")%>" size="90" maxlength="90"></td>
                         </tr>
                         <tr>
                             <td>Должность</td>
-                            <td><input type="text" name="function" value="<%=request.getParameter("function")%>" size="30" maxlength="15"></td>
+                            <td><input type="text" name="function" value="<%=request.getParameter("function")%>" size="90" maxlength="90"></td>
                         </tr>
                         <tr>
                             <td>Зарплата</td>
-                            <td><input type="text" name="salary" value="<%=request.getParameter("salary")%>" size="30" maxlength="15"></td>
+                            <td><input type="text" name="salary" value="<%=request.getParameter("salary")%>" size="90" maxlength="90"></td>
                         </tr>
                         <tr>
                             <td>Отдел</td>

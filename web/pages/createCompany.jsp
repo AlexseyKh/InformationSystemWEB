@@ -34,7 +34,7 @@
                     <tbody>                  
                         <tr>
                             <td>Название </td>
-                            <td><input type="text" name="comapnyName" placeholder="Введите название компании" size="30" maxlength="30"></td>
+                            <td><input type="text" name="comapnyName" placeholder="Введите название компании" size="90" maxlength="90"></td>
                         </tr>                        
                     </tbody>
                 </table>

@@ -47,7 +47,7 @@
                     <tbody>                        
                         <tr>
                             <td>Название </td>
-                            <td><input type="text" name="name" placeholder="Введите названи отдела" size="30" maxlength="30"></td>
+                            <td><input type="text" name="name" placeholder="Введите названи отдела" size="90" maxlength="90"></td>
                         </tr>
                         <tr>
                             <td>Директор </td>
