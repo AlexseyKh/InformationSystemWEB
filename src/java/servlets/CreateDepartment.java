@@ -31,7 +31,11 @@ public class CreateDepartment extends HttpServlet{
         String str = req.getParameter("directorID");
         if(str != null){
             long directorID = Long.valueOf(str);
+            if (directorID != -1) {
             d.setDirector(con.getEmployeeDAO().getEmployeeById(directorID));
+        } else {
+            d.setDirector(null);
+        }
         }
         Company c = (Company) req.getSession().getAttribute("company");
         d.setCompany(c);

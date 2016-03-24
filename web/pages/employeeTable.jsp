@@ -126,10 +126,12 @@
 
                     <%
                         List<Employee> emps = (List<Employee>) request.getSession().getAttribute("searchEmployees");
+                        request.getSession().setAttribute("searchEmployees", null);
                             if (emps != null) {
                                 list = emps;
                             } else {
                                 emps = (List<Employee>) request.getSession().getAttribute("employees");
+                                request.getSession().setAttribute("employees", null);
                                 if (emps != null) {
                                     list = emps;
                                 } else if (request.getParameter("departmentID") == null) {
@@ -155,11 +157,26 @@
                             edit.append("&department=" + e.getDepartment().getId());
                             
                             String delete = "/InformationSystemWEB/deleteEmployee?id=" + e.getId();
+                            
+                            String lastName = null;
+                            String firstName = null;
+                            String function = null;
+
+                            if(search != null){
+                                lastName = e.getLastName().replaceAll(search, "<b>"+search+"</b>");
+                                firstName = e.getFirstName().replaceAll(search, "<b>"+search+"</b>");
+                                function = e.getFunction().replaceAll(search, "<b>"+search+"</b>");
+                            
+                            } else {
+                                lastName = e.getLastName();
+                                firstName = e.getFirstName();
+                                function = e.getFunction();
+                            }
                         %>
                     <tr>
-                        <td align="center"><%=e.getLastName()%></td>
-                        <td align="center"><%=e.getFirstName()%></td>
-                        <td align="center"><%=e.getFunction()%></td>
+                        <td align="center"><%=lastName%></td>
+                        <td align="center"><%=firstName%></td>
+                        <td align="center"><%=function%></td>
                         <td align="center"><%=e.getSalary()%></td>
                         <td align="center"><%=e.getDepartment().getName()%></td>
                         <td align="center"><a href="<%=edit.toString()%>">редактировать</a></td>
@@ -172,6 +189,7 @@
             </form>
                     <div align="right"><a href="/InformationSystemWEB/pages/employee.jsp?goal=add">Добавить сотрудника</a></div>
                     <div align="left"><a href="/InformationSystemWEB/pages/departmentTable.jsp">К отделам</a></div>
+                    <div align="left"><a href="/InformationSystemWEB/index.jsp">На главную</a></div>
         </main>
         <footer>
             <p style="text-align: center"> 2016 год</p>

@@ -52,12 +52,12 @@
         <main>
             <blockquote>
                 <form action="/InformationSystemWEB/servlets/CreateDepartment" method="POST">
-                    <h2 style="text-align: center">Изменение отдела</h2>
+                    <h2 style="text-align: center">Добавление отдела</h2>
                 <table width="50" border="0" align="center">
                     <tbody>                        
                         <tr>
                             <td>Название </td>
-                            <td><input type="text" name="name" value="Введите названи отдела" size="30" maxlength="30"></td>
+                            <td><input type="text" name="name" placeholder="Введите названи отдела" size="30" maxlength="30"></td>
                         </tr>
                         <tr>
                             <td>Директор </td>
@@ -69,6 +69,7 @@
                                     %>
                                     <option value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>
                                     <%}%>
+                                    <option value="-1">null</option>
                                 </select>
                             </td>
                         </tr>
@@ -79,6 +80,7 @@
                 </form>                
             </blockquote>
                                 <div align="left"><a href="/InformationSystemWEB/pages/departmentTable.jsp">К отделам</a></div>
+                                <div align="left"><a href="/InformationSystemWEB/index.jsp">На главную</a></div>
         </main>
         <footer>
             <p style="text-align: center">2016 год</p></footer>

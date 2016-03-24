@@ -20,7 +20,7 @@ import model.Department;
  * @author Alexey
  */
 @WebServlet(urlPatterns = {"/servlets/ChangeDepartment"})
-public class ChangeDepartment extends HttpServlet{
+public class ChangeDepartment extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,11 +30,14 @@ public class ChangeDepartment extends HttpServlet{
         Department d = (Department) req.getSession().getAttribute("department");
 
         d.setName(name);
-        d.setDirector(controller.getEmployeeDAO().getEmployeeById(directorID));
+        if (directorID != -1) {
+            d.setDirector(controller.getEmployeeDAO().getEmployeeById(directorID));
+        } else {
+            d.setDirector(null);
+        }
         controller.getDepartmentDAO().updateDepartment(d);
         RequestDispatcher rd = req.getRequestDispatcher("/pages/departmentTable.jsp");
         rd.forward(req, resp); // Redisplay JSP.SP.                
-    } 
-    
-    
+    }
+
 }
