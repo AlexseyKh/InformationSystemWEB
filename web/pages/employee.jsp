@@ -21,10 +21,12 @@
     <head>
         <meta charset="utf-8">
         <title>main</title>
+        <link rel="stylesheet" href="/InformationSystemWEB/css/main.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
     </head>
 
     <body>
-        <header>
+        <header class="primary-header container group">
             <table width="849" border="0" align="center">
                 <tbody>
                     <tr>
