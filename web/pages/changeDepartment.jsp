@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
     </head>
         <body>
+             <div style="background: #dcf2ff; max-width: 1024px; margin: 0 auto;">
         <header class="primary-header container group">
             <img src="/InformationSystemWEB/images/nc-logo.png" width="30%" align="center" class="logo">
             </img>
@@ -79,5 +80,6 @@
 	</nav>
             <p style="text-align: center">2016 год</p>
         </footer>
+             </div>
     </body>
 </html>
