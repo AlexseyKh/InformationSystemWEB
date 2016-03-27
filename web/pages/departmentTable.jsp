@@ -28,35 +28,41 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>main</title>
-        <link rel="stylesheet" href="/InformationSystemWEB/css/main.css">
+        <title>Список отделов</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+        <link rel="stylesheet" type="text/css" href="/InformationSystemWEB/jquery/datatables.min.css"/>
+        <script type="text/javascript" src="/InformationSystemWEB/jquery/datatables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/InformationSystemWEB/css/main.css">
+        <script>
+            $(document).ready(function () {
+            $('#table').DataTable({
+                "ordering": [2],
+                "paging": false,
+                "info": false,
+                "language": {
+                                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"
+                }
+            });
+        });
+        </script>
     </head>
 
     <body>
-        <header>
-            <table width="849" border="0" align="center">
-                <tbody>
-                    <tr>
-                        <th scope="col"><img src="/InformationSystemWEB/images/nc-logo.jpg" width="200" height="55" alt="" /></th>
-                        <th scope="col"><h1><%=session.getAttribute("companyName")%></h1></th>
-                    </tr>
-                </tbody>
-            </table>
-            <main>
-            <table width="200" border="1" align="center">
-                <tbody>
-                    <tr>
-                        <td align="center"><a href="/InformationSystemWEB/pages/departmentTable.jsp"><img src="/InformationSystemWEB/images/department.png" width="198" height="200" alt=""/>
-                                <h3>Список отделов</h3><a></td>
-                        <td align="center"><a href="/InformationSystemWEB/pages/employeeTable.jsp"><img src="/InformationSystemWEB/images/employee.png" width="200" height="200" alt=""/>
-                                <h3>Список сотрудников</h3><a></td>
-                        <td align="center"><img src="/InformationSystemWEB/images/help.png" width="200" height="200" alt=""/>
-                            <h3>Справка</h3></td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
+        <div style="background: #dcf2ff; max-width: 1024px; margin: 0 auto;">
+        <header class="primary-header container group">
+            <img src="/InformationSystemWEB/images/nc-logo.png" width="30%" align="center" class="logo">
+            </img>
+            <h1 class="tagline">Компания <%=session.getAttribute("companyName")%></h1>
+            <nav class="nav primary-nav">
+                <ul>
+                    <li><a href="/InformationSystemWEB/index.jsp">Главная</a></li><!--
+                    --><li><a href="/InformationSystemWEB/pages/changeCompany.jsp?companyID=<%=companyID%>">Изменить компанию</a></li><!--
+                    --><li><a href="/InformationSystemWEB/pages/departmentTable.jsp">Список отделов</a></li><!--
+                    --><li><a href="/InformationSystemWEB/pages/employeeTable.jsp">Список сотрудников</a></li><!--
+                    --><li><a href="">Справка</a></li>
+                </ul>
+            </nav>
         </header>
         <main>
             <%
@@ -65,42 +71,21 @@
                     DepartmentDAO depDAO = con.getDepartmentDAO();                    
                     List<Department> list = null;                         
                 %>
-            <blockquote>
+            <section class="row">
                 <h2 style="text-align: center">Таблица отделов</h2>
-            </blockquote>
-                <div align="right"><a href="/InformationSystemWEB/pages/createDepartment.jsp?">Добавить отдел</a></div>
-               
-                <form method="POST" action="/InformationSystemWEB/searchInDepartment">
-                    <input type="hidden" name="companyID" value="<%=companyID%>">
-                    <p><input type="search" name="search" <%String search = request.getParameter("search");
-    if (search == null) {%>
-                              placeholder="Поиск по отделам"
-                              <%} else {%>
-                              value="<%=search%>"
-                              <%}%>> 
-                        <input type="submit" value="Найти"></p>
-                </form>
-            
-                <form method="POST" action="/InformationSystemWEB/searchDepartmentByPattern">
-                <p style="text-align: center"><button type="submit">Искать</button></p>
-                <table width="500" border="1" align="center" cellpadding="10" cellspacing="0">                
-                <tbody>
-                    
+
+                <table id="table" width="600">                
+                
+                <thead>
                     <tr>
+                        <td align="center"></td>
                         <td align="center">Название</td>
                         <td align="center">Директор</td>
-                        <td align="center">Сотрудники</td>
                         <td align="center">Изменить</td>
                         <td align="center">Удалить</td>
                     </tr>
-                    <tr>
-                        <td align="center"><input type="text" name="name" value="<%=pName%>"></td>
-                        <td align="center"><input type="text" name="director" value="<%=pDirector%>"></td>
-                        <td align="center"></td>
-                        <td align="center"></td>
-                        <td align="center"></td>
-                        
-                    </tr>
+                </thead>
+                    <tbody>
                     <%
                         List<Department> deps = (List<Department>) request.getSession().getAttribute("searchDepartments");
                         request.getSession().setAttribute("searchDepartments", null);
@@ -117,18 +102,14 @@
                             }
                         for (Department d : list) {
                             String name = null;
-                            if(search != null){
-                                name = d.getName().replaceAll(search, "<b>"+search+"</b>");
-                            
-                            } else {
                                 name = d.getName();
-                            }
                             String director = (d.getDirector() != null)?(d.getDirector().getFirstName() + " " + d.getDirector().getLastName()):("null");
+                         
                     %>
                     <tr>
-                        <td><%=name%></td>
+                        <td align="center"><input type="checkbox" name="checkbox[]" value="<%=d.getId()%>"></td>
+                        <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?departmentID=<%=d.getId()%>"><%=name%></a></td>
                         <td><%=director%></td>
-                        <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?departmentID=<%=d.getId()%>">Просмотреть</a></td>
                         <td><a href="/InformationSystemWEB/pages/changeDepartment.jsp?&departmentID=<%=d.getId()%>">Изменить</a></td>
                         <td><a href="/InformationSystemWEB/servlets/DeleteDepartment?departmentID=<%=d.getId()%>">Удалить</a></td>
                     </tr>
@@ -136,13 +117,19 @@
                     %>
                     
                 </tbody>
-            </table> 
-                
-                </form>
-                    <div align="left"><a href="/InformationSystemWEB/index.jsp">К списку компаний</a></div>
-                    <div align="left"><a href="/InformationSystemWEB/index.jsp">На главную</a></div>
+            </table>
+                    <p><div align="center"><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/createDepartment.jsp?';">Добавить отдел</button><button class="btn btn-default" margin-left="5">Удалить отмеченное</button></div></p>
+            </section>
         </main>
         <footer>
-            <p style="text-align: center">2016 год</p></footer>
+            <nav class="navfoot">
+                <ul>
+                  <li><a href="/InformationSystemWEB/index.jsp">К списку компаний</a></li><!--
+                  --><li><a href="/InformationSystemWEB/index.jsp">На главную</a></li>
+                </ul>
+	</nav>
+            <p style="text-align: center">2016 год</p>
+        </footer>
+        </div>
     </body>
 </html>
