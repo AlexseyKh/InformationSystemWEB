@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
     </head>
         <body>
+            <div style="background: #dcf2ff; max-width: 1024px; margin: 0 auto;">
         <header class="primary-header container group">
             <img src="/InformationSystemWEB/images/nc-logo.png" width="30%" align="center" class="logo">
             </img>
@@ -44,7 +45,7 @@
                     <tbody>                        
                         <tr>
                             <td>Название</td>
-                            <td><input type="text" name="name" value="<%=c.getName()%>" size="90" maxlength="90"></td>
+                            <td><input type="text" name="name" value="<%=c.getName()%>" size="30" maxlength="30"></td>
                         </tr>                       
                     </tbody>
                 </table></p>
@@ -62,5 +63,5 @@
 	</nav>
             <p style="text-align: center">2016 год</p>
         </footer>
-    </body>
+            </div>    </body>
 </html>
