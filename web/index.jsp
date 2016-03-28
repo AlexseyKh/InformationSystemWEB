@@ -55,10 +55,10 @@
                 <%--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^вот тут правильно считываются id чекбоксов--%>
                 <%--а здесь их нужно передать--%>
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/InformationSystemWEB/servlets/DeleteCompany", true);
+                var params = 'company_Ids=' + selectedItems.valueOf();
+                xhr.open('POST', '/InformationSystemWEB/servlets/DeleteCompany', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send('company_Ids=' + selectedItems);
-                xhr.company_Ids;}</script>
+                xhr.send(params);}</script>
                 <%--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^а здесь их нужно передать--%>
                 <section class="row">
                     <h2 style="text-align: center">Таблица компаний</h2>

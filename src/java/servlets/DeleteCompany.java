@@ -32,7 +32,8 @@ public class DeleteCompany extends HttpServlet {
     }
     
 protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String ids = req.getParameter("name");
+        String ids = req.getParameter("company_Ids");
+        System.out.println(ids);
         String[] idsArr = ids.replaceAll("\\ ","").split(",");
         int[] results = new int[idsArr.length];
         for (int i =0; i < idsArr.length; i++)
