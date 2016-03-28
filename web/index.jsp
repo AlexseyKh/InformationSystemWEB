@@ -46,6 +46,20 @@
                 <h1 class="tagline">Справочная система</h1>
             </header>
             <main>
+                <%--вот тут правильно считываются id чекбоксов--%>
+                <script>MyFunction = function() {
+                    var selectedItems = new Array();
+                    $("input[class='companiesCheckbox']:checked").each(function(){selectedItems.push($(this).val());
+                    });
+                        alert(selectedItems); 
+                <%--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^вот тут правильно считываются id чекбоксов--%>
+                <%--а здесь их нужно передать--%>
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/InformationSystemWEB/servlets/DeleteCompany", true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('company_Ids=' + selectedItems);
+                xhr.company_Ids;}</script>
+                <%--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^а здесь их нужно передать--%>
                 <section class="row">
                     <h2 style="text-align: center">Таблица компаний</h2>
                     <table id="table" width="600">
@@ -69,15 +83,14 @@
                             for (Company c : companys) {
                         %>
                         <tr>
-                            <td align="center"><input type="checkbox" name="checkbox[]" value="<%=c.getId()%>"></td>
+                            <td align="center"><input type="checkbox" class="companiesCheckbox" value="<%=c.getId()%>"></td>
                             <td align="center"><a href = "/InformationSystemWEB/departmentTable?companyID=<%=c.getId()%>"><b><%=c.getName()%></b></a></td>
                             <td align="center"><a href = "/InformationSystemWEB/servlets/DeleteCompany?companyID=<%=c.getId()%>">Удалить</a></td>
                         </tr>
                         <%}%>
-
                         </tbody>
                     </table>
-                    <p><div align="center"><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/createCompany.jsp';">Добавить компанию</button><button class="btn btn-default" margin-left="5">Удалить отмеченное</button></div></p>
+                        <p><div align="center"><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/createCompany.jsp';">Добавить компанию</button><button class="btn btn-default" margin-left="5" onclick="MyFunction()">Удалить отмеченное</button></div></p>
                 </section>
             </main>
             <footer class="primary-footer container group">
