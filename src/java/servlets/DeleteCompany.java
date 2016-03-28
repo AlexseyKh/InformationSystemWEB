@@ -35,11 +35,11 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
         String ids = req.getParameter("company_Ids");
         System.out.println(ids);
         String[] idsArr = ids.replaceAll("\\ ","").split(",");
-        int[] results = new int[idsArr.length];
+        long[] results = new long[idsArr.length];
         for (int i =0; i < idsArr.length; i++)
         {
             try {
-                results[i]= Integer.parseInt(idsArr[i]);
+                results[i]= Long.valueOf(idsArr[i]);
             }
             catch (NumberFormatException nfe) {}
         }
