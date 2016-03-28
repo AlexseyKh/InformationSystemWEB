@@ -31,6 +31,28 @@ public class DeleteCompany extends HttpServlet {
         rd.forward(req, resp); // Redisplay JSP.SP.
     }
     
+protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String ids = req.getParameter("name");
+        String[] idsArr = ids.replaceAll("\\ ","").split(",");
+        int[] results = new int[idsArr.length];
+        for (int i =0; i < idsArr.length; i++)
+        {
+            try {
+                results[i]= Integer.parseInt(idsArr[i]);
+            }
+            catch (NumberFormatException nfe) {}
+        }
+        System.out.println(results);
+        for (int j = 0; j < results.length; j++)
+        {
+        ControllerDAO controller = ControllerDAO.getInstance();
+        Company c = controller.getCompanyDAO().getCompanyById(results[j]);
+            controller.getCompanyDAO().deleteCompany(c);
+        }
+        RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
+        rd.forward(req, resp); // Redisplay JSP.SP.
+    }
+    
     
     
 }
