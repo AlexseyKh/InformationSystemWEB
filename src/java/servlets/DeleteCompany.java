@@ -31,29 +31,24 @@ public class DeleteCompany extends HttpServlet {
         rd.forward(req, resp); // Redisplay JSP.SP.
     }
     
-protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String ids = req.getParameter("company_Ids");
-        System.out.println(ids);
-        String[] idsArr = ids.replaceAll("\\ ","").split(",");
-        long[] results = new long[idsArr.length];
-        for (int i =0; i < idsArr.length; i++)
-        {
-            try {
-                results[i]= Long.valueOf(idsArr[i]);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            String ids = req.getParameter("company_Ids");
+            String[] idsArr = ids.replaceAll("\\ ","").split(",");
+            long[] results = new long[idsArr.length];
+            for (int i =0; i < idsArr.length; i++)
+            {
+                try {
+                    results[i]= Long.valueOf(idsArr[i]);
+                }
+                catch (NumberFormatException nfe) {}
             }
-            catch (NumberFormatException nfe) {}
+            for (int j = 0; j < results.length; j++)
+            {
+            ControllerDAO controller = ControllerDAO.getInstance();
+            Company c = controller.getCompanyDAO().getCompanyById(results[j]);
+                controller.getCompanyDAO().deleteCompany(c);
+            }
+//            RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
+//            rd.forward(req, resp); // Redisplay JSP.SP.
         }
-        System.out.println(results);
-        for (int j = 0; j < results.length; j++)
-        {
-        ControllerDAO controller = ControllerDAO.getInstance();
-        Company c = controller.getCompanyDAO().getCompanyById(results[j]);
-            controller.getCompanyDAO().deleteCompany(c);
-        }
-        RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
-        rd.forward(req, resp); // Redisplay JSP.SP.
-    }
-    
-    
-    
 }
