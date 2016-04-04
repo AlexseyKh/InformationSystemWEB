@@ -10,6 +10,12 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 /**
  *
@@ -19,23 +25,26 @@ import javax.persistence.*;
 @Table(name = "COMPANYS", schema="COMPANY")
 public class Company implements Serializable {
     @Id
-    @Column(name="ID")
-    @SequenceGenerator ( name = "my_seq" , sequenceName = "COMP_SEQ" ) 
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_seq")
+    @Column(name="ID")  
+    @XmlAttribute
     private long id;    
     @Column(name="NAME")
+    @XmlAttribute
     private String name;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "COMPANY_ID")
+    @XmlElement(name="department")
+    @OneToMany(cascade = CascadeType.ALL) @LazyToOne(LazyToOneOption.NO_PROXY)    
+    @JoinColumn(name="COMPANY_ID")       
     private Set<Department> departments = new LinkedHashSet();
 
-    public Company() {
+    public Company() {        
     }
 
     public Company(String name) {
+        this.id = System.currentTimeMillis();
         this.name = name;       
     }
-
+    
+    @XmlTransient
     public String getName() {
         return name;
     }
@@ -43,7 +52,7 @@ public class Company implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public Set<Department> getDepartments() {
         return departments;
     }
@@ -51,7 +60,7 @@ public class Company implements Serializable {
     public void setDepartments(LinkedHashSet<Department> departments) {
         this.departments = departments;
     }
-
+    @XmlTransient
     public long getId() {
         return id;
     }
@@ -64,7 +73,7 @@ public class Company implements Serializable {
     public int hashCode() {
         int hash = 3;
         hash = 29 * hash + Objects.hashCode(this.name);
-        hash = 29 * hash + Objects.hashCode(this.departments);
+        //hash = 29 * hash + Objects.hashCode(this.departments);
         return hash;
     }
 

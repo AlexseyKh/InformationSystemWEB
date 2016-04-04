@@ -45,4 +45,6 @@ public interface CompanyDAO {
      * @return саисок всех компаний
      */
     public List<Company> getAllCompany();
+    
+    public List<Company> getFullAllCompany();
 }

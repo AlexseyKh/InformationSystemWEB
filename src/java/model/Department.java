@@ -10,7 +10,11 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 /**
  *
@@ -19,23 +23,24 @@ import javax.xml.bind.annotation.XmlElement;
 @Entity
 @Table(name="DEPARTMENT", schema="COMPANY")
 public class Department implements Serializable {
-    @XmlElement
+
     @Id
-    @Column(name="ID")
-    @SequenceGenerator ( name = "my_seq" , sequenceName = "COMP_SEQ" ) 
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_seq")
+    @Column(name="ID")  
+    @XmlAttribute
     private long id;
     @Column(name="NAME")
+    @XmlAttribute
     private String name;    
     @OneToOne()    
     @JoinColumn(name = "DIRECTOR_ID", referencedColumnName = "ID")
     private Employee director;
-    @XmlElement
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)@LazyToOne(LazyToOneOption.NO_PROXY)    
     @JoinColumn(name = "DEPARTMENT_ID")
+    @XmlElement(name="employee")
     private Set<Employee> employees = new LinkedHashSet(); 
     @ManyToOne()
     @JoinColumn(name="COMPANY_ID")
+    @XmlTransient
     Company company;
     
 
@@ -43,9 +48,11 @@ public class Department implements Serializable {
     }
 
     public Department(String name) {
+        this.id = System.currentTimeMillis();
         this.name = name;        
     }
-
+    
+    @XmlTransient
     public String getName() {
         return name;
     }
@@ -69,7 +76,7 @@ public class Department implements Serializable {
     public void setEmployees(LinkedHashSet<Employee> employees) {
         this.employees = employees;
     }
-
+    @XmlTransient
     public long getId() {
         return id;
     }
@@ -77,7 +84,7 @@ public class Department implements Serializable {
     public void setId(long id) {
         this.id = id;
     }    
-
+    @XmlTransient
     public Company getCompany() {
         return company;
     }
@@ -92,7 +99,7 @@ public class Department implements Serializable {
         hash = 41 * hash + Objects.hashCode(this.name);
         hash = 41 * hash + Objects.hashCode(this.director);
         hash = 41 * hash + Objects.hashCode(this.employees);
-        hash = 41 * hash + Objects.hashCode(this.company);
+        //hash = 41 * hash + Objects.hashCode(this.company);
         return hash;
     }
 

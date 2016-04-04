@@ -8,7 +8,9 @@ package model;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -17,22 +19,29 @@ import javax.xml.bind.annotation.XmlElement;
 @Entity
 @Table(name="EMPLOYEE", schema="COMPANY")
 public class Employee implements Serializable {
-    @XmlElement
     @Id
     @Column(name="ID")
-    @SequenceGenerator ( name = "my_seq" , sequenceName = "COMP_SEQ" ) 
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_seq")
+    @XmlAttribute
     private long id;
+    
     @Column(name="FIRST_NAME")
+    @XmlAttribute
     private String firstName;
+    
     @Column(name="LAST_NAME")
+    @XmlAttribute
     private String lastName;
+    
     @Column(name="FUNCTION")
+    @XmlAttribute
     private String function;
+    
     @Column(name="SALARY")
+    @XmlAttribute
     private int salary;
     @ManyToOne    
     @JoinColumn(name="DEPARTMENT_ID")
+    @XmlTransient      
     Department department;
    
 
@@ -40,12 +49,14 @@ public class Employee implements Serializable {
     }
 
     public Employee(String firstName, String lastName, String function, int salary) {
+        this.id = System.currentTimeMillis();
         this.firstName = firstName;
         this.lastName = lastName;
         this.function = function;
         this.salary = salary;
     }
 
+    @XmlTransient
     public String getFirstName() {
         return firstName;
     }
@@ -54,6 +65,7 @@ public class Employee implements Serializable {
         this.firstName = firstName;
     }
 
+    @XmlTransient
     public String getLastName() {
         return lastName;
     }
@@ -62,6 +74,7 @@ public class Employee implements Serializable {
         this.lastName = lastName;
     }
 
+    @XmlTransient
     public String getFunction() {
         return function;
     }
@@ -69,7 +82,8 @@ public class Employee implements Serializable {
     public void setFunction(String function) {
         this.function = function;
     }
-
+    
+    @XmlTransient
     public int getSalary() {
         return salary;
     }
@@ -77,7 +91,8 @@ public class Employee implements Serializable {
     public void setSalary(int salary) {
         this.salary = salary;
     }
-
+    
+    @XmlTransient
     public long getId() {
         return id;
     }
@@ -130,11 +145,11 @@ public class Employee implements Serializable {
         }
         return true;
     }
-
+    @XmlTransient  
     public Department getDepartment() {
         return department;
     }
-
+    
     public void setDepartment(Department department) {
         this.department = department;  
     }   
