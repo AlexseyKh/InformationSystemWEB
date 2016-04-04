@@ -65,6 +65,25 @@
             </nav>
         </header>
         <main>
+            <script>CheckboxDepartmentDel = function () {
+                        var selectedItems = new Array();
+                        var checked = $("input[class='departmentsCheckbox']:checked");
+                        checked.each(function () {
+                            selectedItems.push($(this).val());
+                        });
+                        $.ajax({
+                            url: '/InformationSystemWEB/servlets/DeleteDepartment',
+                            type: 'POST',
+                            data: 'department_Ids=' + selectedItems.valueOf(),
+                            success: function () {
+                                document.location.href = "/InformationSystemWEB/departmentTable?companyID=<%=companyID%>";
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                alert(errorThrown);
+                            }
+                        });
+
+                    }</script>
             <%
                     ControllerDAO con = ControllerDAO.getInstance();
                     CompanyDAO compDAO = con.getCompanyDAO();
@@ -82,7 +101,6 @@
                         <td align="center">Название</td>
                         <td align="center">Директор</td>
                         <td align="center">Изменить</td>
-                        <td align="center">Удалить</td>
                     </tr>
                 </thead>
                     <tbody>
@@ -107,18 +125,17 @@
                          
                     %>
                     <tr>
-                        <td align="center"><input type="checkbox" name="checkbox[]" value="<%=d.getId()%>"></td>
+                        <td align="center"><input type="checkbox" class="departmentsCheckbox" value="<%=d.getId()%>"></td>
                         <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?departmentID=<%=d.getId()%>"><%=name%></a></td>
                         <td><%=director%></td>
                         <td><a href="/InformationSystemWEB/pages/changeDepartment.jsp?&departmentID=<%=d.getId()%>">Изменить</a></td>
-                        <td><a href="/InformationSystemWEB/servlets/DeleteDepartment?departmentID=<%=d.getId()%>">Удалить</a></td>
                     </tr>
                     <%}
                     %>
                     
                 </tbody>
             </table>
-                    <p><div align="center"><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/createDepartment.jsp?';">Добавить отдел</button><button class="btn btn-default" margin-left="5">Удалить отмеченное</button></div></p>
+                    <p><div align="center"><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/createDepartment.jsp?';">Добавить отдел</button><button class="btn btn-default" margin-left="5" onclick="CheckboxDepartmentDel();">Удалить отмеченное</button></div></p>
             </section>
         </main>
         <footer>
