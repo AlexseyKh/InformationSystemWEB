@@ -5,9 +5,12 @@
  */
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import model.Company;
 import model.Companies;
 import model.Department;
@@ -60,53 +64,68 @@ public class ControllerDAO {
         return companyDAO;
     }
     
-    public void saveCompany(String fileName, List<Company> company) {
+    public void saveCompany(OutputStream out, List<Company> company) {
         try {
             ControllerDAO dao = ControllerDAO.getInstance();            
             Companies companies = new Companies(company);    
             OutputStream os = null;
             JAXBContext jc = JAXBContext.newInstance(Companies.class);
-            Marshaller m = jc.createMarshaller();
-            os = new FileOutputStream(fileName);
-            m.marshal(companies, os);
-            } catch (JAXBException ex) {
-                System.out.println("хз " + ex.toString());
-            } catch (FileNotFoundException ex) {
-               System.out.println("файл нет " + ex.toString());
-            }   
+            Marshaller m = jc.createMarshaller();            
+            m.marshal(companies, out);
+            } catch (JAXBException ex) {}    
     }
     
-    public void saveDepartment(String fileName, List<Department> Department) {
+    public void saveDepartment(OutputStream out, List<Department> Department) {
         try {
             ControllerDAO dao = ControllerDAO.getInstance();            
             Departments departments = new Departments(Department);    
-            OutputStream os = null;
             JAXBContext jc = JAXBContext.newInstance(Departments.class);
-            Marshaller m = jc.createMarshaller();
-            os = new FileOutputStream(fileName);
-            m.marshal(departments, os);
-            } catch (JAXBException ex) {
-                System.out.println("хз " + ex.toString());
-            } catch (FileNotFoundException ex) {
-               System.out.println("файл нет " + ex.toString());
-            }   
-    }  
-    
-    public void saveEmployee(String fileName, List<Employee> employee) {
+            Marshaller m = jc.createMarshaller();            
+            m.marshal(departments, out);
+            } catch (JAXBException ex) {}
+    }
+        
+    public void saveEmployee(OutputStream out, List<Employee> employee) {
         try {
             ControllerDAO dao = ControllerDAO.getInstance();            
             Employers employers = new Employers(employee);    
-            OutputStream os = null;
             JAXBContext jc = JAXBContext.newInstance(Employers.class);
             Marshaller m = jc.createMarshaller();
-            os = new FileOutputStream(fileName);
-            m.marshal(employers, os);
-            } catch (JAXBException ex) {
-                System.out.println("хз " + ex.toString());
-            } catch (FileNotFoundException ex) {
-               System.out.println("файл нет " + ex.toString());
-            }   
+            m.marshal(employers, out);
+            } catch (JAXBException ex) {} 
     }  
-  
+    
+    public Companies loadCompany(InputStream in) throws FileNotFoundException {
+        try {
+            JAXBContext jc = JAXBContext.newInstance(Companies.class);
+            Unmarshaller um = jc.createUnmarshaller();           
+            return (Companies) um.unmarshal(in);
+        } catch (JAXBException e) {
+            e.printStackTrace();     
+        }
+        return null;
+    }
+    
+    public Departments loadDepartments(InputStream in) throws FileNotFoundException {
+        try {
+            JAXBContext jc = JAXBContext.newInstance(Companies.class);
+            Unmarshaller um = jc.createUnmarshaller();           
+            return (Departments) um.unmarshal(in);
+        } catch (JAXBException e) {
+            e.printStackTrace();     
+        }
+        return null;
+    }
+    
+    public Employers loadEmployers(InputStream in) throws FileNotFoundException { 
+        try {
+            JAXBContext jc = JAXBContext.newInstance(Companies.class);
+            Unmarshaller um = jc.createUnmarshaller();           
+            return (Employers) um.unmarshal(in);
+        } catch (JAXBException e) {
+            e.printStackTrace();     
+        }
+        return null;
+    }
 }
 

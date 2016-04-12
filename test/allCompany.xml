@@ -1,58 +1,58 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="cp1251" standalone="yes"?>
 <companys>
-    <company id="1" name="Ð¨Ð¾ÐºÐ¾Ð»Ð°Ð´Ð½Ð°Ñ Ñ„Ð°Ð±Ñ€Ð¸ÐºÐ°">
-        <department id="2" name="Ð¢ÐµÐ¼Ð½Ñ‹Ð¹ ÑˆÐ¾ÐºÐ¾Ð»Ð°Ð´">
-            <employee id="2" firstName="ÐžÐ»ÑŒÐ³Ð°" lastName="ÐÐ°Ñ‡Ð°Ð»ÑŒÐ½Ð¸Ðº Ð¾Ñ‚Ð´ÐµÐ»Ð° Ð¢ÐµÐ¼Ð½Ñ‹Ð¹ ÑˆÐ¾ÐºÐ¾Ð»Ð°Ð´" function="Ð¡Ð°Ñ„Ð¸Ð½Ð°" salary="1500"/>
-            <employee id="5" firstName="ÐÐ½Ñ‚Ð¾Ð½" lastName="ÐÐ°Ñ‡Ð°Ð»ÑŒÐ½Ð¸Ðº Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´ÑÑ‚Ð²Ð°" function="Ð—Ð¾Ñ€Ð¸Ð½" salary="1800"/>
-            <employee id="4" firstName="Ð’Ð°Ð»ÐµÐ½Ñ‚Ð¸Ð½" lastName="Ð”ÐµÐ³ÑƒÑÑ‚Ð°Ñ‚Ð¾Ñ€" function="ÐœÐ¸Ñ‚Ñ€Ð¾Ñ„Ð°Ð½Ð¾Ð²" salary="1000"/>
-            <director id="2" firstName="ÐžÐ»ÑŒÐ³Ð°" lastName="ÐÐ°Ñ‡Ð°Ð»ÑŒÐ½Ð¸Ðº Ð¾Ñ‚Ð´ÐµÐ»Ð° Ð¢ÐµÐ¼Ð½Ñ‹Ð¹ ÑˆÐ¾ÐºÐ¾Ð»Ð°Ð´" function="Ð¡Ð°Ñ„Ð¸Ð½Ð°" salary="1500"/>
+    <company id="1" name="Øîêîëàäíàÿ ôàáðèêà">
+        <department id="2" name="Òåìíûé øîêîëàä">
+            <employee id="2" firstName="Îëüãà" lastName="Íà÷àëüíèê îòäåëà Òåìíûé øîêîëàä" function="Ñàôèíà" salary="1500"/>
+            <employee id="5" firstName="Àíòîí" lastName="Íà÷àëüíèê ïðîèçâîäñòâà" function="Çîðèí" salary="1800"/>
+            <employee id="4" firstName="Âàëåíòèí" lastName="Äåãóñòàòîð" function="Ìèòðîôàíîâ" salary="1000"/>
+            <director id="2" firstName="Îëüãà" lastName="Íà÷àëüíèê îòäåëà Òåìíûé øîêîëàä" function="Ñàôèíà" salary="1500"/>
         </department>
-        <department id="1" name="Ð‘ÐµÐ»Ñ‹Ð¹ ÑˆÐ¾ÐºÐ¾Ð»Ð°Ð´">
-            <employee id="1" firstName="ÐÐ°Ñ‚Ð°Ð»ÑŒÑ" lastName="ÐÐ°Ñ‡Ð°Ð»ÑŒÐ½Ð¸Ðº Ð¾Ñ‚Ð´ÐµÐ»Ð° Ð‘ÐµÐ»Ñ‹Ð¹ ÑˆÐ¾ÐºÐ¾Ð»Ð°Ð´" function="Ð¡Ð°Ñ„Ð¸Ð½Ð°" salary="2000"/>
-            <employee id="3" firstName="ÐœÐ°Ñ€Ð¸Ñ" lastName="Ð”ÐµÐ³ÑƒÑÑ‚Ð°Ñ‚Ð¾Ñ€" function="ÐÐ¸ÐºÐ¸Ñ„Ð¾Ñ€Ð¾Ð²Ð°" salary="1000"/>
-            <director id="1" firstName="ÐÐ°Ñ‚Ð°Ð»ÑŒÑ" lastName="ÐÐ°Ñ‡Ð°Ð»ÑŒÐ½Ð¸Ðº Ð¾Ñ‚Ð´ÐµÐ»Ð° Ð‘ÐµÐ»Ñ‹Ð¹ ÑˆÐ¾ÐºÐ¾Ð»Ð°Ð´" function="Ð¡Ð°Ñ„Ð¸Ð½Ð°" salary="2000"/>
-        </department>
-    </company>
-    <company id="2" name="ÐœÐ°Ð³Ð°Ð·Ð¸Ð½ Ð¼ÑƒÐ·. Ð¸Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚Ð¾Ð²">
-        <department id="5" name="ÐÑ€Ñ„Ñ‹">
-            <employee id="9" firstName="ÐœÐ°Ñ€Ð¸Ñ" lastName="ÐŸÑ€Ð¾Ð´Ð°Ð²ÐµÑ†" function="ÐŸÐµÑ‚Ñ€Ð¾Ð²Ð°" salary="900"/>
-            <director id="6" firstName="ÐÐ½Ð´Ñ€ÐµÐ¹" lastName="Ð”Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€" function="Ð§ÐµÑ€Ð½Ð¾Ð²" salary="2000"/>
-        </department>
-        <department id="3" name="Ð“Ð¸Ñ‚Ð°Ñ€Ñ‹">
-            <employee id="7" firstName="Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹" lastName="ÐŸÑ€Ð¾Ð´Ð°Ð²ÐµÑ†" function="ÐŸÑ€Ð¾ÐºÐ¾Ñ„ÑŒÐµÐ²" salary="1000"/>
-            <director id="6" firstName="ÐÐ½Ð´Ñ€ÐµÐ¹" lastName="Ð”Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€" function="Ð§ÐµÑ€Ð½Ð¾Ð²" salary="2000"/>
-        </department>
-        <department id="4" name="Ð¡Ñ‚Ñ€ÑƒÐ½Ñ‹">
-            <employee id="8" firstName="ÐÐ½Ð½Ð°" lastName="ÐŸÑ€Ð¾Ð´Ð°Ð²ÐµÑ†" function="Ð“Ð°Ð²Ñ€Ð¸Ð»ÑŽÐº" salary="1000"/>
-            <director id="6" firstName="ÐÐ½Ð´Ñ€ÐµÐ¹" lastName="Ð”Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€" function="Ð§ÐµÑ€Ð½Ð¾Ð²" salary="2000"/>
+        <department id="1" name="Áåëûé øîêîëàä">
+            <employee id="1" firstName="Íàòàëüÿ" lastName="Íà÷àëüíèê îòäåëà Áåëûé øîêîëàä" function="Ñàôèíà" salary="2000"/>
+            <employee id="3" firstName="Ìàðèÿ" lastName="Äåãóñòàòîð" function="Íèêèôîðîâà" salary="1000"/>
+            <director id="1" firstName="Íàòàëüÿ" lastName="Íà÷àëüíèê îòäåëà Áåëûé øîêîëàä" function="Ñàôèíà" salary="2000"/>
         </department>
     </company>
-    <company id="3" name="Ð¨ÐºÐ¾Ð»Ð°">
-        <department id="8" name="Ð£Ñ‡Ð¸Ñ‚ÐµÐ»Ñ">
-            <employee id="16" firstName="Ð•Ð»ÐµÐ½Ð°" lastName="Ð£Ñ‡Ð¸Ñ‚ÐµÐ»ÑŒ Ñ„Ñ€Ð°Ð½Ñ†. ÑÐ·." function="ÐŸÐ¸Ð³Ð°Ñ€ÐµÐ²Ð°" salary="1400"/>
-            <employee id="15" firstName="Ð˜Ñ€Ð¸Ð½Ð°" lastName="Ð£Ñ‡Ð¸Ñ‚ÐµÐ»ÑŒ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚Ð¸ÐºÐ¸" function="Ð˜ÑÐ°Ð¹Ñ‡ÐµÐ²Ð°" salary="1400"/>
-            <employee id="14" firstName="ÐÐ°Ñ‚Ð°Ð»ÑŒÑ" lastName="Ð£Ñ‡Ð¸Ñ‚ÐµÐ»ÑŒ Ð¼ÑƒÐ·Ñ‹ÐºÐ¸" function="Ð’Ð¾Ð»ÐºÐ¾Ð²Ð°" salary="1400"/>
-            <director id="13" firstName="Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹" lastName="Ð—Ð°Ð²ÑƒÑ‡ Ð¿Ð¾ ÑƒÑ‡ÐµÐ±Ð½. Ñ€Ð°Ð±Ð¾Ñ‚Ðµ" function="Ð¨Ð¸Ð»Ð¾Ð²" salary="1500"/>
+    <company id="2" name="Ìàãàçèí ìóç. èíñòðóìåíòîâ">
+        <department id="5" name="Àðôû">
+            <employee id="9" firstName="Ìàðèÿ" lastName="Ïðîäàâåö" function="Ïåòðîâà" salary="900"/>
+            <director id="6" firstName="Àíäðåé" lastName="Äèðåêòîð" function="×åðíîâ" salary="2000"/>
         </department>
-        <department id="6" name="ÐžÑ…Ñ€Ð°Ð½Ð°">
-            <employee id="10" firstName="ÐŸÐµÑ‚Ñ€" lastName="ÐÐ°Ñ‡Ð°Ð»ÑŒÐ½Ð¸Ðº Ð¾Ñ…Ñ€Ð°Ð½Ñ‹" function="ÐŸÐ¾Ð¿Ð¾Ð²" salary="1800"/>
-            <director id="10" firstName="ÐŸÐµÑ‚Ñ€" lastName="ÐÐ°Ñ‡Ð°Ð»ÑŒÐ½Ð¸Ðº Ð¾Ñ…Ñ€Ð°Ð½Ñ‹" function="ÐŸÐ¾Ð¿Ð¾Ð²" salary="1800"/>
+        <department id="3" name="Ãèòàðû">
+            <employee id="7" firstName="Äìèòðèé" lastName="Ïðîäàâåö" function="Ïðîêîôüåâ" salary="1000"/>
+            <director id="6" firstName="Àíäðåé" lastName="Äèðåêòîð" function="×åðíîâ" salary="2000"/>
         </department>
-        <department id="7" name="Ð—Ð°Ð²ÑƒÑ‡Ð¸">
-            <employee id="12" firstName="Ð•Ð»ÐµÐ½Ð°" lastName="Ð—Ð°Ð²ÑƒÑ‡ Ð¿Ð¾ Ð²Ð¾ÑÐ¿. Ñ€Ð°Ð±Ð¾Ñ‚Ðµ" function="ÐœÐ¸ÑÑ‚ÑŽÐºÐ¾Ð²Ð°" salary="1500"/>
-            <employee id="13" firstName="Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹" lastName="Ð—Ð°Ð²ÑƒÑ‡ Ð¿Ð¾ ÑƒÑ‡ÐµÐ±Ð½. Ñ€Ð°Ð±Ð¾Ñ‚Ðµ" function="Ð¨Ð¸Ð»Ð¾Ð²" salary="1500"/>
-            <director id="11" firstName="Ð¡Ð²ÐµÑ‚Ð»Ð°Ð½Ð°" lastName="Ð”Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€ ÑˆÐºÐ¾Ð»Ñ‹" function="ÐœÐ¸Ñ€Ð¾Ð½Ð¾Ð²Ð°" salary="2000"/>
+        <department id="4" name="Ñòðóíû">
+            <employee id="8" firstName="Àííà" lastName="Ïðîäàâåö" function="Ãàâðèëþê" salary="1000"/>
+            <director id="6" firstName="Àíäðåé" lastName="Äèðåêòîð" function="×åðíîâ" salary="2000"/>
         </department>
     </company>
-    <company id="4" name="Ð¢Ð°ÐºÑÐ¾Ð¿Ð°Ñ€Ðº">
-        <department id="9" name="Ð”Ð¸ÑÐ¿ÐµÑ‚Ñ‡ÐµÑ€Ñ‹">
-            <employee id="18" firstName="Ð”Ð°Ð½Ð¸Ð»" lastName="Ð”Ð¸ÑÐ¿ÐµÑ‚Ñ‡ÐµÑ€" function="ÐÐ±Ñ€Ð°Ð¼Ð¾Ð²" salary="1400"/>
-            <employee id="17" firstName="Ð’Ð¸ÐºÑ‚Ð¾Ñ€" lastName="Ð”Ð¸ÑÐ¿ÐµÑ‚Ñ‡ÐµÑ€" function="ÐŸÐ¸Ð³Ð°Ñ€ÐµÐ²" salary="1400"/>
+    <company id="3" name="Øêîëà">
+        <department id="8" name="Ó÷èòåëÿ">
+            <employee id="16" firstName="Åëåíà" lastName="Ó÷èòåëü ôðàíö. ÿç." function="Ïèãàðåâà" salary="1400"/>
+            <employee id="15" firstName="Èðèíà" lastName="Ó÷èòåëü èíôîðìàòèêè" function="Èñàé÷åâà" salary="1400"/>
+            <employee id="14" firstName="Íàòàëüÿ" lastName="Ó÷èòåëü ìóçûêè" function="Âîëêîâà" salary="1400"/>
+            <director id="13" firstName="Äìèòðèé" lastName="Çàâó÷ ïî ó÷åáí. ðàáîòå" function="Øèëîâ" salary="1500"/>
         </department>
-        <department id="10" name="Ð’Ð¾Ð´Ð¸Ñ‚ÐµÐ»Ð¸">
-            <employee id="19" firstName="ÐÐ½Ñ‚Ð¾Ð½" lastName="Ð’Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ" function="ÐšÐ¾Ñ€Ð¾Ð±Ð¾Ð²" salary="1200"/>
-            <employee id="21" firstName="ÐœÐ°ÐºÑÐ¸Ð¼" lastName="Ð’Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ" function="Ð ÑƒÐ´Ð½ÐµÐ²" salary="1200"/>
-            <employee id="20" firstName="Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹" lastName="Ð’Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ" function="Ð¨ÐºÐ°Ð»Ð¸Ð½" salary="1200"/>
+        <department id="6" name="Îõðàíà">
+            <employee id="10" firstName="Ïåòð" lastName="Íà÷àëüíèê îõðàíû" function="Ïîïîâ" salary="1800"/>
+            <director id="10" firstName="Ïåòð" lastName="Íà÷àëüíèê îõðàíû" function="Ïîïîâ" salary="1800"/>
+        </department>
+        <department id="7" name="Çàâó÷è">
+            <employee id="12" firstName="Åëåíà" lastName="Çàâó÷ ïî âîñï. ðàáîòå" function="Ìèñòþêîâà" salary="1500"/>
+            <employee id="13" firstName="Äìèòðèé" lastName="Çàâó÷ ïî ó÷åáí. ðàáîòå" function="Øèëîâ" salary="1500"/>
+            <director id="11" firstName="Ñâåòëàíà" lastName="Äèðåêòîð øêîëû" function="Ìèðîíîâà" salary="2000"/>
+        </department>
+    </company>
+    <company id="4" name="Òàêñîïàðê">
+        <department id="9" name="Äèñïåò÷åðû">
+            <employee id="18" firstName="Äàíèë" lastName="Äèñïåò÷åð" function="Àáðàìîâ" salary="1400"/>
+            <employee id="17" firstName="Âèêòîð" lastName="Äèñïåò÷åð" function="Ïèãàðåâ" salary="1400"/>
+        </department>
+        <department id="10" name="Âîäèòåëè">
+            <employee id="19" firstName="Àíòîí" lastName="Âîäèòåëü" function="Êîðîáîâ" salary="1200"/>
+            <employee id="21" firstName="Ìàêñèì" lastName="Âîäèòåëü" function="Ðóäíåâ" salary="1200"/>
+            <employee id="20" firstName="Äìèòðèé" lastName="Âîäèòåëü" function="Øêàëèí" salary="1200"/>
         </department>
     </company>
 </companys>
