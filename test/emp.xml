@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <employers>
     <employee id="12" firstName="Елена" lastName="Завуч по восп. работе" function="Мистюкова" salary="1500"/>
     <employee id="16" firstName="Елена" lastName="Учитель франц. яз." function="Пигарева" salary="1400"/>

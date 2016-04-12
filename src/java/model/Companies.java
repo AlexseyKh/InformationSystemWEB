@@ -28,5 +28,11 @@ public class Companies {
     public Companies(Collection<? extends Company> companys) {
         this.companys = new LinkedHashSet<>(companys);
     }
+
+    public Set<Company> getCompanys() {
+        return companys;
+    }
+    
+    
     
 }

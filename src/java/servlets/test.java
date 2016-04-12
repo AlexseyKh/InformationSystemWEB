@@ -9,20 +9,22 @@ import controller.CompanyDAO;
 import controller.ControllerDAO;
 import controller.DepartmentDAO;
 import controller.EmployeeDAO;
+import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Employee;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Alexey
  */
 @WebServlet(name = "test", urlPatterns = {"/test"})
+@MultipartConfig
 public class test extends HttpServlet {
 
     /**
@@ -33,18 +35,25 @@ public class test extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws org.apache.commons.fileupload.FileUploadException
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         ControllerDAO controller = ControllerDAO.getInstance();
         CompanyDAO companyDAO = controller.getCompanyDAO();
         DepartmentDAO departmentDAO = controller.getDepartmentDAO();        
         EmployeeDAO employeeDAO = controller.getEmployeeDAO();
-        controller.saveCompany("D:\\myXML\\allCompany.xml", companyDAO.getAllCompany());
-        controller.saveCompany("D:\\myXML\\tax.xml", companyDAO.getCompanyByName("Таксопарк"));
-        controller.saveDepartment("D:\\myXML\\sec.xml", departmentDAO.getDepartmentByName("Охрана"));
-        List<Employee>  emps = employeeDAO.getEmployeeByName("Елена");
-        controller.saveEmployee("D:\\myXML\\emp.xml", emps);
-        
+          for(Part p : request.getParts()){
+              System.out.println(p.getSubmittedFileName());
+              System.out.println(p.getSize());
+              System.out.println(p.getContentType());
+              File f = new File("C:\\glassfish4\\glassfish\\domains\\domain1\\generated\\jsp\\InformationSystemWEB\\" +System.currentTimeMillis() + ".xml");
+              System.out.println(f.getName());
+              System.out.println(f.getCanonicalPath());
+              f.createNewFile();
+              System.out.println(f.getCanonicalPath());
+              p.write(f.getName());
+              System.out.println("___________________________");
+          }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -24,7 +24,7 @@ public class CompanyDAOImpl implements CompanyDAO{
     public void addCompany(Company comp) {
         Session s = HibernateUtil.getSessionFactory().openSession();
         Transaction t = s.beginTransaction();
-        s.save(comp);
+        s.saveOrUpdate(comp);
         t.commit();
         s.close();
     }
