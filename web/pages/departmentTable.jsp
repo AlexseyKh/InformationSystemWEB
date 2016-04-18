@@ -4,6 +4,7 @@
     Author     : Игорь
 --%>
 
+<%@page import="org.apache.shiro.SecurityUtils"%>
 <%@page import="model.Employee"%>
 <%@page import="controller.EmployeeDAO"%>
 <%@page import="controller.DepartmentDAO"%>
@@ -14,8 +15,8 @@
 <%@page import="controller.ControllerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<% long companyID = (Long) session.getAttribute("companyID");
-    String pName = (String) session.getAttribute("name");
+<% long companyID = (Long) SecurityUtils.getSubject().getSession().getAttribute("companyID");
+    String pName = (String) SecurityUtils.getSubject().getSession().getAttribute("name");
     String pDirector = null;
     if (pName != null) {
         pDirector = (String) session.getAttribute("director");
