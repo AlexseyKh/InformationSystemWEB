@@ -4,6 +4,8 @@
     Author     : Alexey
 --%>
 
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.ejb.EJB"%>
 <%@page import="java.util.Locale"%>
 <%@page import="model.Employee"%>
 <%@page import="model.Department"%>
@@ -19,7 +21,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Справочная система</title>
-
+        <% 
+            InitialContext ic = new InitialContext();
+            ControllerDAO controller = (ControllerDAO)ic.lookup("controller.ControllerDAO");
+        %>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
         <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
         <link rel="stylesheet" type="text/css" href="/InformationSystemWEB/jquery/datatables.min.css"/>
@@ -71,8 +76,7 @@
 
                         <%
                             Locale.setDefault(Locale.ENGLISH);
-                            ControllerDAO con = ControllerDAO.getInstance();
-                            CompanyDAO compDAO = con.getCompanyDAO();
+                            CompanyDAO compDAO = controller.getCompanyDAO();
                             List<Company> companys = compDAO.getAllCompany();
                         %>
 

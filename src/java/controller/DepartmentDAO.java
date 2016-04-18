@@ -6,12 +6,15 @@
 package controller;
 
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Remote;
 import model.*;
 
 /**
  *
  * @author Alexey
  */
+@Remote
 public interface DepartmentDAO {
     /**
      * Добавляет отдел в определенную компанию

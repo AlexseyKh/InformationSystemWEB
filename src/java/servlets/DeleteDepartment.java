@@ -6,7 +6,9 @@
 package servlets;
 
 import controller.ControllerDAO;
+import controller.ControllerDAOImpl;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,11 +24,13 @@ import model.Department;
  */
 @WebServlet(urlPatterns = {"/servlets/DeleteDepartment"})
 public class DeleteDepartment extends HttpServlet{
-
+    
+    @EJB
+    ControllerDAO controller;
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long departmentID = Long.valueOf(req.getParameter("departmentID"));
-        ControllerDAO controller = ControllerDAO.getInstance();
         Department d = controller.getDepartmentDAO().getDepartmentById(departmentID);
         long companyID = d.getCompany().getId();
         controller.getDepartmentDAO().deleteDepartment(d);
@@ -47,7 +51,6 @@ public class DeleteDepartment extends HttpServlet{
             }
             for (int j = 0; j < results.length; j++)
             {
-                ControllerDAO controller = ControllerDAO.getInstance();
                 Department d = controller.getDepartmentDAO().getDepartmentById(results[j]);
                 controller.getDepartmentDAO().deleteDepartment(d);
             }

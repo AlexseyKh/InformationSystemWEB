@@ -4,6 +4,7 @@
     Author     : Игорь
 --%>
 
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="model.Employee"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Department"%>
@@ -18,7 +19,8 @@
         <title>main</title>
         <%
             long departmentID = Long.valueOf(request.getParameter("departmentID"));
-            ControllerDAO controller = ControllerDAO.getInstance();
+            InitialContext ic = new InitialContext();
+            ControllerDAO controller = (ControllerDAO)ic.lookup("controller.ControllerDAO");;
             Department d = controller.getDepartmentDAO().getDepartmentById(departmentID);
             session.setAttribute("department", d);
             Employee director = d.getDirector();
@@ -55,7 +57,7 @@
                             <td>
                                 <select name="directorID">
                                     <%
-                                        List<Employee> emps = ControllerDAO.getInstance().getEmployeeDAO().getlEmployeeByCompany(d.getCompany());
+                                        List<Employee> emps = controller.getEmployeeDAO().getlEmployeeByCompany(d.getCompany());
                                         for(Employee e : emps){
                                     %>
                                     <option <%if(director != null && director.getId() == e.getId()){%>selected <%}%>value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>

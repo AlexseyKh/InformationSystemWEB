@@ -6,6 +6,7 @@
 package servlets;
 
 import controller.ControllerDAO;
+import controller.ControllerDAOImpl;
 import controller.DepartmentDAO;
 import controller.EmployeeDAO;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.io.PrintWriter;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,12 +31,14 @@ import org.hibernate.mapping.Set;
 @WebServlet(name = "searchInEmployeeServlet", urlPatterns = {"/searchInEmployee"})
 public class searchInEmployeeServlet extends HttpServlet {
 
+    @EJB
+    ControllerDAO controller;
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ControllerDAO con = ControllerDAO.getInstance();
-        DepartmentDAO depDAO = con.getDepartmentDAO();
-        EmployeeDAO empDAO = con.getEmployeeDAO();
+        DepartmentDAO depDAO = controller.getDepartmentDAO();
+        EmployeeDAO empDAO = controller.getEmployeeDAO();
         long companyID = (long)request.getSession().getAttribute("companyID");
 
         LinkedHashSet<Employee> emps = new LinkedHashSet(empDAO.getEmployeeByLastName("%"+request.getParameter("search")+"%"));

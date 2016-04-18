@@ -6,6 +6,7 @@
 package controller;
 
 import java.util.List;
+import javax.ejb.Stateless;
 import model.Company;
 import model.Department;
 import org.hibernate.Query;
@@ -16,6 +17,7 @@ import org.hibernate.Transaction;
  *
  * @author Alexey
  */
+@Stateless
 public class DepartmentDAOImpl implements DepartmentDAO {
 
     @Override

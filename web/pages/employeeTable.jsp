@@ -3,6 +3,7 @@
     Created on : 17.03.2016, 20:23:40
     Author     : Игорь
 --%>
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="model.Employee"%>
 <%@page import="controller.EmployeeDAO"%>
@@ -83,10 +84,11 @@
             
             <table width="1024" tableborder="1" align="center" cellpadding="10" cellspacing="0">
                 <%
-                        ControllerDAO con = ControllerDAO.getInstance();
-                        CompanyDAO compDAO = con.getCompanyDAO();
-                        DepartmentDAO depDAO = con.getDepartmentDAO();
-                        EmployeeDAO empDAO = con.getEmployeeDAO();
+                        InitialContext ic = new InitialContext();
+                        ControllerDAO controller = (ControllerDAO)ic.lookup("controller.ControllerDAO");
+                        CompanyDAO compDAO = controller.getCompanyDAO();
+                        DepartmentDAO depDAO = controller.getDepartmentDAO();
+                        EmployeeDAO empDAO = controller.getEmployeeDAO();
 
                         
                         List<Employee> list = null;

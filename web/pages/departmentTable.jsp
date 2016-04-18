@@ -4,6 +4,7 @@
     Author     : Игорь
 --%>
 
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="model.Employee"%>
 <%@page import="controller.EmployeeDAO"%>
 <%@page import="controller.DepartmentDAO"%>
@@ -84,10 +85,11 @@
                         });
 
                     }</script>
-            <%
-                    ControllerDAO con = ControllerDAO.getInstance();
-                    CompanyDAO compDAO = con.getCompanyDAO();
-                    DepartmentDAO depDAO = con.getDepartmentDAO();                    
+                <%
+                    InitialContext ic = new InitialContext();
+                    ControllerDAO controller = (ControllerDAO)ic.lookup("controller.ControllerDAO");
+                    CompanyDAO compDAO = controller.getCompanyDAO();
+                    DepartmentDAO depDAO = controller.getDepartmentDAO();                    
                     List<Department> list = null;                         
                 %>
             <section class="row">

@@ -4,6 +4,7 @@
     Author     : Alexey
 --%>
 
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="model.Company"%>
 <%@page import="controller.ControllerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,8 +15,9 @@
         <title>Изменение компании</title>
         <%
             long companyID = Long.valueOf(request.getParameter("companyID"));
-            ControllerDAO con = ControllerDAO.getInstance();
-            Company c = con.getCompanyDAO().getCompanyById(companyID);
+            InitialContext ic = new InitialContext();
+            ControllerDAO controller = (ControllerDAO)ic.lookup("controller.ControllerDAO");
+            Company c = controller.getCompanyDAO().getCompanyById(companyID);
             session.setAttribute("company", c);
         %>
         <link rel="stylesheet" href="/InformationSystemWEB/css/main.css">
