@@ -28,6 +28,4 @@ public interface RoleDAO {
     public List<Role> getRolesByUser(User user);
     
     public List<Role> getAllRoles();
-    
-    public void addUser(User user);
 }

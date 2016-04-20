@@ -51,8 +51,6 @@ public class DeleteDepartment extends HttpServlet{
                 Department d = controller.getDepartmentDAO().getDepartmentById(results[j]);
                 controller.getDepartmentDAO().deleteDepartment(d);
             }
-            RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
-            rd.forward(req, resp); // Redisplay JSP.SP.
         }
     
 }

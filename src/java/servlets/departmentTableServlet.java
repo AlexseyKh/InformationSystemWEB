@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.shiro.SecurityUtils;
 
 /**
  *
@@ -26,10 +27,7 @@ public class departmentTableServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ControllerDAO con = ControllerDAO.getInstance();
-        long companyID = Long.parseLong(request.getParameter("companyID"));
-        HttpSession session = request.getSession(true);
-        session.setAttribute("companyID", companyID);
-        session.setAttribute("companyName", con.getCompanyDAO().getCompanyById(companyID).getName());
+        long companyID = (Long) SecurityUtils.getSubject().getSession().getAttribute("companyID");
 
         request.getRequestDispatcher("/pages/departmentTable.jsp").forward(request, response);
     }

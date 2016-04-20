@@ -31,7 +31,7 @@ public class Role implements Serializable {
     @XmlAttribute
     private String name;  
     
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(fetch=FetchType.EAGER, mappedBy = "roles")
     private Set<User> users = new LinkedHashSet();
     
     @ManyToMany(cascade = {CascadeType.ALL})

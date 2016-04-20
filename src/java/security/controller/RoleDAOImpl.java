@@ -87,13 +87,4 @@ public class RoleDAOImpl implements RoleDAO{
         s.close();
         return list;
     }
-    
-    @Override
-    public void addUser(User user) {
-        Session s = SecurityHibernateUtil.getSessionFactory().openSession();
-        Transaction t = s.beginTransaction();
-        Query query = s.createQuery("select r from Role r join r.users u where u.id = :user_id").setLong("user_id", user.getId());
-        t.commit();
-        s.close();
-    }
 }

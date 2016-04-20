@@ -25,7 +25,7 @@ public class ChangeDepartment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
-        long directorID = Long.valueOf(req.getParameter("directorID"));
+        Long directorID = Long.valueOf(req.getParameter("directorID"));
         ControllerDAO controller = ControllerDAO.getInstance();
         Department d = (Department) req.getSession().getAttribute("department");
 

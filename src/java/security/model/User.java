@@ -39,7 +39,7 @@ public class User implements Serializable {
     @XmlAttribute
     private String salt; 
     
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(fetch=FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name ="USER_ROLE", 
     joinColumns = {@JoinColumn(name = "USER_ID") },
     inverseJoinColumns = {@JoinColumn(name = "ROLE_ID") })

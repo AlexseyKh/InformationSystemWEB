@@ -39,7 +39,6 @@ public class afterLogin extends HttpServlet {
         UserDAO userDAO = sec.getUserDAO();
         User user = userDAO.getUserByUsername(currentUser.getPrincipals().getPrimaryPrincipal().toString()).get(0);
         List<Role> roles = sec.getRoleDAO().getRolesByUser(user);
-        System.out.println("k3rjnthjgvbfyhjt5k3bvjtk4bvtgjnjtvtkjvbeyjktvejrbvhjtevbtejbvjthbv       "+roles.size());
                 
         long companyID = 0;
         for (Role r : roles) {
@@ -51,7 +50,6 @@ public class afterLogin extends HttpServlet {
             }
         }
         SecurityUtils.getSubject().getSession().setAttribute("companyID", companyID);
-        System.out.println("EDWWWWWWWWWWWWWWWWW             " + companyID);
         SecurityUtils.getSubject().getSession().setAttribute("companyName", con.getCompanyDAO().getCompanyById(companyID).getName());
 
         if (currentUser.hasRole("owner")) {
