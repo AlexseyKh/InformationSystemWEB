@@ -1,10 +1,11 @@
 
+<%@page import="org.apache.shiro.SecurityUtils"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%session.setAttribute("companyID", null);%>
+<%SecurityUtils.getSubject().getSession().setAttribute("companyID", null);%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,80 +21,128 @@
                 $("#company").hide();
                 $("#back").hide();
 
-                $('#registration').validate(
-                        {
-                            //Правила
-                            rules: {
-                                username: "required",
-                                pass: "required",
-                                pass_confirm: {
-                                    equalTo: "#pass"
+
+                $('#registration').validate({
+                    //Правила
+                    rules: {
+                        pass_confirm: {
+                            equalTo: "#pass"
+                        }
+                    },
+                    //Тексты предупреждений
+                    messages: {
+                        pass_confirm: "Пароли не совпадают"
+                    },
+                    //Обработка и отправка данных
+                    submitHandler: function () {
+                        $.ajax({
+                            url: '/InformationSystemWEB/registration',
+                            type: 'GET',
+                            data: {request: 'toCompany',
+                                username: $("#username").attr("value"),
+                                pass: $("#pass").attr("value")},
+                            success: function (result) {
+                                if (result === "success") {
+                                    $("#registration").hide();
+                                    $("#company").show();
+                                    $("#back").show();
+                                }
+                                if (result === "error") {
+                                    $("#usernameError").text("Имя уже существует");
                                 }
                             },
-                            //Тексты предупреждений
-                            messages: {
-                                username: "Заполните поле",
-                                pass: "Заполните поле",
-                                pass_confirm: "Пароли не совпадают"
-                            },
-                            //Обработка и отправка данных
-                            submitHandler: function () {
-                                $.ajax({
-                                    url: '/InformationSystemWEB/registration',
-                                    type: 'GET',
-                                    data: {request: 'toCompany',
-                                        username: $("#username").attr("value"),
-                                        pass: $("#pass").attr("value")},
-                                    success: function (result) {
-                                        if (result === "success") {
-                                            $("#registration").hide();
-                                            $("#company").show();
-                                            $("#back").show();
-                                        }
-                                        if (result === "error") {
-                                            $("#usernameError").text("Имя уже существует");
-                                        }
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown) {
-                                        alert(errorThrown);
-                                    }
-                                });
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert(errorThrown);
                             }
                         });
-                $('#company').validate(
-                        {
-                            //Правила
-                            rules: {
-                                companyName: "required"
+                    }
+                });
+                jQuery.validator.addMethod("correctPassword", function (value, element) {
+                    return /([a-zA-Z0-9]{4,16})/.test(value);
+                }, 'Пароль должен состоять только из латинских букв и цифр');
+                $("#pass").rules("add", {
+                    required: true,
+                    minlength: 4,
+                    correctPassword: true,
+                    maxlength: 16,
+                    messages: {
+                        required: "Вы забыли про пароль",
+                        minlength: jQuery.validator.format("Пароль должен содержать не менее {0} символов"),
+                        maxlength: jQuery.validator.format("Пароль должен содержать не более {0} символов")
+                    }
+                });
+                jQuery.validator.addMethod("correctUsername", function (value, element) {
+                    return /([_a-zA-Z][_a-zA-Z0-9 ]{3,31})/.test(value);
+                }, "Имя должно начинаться с латинской буквы или символа '_' и состоять из них же или цифр и пробелов");
+                $("#username").rules("add", {
+                    required: true,
+                    minlength: 4,
+                    correctUsername: true,
+                    maxlength: 32,
+                    messages: {
+                        required: "Вы забыли про имя",
+                        minlength: jQuery.validator.format("Имя должно содержать не менее {0} символов"),
+                        maxlength: jQuery.validator.format("Имя должно содержать не более {0} символов")
+                    }
+                });
+
+
+
+
+
+
+
+                $('#company').validate({
+                    //Обработка и отправка данных
+                    submitHandler: function () {
+                        $.ajax({
+                            url: '/InformationSystemWEB/registration',
+                            type: 'GET',
+                            data: {request: 'finish',
+                                companyName: $("#companyName").attr("value")},
+                            success: function (result) {
+                                if (result === "success") {
+                                    document.location.href = "/InformationSystemWEB/pages/main.jsp";
+                                }
+                                if (result === "error") {
+                                    $("#error").text("Название уже существует");
+                                }
                             },
-                            //Тексты предупреждений
-                            messages: {
-                                companyName: "Заполните поле"
-                            },
-                            //Обработка и отправка данных
-                            submitHandler: function () {
-                                $.ajax({
-                                    url: '/InformationSystemWEB/registration',
-                                    type: 'GET',
-                                    data: {request: 'finish',
-                                        companyName: $("#companyName").attr("value")},
-                                    success: function (result) {
-                                        if (result === "success") {
-                                            document.location.href = "/InformationSystemWEB/pages/main.jsp";
-                                        }
-                                        if (result === "error") {
-                                            $("#error").text("Название уже существует");
-                                        }
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown) {
-                                        alert(errorThrown);
-                                    }
-                                });
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert(errorThrown);
                             }
                         });
+                    }
+                });
+
+
+                jQuery.validator.addMethod("correctCompName", function (value, element) {
+                    return /([a-zA-Z0-9][a-zA-Z0-9 ]{0,30})/.test(value);
+                }, "Название должно состоять из латинских букв, цифр и пробелов");
+
+                $("#companyName").rules("add", {
+                    required: true,
+                    correctCompName: true,
+                    maxlength: 32,
+                    messages: {
+                        required: "Вы забыли про название",
+                        maxlength: jQuery.validator.format("Имя должно содержать не более {0} символов")
+                    }
+                });
             });
 
-            back = function () {
+
+
+            nextBtn = function () {
+                $("#username").attr("value", $("#username").attr("value").trim());
+            };
+            
+            finishBtn = function () {
+                $("#companyName").attr("value", $("#companyName").attr("value").trim());
+            };
+
+
+            backBtn = function () {
                 $("#company").hide();
                 $("#registration").show();
                 $("#back").hide();
@@ -109,9 +158,19 @@
                 <nav class="nav primary-nav">
                     <ul>
                         <li><a href="/InformationSystemWEB/index.jsp">Главная</a></li><!--
-                        --><li><a href="">Справка</a></li>
+                        --><shiro:hasRole name="owner">
+                            <li><a href="/InformationSystemWEB/pages/main.jsp">Список пользователей</a></li>
+                            </shiro:hasRole>
+                            <shiro:authenticated>
+                            <li><a href="/InformationSystemWEB/pages/departmentTable.jsp">Список отделов</a></li><!--
+                            --><li><a href="/InformationSystemWEB/pages/employeeTable.jsp">Список сотрудников</a></li>
+                            </shiro:authenticated>
+                        <li><a href="">Справка</a></li>
                     </ul>
                 </nav>
+                <shiro:authenticated>
+                    <a href="/InformationSystemWEB/logout">Выход</a>
+                </shiro:authenticated>
             </header>
 
             <main>
@@ -133,7 +192,7 @@
                                 <label>Подтверждение пароля:</label>
                                 <input id="pass_confirm" name="pass_confirm" type="password" />
                             </div>
-                            <input type="submit" id="toCompany" value="Далее" />
+                            <input type="submit" id="toCompany" value="Далее"  onclick="nextBtn();"/>
                         </form>
 
                         <form id="company">
@@ -141,11 +200,11 @@
                             <div>
                                 <label>Название компании:</label>
                                 <input id="companyName" name="companyName" type="text"/>
-                                <span class="error"></span>
+                                <span id="error"></span>
                             </div>
-                            <input type="submit" id="finish" value="Закончить" />
+                            <input type="submit" id="finish" value="Закончить" onclick="finishBtn();"/>
                         </form>
-                        <button id="back" onclick="back();">Назад</button>
+                        <button id="back" onclick="backBtn();">Назад</button>
                     </div>
                 </section>
             </main>

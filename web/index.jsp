@@ -9,8 +9,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%session.setAttribute("companyID", null);%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,10 +26,19 @@
                 <h1 class="tagline">Справочная система</h1>
                 <nav class="nav primary-nav">
                     <ul>
-                        <li><a href="/InformationSystemWEB/index.jsp">Главная</a></li><!--
-                        --><li><a href="">Справка</a></li>
+                        <shiro:hasRole name="owner">
+                            <li><a href="/InformationSystemWEB/pages/main.jsp">Список пользователей</a></li>
+                            </shiro:hasRole>
+                            <shiro:authenticated>
+                            <li><a href="/InformationSystemWEB/pages/departmentTable.jsp">Список отделов</a></li><!--
+                            --><li><a href="/InformationSystemWEB/pages/employeeTable.jsp">Список сотрудников</a></li>
+                            </shiro:authenticated>
+                        <li><a href="">Справка</a></li>
                     </ul>
                 </nav>
+                <shiro:authenticated>
+                    <a href="/InformationSystemWEB/logout">Выход</a>
+                </shiro:authenticated>
             </header>
             <main>
                 <section id="section" class="row">
@@ -39,7 +46,7 @@
                     <p><a href="login.jsp">Войти в систему</a></p>
                 </section>
             </main>
-            
+
             <footer class="primary-footer container group">
                 <p style="text-align: center"> 2016 год</p>
             </footer>

@@ -3,6 +3,7 @@
     Created on : 17.03.2016, 20:23:40
     Author     : Игорь
 --%>
+<%@page import="org.apache.shiro.SecurityUtils"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="model.Employee"%>
 <%@page import="controller.EmployeeDAO"%>
@@ -12,9 +13,12 @@
 <%@page import="model.Department"%>
 <%@page import="java.util.List"%>
 <%@page import="controller.ControllerDAO"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%  long companyID = (Long) session.getAttribute("companyID");
+<%long companyID = (Long) SecurityUtils.getSubject().getSession().getAttribute("companyID");
+    String name = SecurityUtils.getSubject().getSession().getAttribute("companyName").toString();
     String pLastName = (String) request.getParameter("lastName");
     String pFirstName = null;
     String pFunction = null;
@@ -32,9 +36,9 @@
         pFirstName = "%";
         pFunction = "%";
         pDepartment = "%";
-        
+
     }
-    %>
+%>
 <!doctype html>
 <html>
     <head>
@@ -42,86 +46,95 @@
         <title>Список сотрудников</title>
         <link rel="stylesheet" href="/InformationSystemWEB/css/main.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
-        
+        <script>
+            $(document).ready(function () {
+                $('#table').DataTable({
+                    "ordering": [2],
+                    "paging": false,
+                    "info": false,
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"
+                    }
+                });
+            });
+
+            CheckboxEmployeeDel = function () {
+                var selectedItems = new Array();
+                var checked = $("input[class='employeesCheckbox']:checked");
+                checked.each(function () {
+                    selectedItems.push($(this).val());
+                });
+                $.ajax({
+                    url: '/InformationSystemWEB/deleteEmployee',
+                    type: 'POST',
+                    data: 'employee_Ids=' + selectedItems.valueOf(),
+                    success: function () {
+                        document.location.href = "/InformationSystemWEB/employeeTable";
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+
+            }</script>
     </head>
 
     <body>
-         <div style="background: #dcf2ff; max-width: 1024px; margin: 0 auto;">
-        <header class="primary-header container group">
-            <img src="/InformationSystemWEB/images/nc-logo.png" width="30%" align="center" class="logo">
-            </img>
-            <h1 class="tagline">Компания <%=session.getAttribute("companyName")%></h1>
-            <nav class="nav primary-nav">
-                <ul>
-                    <li><a href="/InformationSystemWEB/index.jsp">Главная</a></li><!--
-                    --><li><a href="/InformationSystemWEB/pages/departmentTable.jsp">Список отделов</a></li><!--
-                    --><li><a href="/InformationSystemWEB/pages/employeeTable.jsp">Список сотрудников</a></li><!--
-                    --><li><a href="">Справка</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <section class="row">
-                <h2 style="text-align: center">Таблица сотрудников</h2>
-            <div align="center"><form method="POST" action="/InformationSystemWEB/searchInEmployee">
-                    
-                    <p><input type="search" name="search" <%String search = request.getParameter("search");
-    if (search == null) {
+        <div style="background: #dcf2ff; max-width: 1024px; margin: 0 auto;">
+            <header class="primary-header container group">
+                <img src="/InformationSystemWEB/images/nc-logo.png" width="30%" align="center" class="logo">
+                </img>
+                <h1 class="tagline">Компания <%=name%></h1>
+                <nav class="nav primary-nav">
+                    <ul>
+                        <li><a href="/InformationSystemWEB/index.jsp">Главная</a></li>
+                            <shiro:hasRole name="owner">
+                            <li><a href="/InformationSystemWEB/pages/main.jsp">Список пользователей</a></li>
+                        </shiro:hasRole><!--
+                        --><li><a href="/InformationSystemWEB/pages/departmentTable.jsp">Список отделов</a></li><!--
+                        --><li><a href="/InformationSystemWEB/pages/employeeTable.jsp">Список сотрудников</a></li><!--
+                        --><li><a href="">Справка</a></li>
+                    </ul>
+                </nav>
+                <shiro:authenticated>
+                    <a href="/InformationSystemWEB/logout">Выход</a>
+                </shiro:authenticated>
+            </header>
+            <main>
+                <section class="row">
+                    <h2 style="text-align: center">Таблица сотрудников</h2>
 
-            search = "Поиск по сотрудникам";%>
-                              placeholder="<%=search%>"
-                              <%} else {%>
-                              value="<%=search%>"
-                              <%}%>> > 
-                        <input type="submit" value="Найти"></p>
-                </form>
-            </div>
-                    
-            
-                
-                
-            
-            <table width="1024" tableborder="1" align="center" cellpadding="10" cellspacing="0">
-                <%
-                        ControllerDAO con = ControllerDAO.getInstance();
-                        CompanyDAO compDAO = con.getCompanyDAO();
-                        DepartmentDAO depDAO = con.getDepartmentDAO();
-                        EmployeeDAO empDAO = con.getEmployeeDAO();
 
-                        
-                        List<Employee> list = null;
-                        
-                    %>
-                <tbody>
-                <thead>
-                    <tr>
-                        <td align="center">Фамилия </td>
-                        <td align="center">Имя</td>
-                        <td align="center">Должность</td>
-                        <td align="center">Зарплата</td>
-                        <td align="center">Отдел </td>
-                        <td align="center">Редактировать</td>
-                        <td align="center">Удалить</td>
-                    </tr>
-                </thead>
-                    <tr>
-                        <td align="center" rowspan="2"><input class="inputwidth" type="text" name="lastName" value="<%=pLastName%>"></td>
-                        <td align="center" rowspan="2"><input class="inputwidth" type="text" name="firstName" value="<%=pFirstName%>"></td>
-                        <td align="center" rowspan="2"><input class="inputwidth" type="text" name="function" value="<%=pFunction%>"></td>
-                        <td align="center">MIN:<input class="inputwidth" type="number" id="salMin" name="salaryMin" min="0" max="1000000" value="<%=salaryMin%>"></td>
-                        <td align="center" rowspan="2"><input class="inputwidth" type="text" name="department" value="<%=pDepartment%>"></td>
-                        <td align="center" rowspan="2"></td>
-                        <td align="center" rowspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td align="center"> MAX:                       
-                            <input class="inputwidth" type="number" id="salMax" name="salaryMax" min="0" max="1000000" value="<%=salaryMax%>">
-                        </td>
-                    </tr>
+                    <table id="table">
+                        <%
+                            ControllerDAO con = ControllerDAO.getInstance();
+                            CompanyDAO compDAO = con.getCompanyDAO();
+                            DepartmentDAO depDAO = con.getDepartmentDAO();
+                            EmployeeDAO empDAO = con.getEmployeeDAO();
 
-                    <%
-                        List<Employee> emps = (List<Employee>) request.getSession().getAttribute("searchEmployees");
-                        request.getSession().setAttribute("searchEmployees", null);
+                            List<Employee> list = null;
+
+                        %>
+                        <tbody>
+                        <thead>
+                            <tr>
+                                <shiro:hasAnyRoles name="admin, owner">
+                                    <td align="center"></td>
+                                </shiro:hasAnyRoles>
+                                <td align="center">Фамилия </td>
+                                <td align="center">Имя</td>
+                                <td align="center">Должность</td>
+                                <td align="center">Зарплата</td>
+                                <td align="center">Отдел </td>
+                                <shiro:hasAnyRoles name="admin, owner">
+                                    <td align="center">Изменить</td>
+                                </shiro:hasAnyRoles>
+                            </tr>
+                        </thead>
+
+
+                        <%                            List<Employee> emps = (List<Employee>) request.getSession().getAttribute("searchEmployees");
+                            request.getSession().setAttribute("searchEmployees", null);
                             if (emps != null) {
                                 list = emps;
                             } else {
@@ -141,61 +154,55 @@
                                     list.addAll(empDAO.getEmployeeeByDepartment(dep));
                                 }
                             }
-                        for(Employee e : list) {
-                            StringBuffer edit = new StringBuffer("/InformationSystemWEB/pages/employee.jsp?");
-                            edit.append("goal=edit");
-                            edit.append("&id=" + e.getId());
-                            edit.append("&lastName=" + e.getLastName());
-                            edit.append("&firstName=" + e.getFirstName());
-                            edit.append("&function=" + e.getFunction());
-                            edit.append("&salary=" + e.getSalary());
-                            edit.append("&department=" + e.getDepartment().getId());
-                            
-                            String delete = "/InformationSystemWEB/deleteEmployee?id=" + e.getId();
-                            
-                            String lastName = null;
-                            String firstName = null;
-                            String function = null;
+                            for (Employee e : list) {
+                                StringBuffer edit = new StringBuffer("/InformationSystemWEB/pages/employee.jsp?");
+                                edit.append("goal=edit");
+                                edit.append("&id=" + e.getId());
+                                edit.append("&lastName=" + e.getLastName());
+                                edit.append("&firstName=" + e.getFirstName());
+                                edit.append("&function=" + e.getFunction());
+                                edit.append("&salary=" + e.getSalary());
+                                edit.append("&department=" + e.getDepartment().getId());
 
-                            if(search != null){
-                                lastName = e.getLastName().replaceAll(search, "<b>"+search+"</b>");
-                                firstName = e.getFirstName().replaceAll(search, "<b>"+search+"</b>");
-                                function = e.getFunction().replaceAll(search, "<b>"+search+"</b>");
-                            
-                            } else {
+                                String lastName = null;
+                                String firstName = null;
+                                String function = null;
+
                                 lastName = e.getLastName();
                                 firstName = e.getFirstName();
                                 function = e.getFunction();
-                            }
+
                         %>
-                    <tr>
-                        <td align="center"><%=lastName%></td>
-                        <td align="center"><%=firstName%></td>
-                        <td align="center"><%=function%></td>
-                        <td align="center"><%=e.getSalary()%></td>
-                        <td align="center"><%=e.getDepartment().getName()%></td>
-                        <td align="center"><a href="<%=edit.toString()%>">Редактировать</a></td>
-                        <td align="center"><a href="<%=delete%>">Удалить</a></td>
-                    </tr>
-                    <%}%>
-                    
-                </tbody>
-            </table>
-                    <div align="center"><p><form name="tableForm" method="POST" action="/InformationSystemWEB/searchEmployeeByPattern"><button class="btn btn-default" type="submit">Искать</button></form><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/employee.jsp?goal=add';">Добавить сотрудника</button></p></div>
-            
-                    
-                    
-        </section>    
-        </main>
-        <footer>
-            <nav class="navfoot">
-                <ul>
-                  <li><a href="/InformationSystemWEB/pages/departmentTable.jsp">К отделам</a></li><!--
-                  --><li><a href="/InformationSystemWEB/index.jsp">На главную</a></li>
-                </ul>
-	</nav>
-            <p style="text-align: center">2016 год</p>
-        </footer>
-         </div>
+                        <tr>
+                            <shiro:hasAnyRoles name="admin, owner">
+                                <td align="center"><input type="checkbox" class="employeesCheckbox" value="<%=e.getId()%>"></td>
+                                </shiro:hasAnyRoles>
+                            <td align="center"><%=lastName%></td>
+                            <td align="center"><%=firstName%></td>
+                            <td align="center"><%=function%></td>
+                            <td align="center"><%=e.getSalary()%></td>
+                            <td align="center"><%=e.getDepartment().getName()%></td>
+                            <shiro:hasAnyRoles name="admin, owner">
+                                <td align="center"><a href="<%=edit.toString()%>">Изменить</a></td>
+                            </shiro:hasAnyRoles>
+                        </tr>
+                        <%}%>
+
+                        </tbody>
+                    </table>
+                    <shiro:hasAnyRoles name="admin, owner"><p><div align="center"><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/employee.jsp?goal=add';">Добавить сотрудника</button><button class="btn btn-default" margin-left="5" onclick="CheckboxEmployeeDel();">Удалить отмеченное</button></div></p></shiro:hasAnyRoles>
+
+                </section>    
+            </main>
+            <footer>
+                <nav class="navfoot">
+                    <ul>
+                        <li><a href="/InformationSystemWEB/pages/departmentTable.jsp">К отделам</a></li><!--
+                        --><li><a href="/InformationSystemWEB/index.jsp">На главную</a></li>
+                    </ul>
+                </nav>
+                <p style="text-align: center">2016 год</p>
+            </footer>
+        </div>
     </body>
 </html>
