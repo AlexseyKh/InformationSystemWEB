@@ -44,8 +44,12 @@
     <head>
         <meta charset="utf-8">
         <title>Список сотрудников</title>
-        <link rel="stylesheet" href="/InformationSystemWEB/css/main.css">
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+        <link rel="stylesheet" type="text/css" href="/InformationSystemWEB/jquery/datatables.min.css"/>
+        <script type="text/javascript" src="/InformationSystemWEB/jquery/datatables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/InformationSystemWEB/css/main.css">
         <script>
             $(document).ready(function () {
                 $('#table').DataTable({
@@ -69,7 +73,7 @@
                     type: 'POST',
                     data: 'employee_Ids=' + selectedItems.valueOf(),
                     success: function () {
-                        document.location.href = "/InformationSystemWEB/employeeTable";
+                        document.location.href = "/InformationSystemWEB/pages/employeeTable.jsp";
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown);
@@ -96,9 +100,9 @@
                         --><li><a href="">Справка</a></li>
                     </ul>
                 </nav>
-                <shiro:authenticated>
-                    <a href="/InformationSystemWEB/logout">Выход</a>
-                </shiro:authenticated>
+
+                <a href="/InformationSystemWEB/logout">Выход</a>
+
             </header>
             <main>
                 <section class="row">
@@ -115,7 +119,7 @@
                             List<Employee> list = null;
 
                         %>
-                        <tbody>
+
                         <thead>
                             <tr>
                                 <shiro:hasAnyRoles name="admin, owner">
@@ -131,62 +135,62 @@
                                 </shiro:hasAnyRoles>
                             </tr>
                         </thead>
+                        <tbody>
 
-
-                        <%                            List<Employee> emps = (List<Employee>) request.getSession().getAttribute("searchEmployees");
-                            request.getSession().setAttribute("searchEmployees", null);
-                            if (emps != null) {
-                                list = emps;
-                            } else {
-                                emps = (List<Employee>) request.getSession().getAttribute("employees");
-                                request.getSession().setAttribute("employees", null);
+                            <%                            List<Employee> emps = (List<Employee>) request.getSession().getAttribute("searchEmployees");
+                                request.getSession().setAttribute("searchEmployees", null);
                                 if (emps != null) {
                                     list = emps;
-                                } else if (request.getParameter("departmentID") == null) {
-                                    list = new LinkedList<Employee>();
-                                    List<Department> deps = depDAO.getDepartmentByCompany(compDAO.getCompanyById(companyID));
-                                    for (Department dep : deps) {
+                                } else {
+                                    emps = (List<Employee>) request.getSession().getAttribute("employees");
+                                    request.getSession().setAttribute("employees", null);
+                                    if (emps != null) {
+                                        list = emps;
+                                    } else if (request.getParameter("departmentID") == null) {
+                                        list = new LinkedList<Employee>();
+                                        List<Department> deps = depDAO.getDepartmentByCompany(compDAO.getCompanyById(companyID));
+                                        for (Department dep : deps) {
+                                            list.addAll(empDAO.getEmployeeeByDepartment(dep));
+                                        }
+                                    } else {
+                                        Department dep = depDAO.getDepartmentById(Long.parseLong(request.getParameter("departmentID")));
+                                        list = new LinkedList<Employee>();
                                         list.addAll(empDAO.getEmployeeeByDepartment(dep));
                                     }
-                                } else {
-                                    Department dep = depDAO.getDepartmentById(Long.parseLong(request.getParameter("departmentID")));
-                                    list = new LinkedList<Employee>();
-                                    list.addAll(empDAO.getEmployeeeByDepartment(dep));
                                 }
-                            }
-                            for (Employee e : list) {
-                                StringBuffer edit = new StringBuffer("/InformationSystemWEB/pages/employee.jsp?");
-                                edit.append("goal=edit");
-                                edit.append("&id=" + e.getId());
-                                edit.append("&lastName=" + e.getLastName());
-                                edit.append("&firstName=" + e.getFirstName());
-                                edit.append("&function=" + e.getFunction());
-                                edit.append("&salary=" + e.getSalary());
-                                edit.append("&department=" + e.getDepartment().getId());
+                                for (Employee e : list) {
+                                    StringBuffer edit = new StringBuffer("/InformationSystemWEB/pages/employee.jsp?");
+                                    edit.append("goal=edit");
+                                    edit.append("&id=" + e.getId());
+                                    edit.append("&lastName=" + e.getLastName());
+                                    edit.append("&firstName=" + e.getFirstName());
+                                    edit.append("&function=" + e.getFunction());
+                                    edit.append("&salary=" + e.getSalary());
+                                    edit.append("&department=" + e.getDepartment().getId());
 
-                                String lastName = null;
-                                String firstName = null;
-                                String function = null;
+                                    String lastName = null;
+                                    String firstName = null;
+                                    String function = null;
 
-                                lastName = e.getLastName();
-                                firstName = e.getFirstName();
-                                function = e.getFunction();
+                                    lastName = e.getLastName();
+                                    firstName = e.getFirstName();
+                                    function = e.getFunction();
 
-                        %>
-                        <tr>
-                            <shiro:hasAnyRoles name="admin, owner">
-                                <td align="center"><input type="checkbox" class="employeesCheckbox" value="<%=e.getId()%>"></td>
+                            %>
+                            <tr>
+                                <shiro:hasAnyRoles name="admin, owner">
+                                    <td align="center"><input type="checkbox" class="employeesCheckbox" value="<%=e.getId()%>"></td>
+                                    </shiro:hasAnyRoles>
+                                <td align="center"><%=lastName%></td>
+                                <td align="center"><%=firstName%></td>
+                                <td align="center"><%=function%></td>
+                                <td align="center"><%=e.getSalary()%></td>
+                                <td align="center"><%=e.getDepartment().getName()%></td>
+                                <shiro:hasAnyRoles name="admin, owner">
+                                    <td align="center"><a href="<%=edit.toString()%>">Изменить</a></td>
                                 </shiro:hasAnyRoles>
-                            <td align="center"><%=lastName%></td>
-                            <td align="center"><%=firstName%></td>
-                            <td align="center"><%=function%></td>
-                            <td align="center"><%=e.getSalary()%></td>
-                            <td align="center"><%=e.getDepartment().getName()%></td>
-                            <shiro:hasAnyRoles name="admin, owner">
-                                <td align="center"><a href="<%=edit.toString()%>">Изменить</a></td>
-                            </shiro:hasAnyRoles>
-                        </tr>
-                        <%}%>
+                            </tr>
+                            <%}%>
 
                         </tbody>
                     </table>

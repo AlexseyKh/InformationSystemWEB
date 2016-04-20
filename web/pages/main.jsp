@@ -30,7 +30,6 @@
         <script type="text/javascript">
             var oldUsername;
 
-
             $('document').ready(function () {
                 $("#new_form").hide();
                 $("#list_a").hide();
@@ -39,10 +38,13 @@
                     var username = $(event.target).parents(".tr").find(".name b").text();
                     var password = $(event.target).parents(".tr").find(".pass b").text();
                     var role = $(event.target).parents(".tr").find(".role b").text();
+                    var id = $(event.target).parents(".tr").find(".usersCheckbox").val();
                     $("#username").val(username);
                     $("#password").val(password);
                     $("#role option[value=" + role + "]").attr("selected", "selected");
+                    $("#id").val(id);
                     oldUsername = username;
+                    $("#save").prop("disabled", false);
                 });
 
                 $('#new_a').on('click', function (event) {
@@ -50,6 +52,7 @@
                     $("#new_a").hide();
                     $("#users_list").hide();
                     $("#list_a").show();
+                    $("#save").prop("disabled", true);
                 });
 
                 $('#list_a').on('click', function (event) {
@@ -78,17 +81,27 @@
                     },
                     //Обработка и отправка данных
                     submitHandler: function () {
+                        var id = $("#id").val();
+                        ;
                         $.ajax({
                             url: '/InformationSystemWEB/main',
                             type: 'GET',
                             data: {request: 'save',
                                 username: $("#username").attr("value"),
-                                pass: $("#pass").attr("value"),
+                                pass: $("#password").attr("value"),
                                 role: $("#role option:selected").attr("value"),
                                 oldUsername: oldUsername},
                             success: function (result) {
                                 if (result === "success") {
                                     $("#result").text("Данные пользователя изменены!");
+
+                                    var username = $("#username").attr("value");
+                                    var password = $("#password").attr("value");
+                                    var role = $("#role option:selected").attr("value");
+
+                                    $(".usersCheckbox[value=" + id + "]").parents(".tr").find(".name b").text(username);
+                                    $(".usersCheckbox[value=" + id + "]").parents(".tr").find(".pass b").text(password);
+                                    $(".usersCheckbox[value=" + id + "]").parents(".tr").find(".role b").text(role);
                                 }
                                 if (result === "error") {
                                     $("#usernameError").text("Имя уже существует");
@@ -234,18 +247,16 @@
                 <nav class="nav primary-nav">
                     <ul>
                         <li><a href="/InformationSystemWEB/index.jsp">Главная</a></li>
-                            <shiro:hasRole name="owner">
-                            <li><a href="/InformationSystemWEB/pages/main.jsp">Список пользователей</a></li>
-                        </shiro:hasRole><!--
+                        <li><a href="/InformationSystemWEB/pages/changePassword.jsp">Сменить пароль</a></li>
+                        <li><a href="/InformationSystemWEB/pages/main.jsp">Список пользователей</a></li>
+                        <!--
                         --><li><a href="/InformationSystemWEB/pages/changeCompany.jsp?companyID=<%=companyID%>">Изменить компанию</a></li><!--
                         --><li><a href="/InformationSystemWEB/pages/departmentTable.jsp">Список отделов</a></li><!--
                         --><li><a href="/InformationSystemWEB/pages/employeeTable.jsp">Список сотрудников</a></li><!--
                         --><li><a href="">Справка</a></li>
                     </ul>
                 </nav>
-                <shiro:authenticated>
-                    <a href="/InformationSystemWEB/logout">Выход</a>
-                </shiro:authenticated>
+                <a href="/InformationSystemWEB/logout">Выход</a>
             </header>
 
             <main>
@@ -287,7 +298,7 @@
                                         if (!roleName.equals("owner")) {
                                 %>
                                 <tr class="tr">
-                                    <td align="center"><input type="checkbox" id="usersCheckbox" value="<%=u.getId()%>"></td>
+                                    <td align="center"><input type="checkbox" class="usersCheckbox" value="<%=u.getId()%>"></td>
                                     <td align="center" class="name"><b><%=u.getUsername()%></b></td>
                                     <td hidden="true" class="pass"><b><%=u.getPassword()%></b></td>
                                     <td align="center" class="role"><b><%=roleName%></b></td>
@@ -299,6 +310,7 @@
 
                         <form id="userData">
                             <h3>Данные пользователя</h3>
+                            <input id="id" name="id" type="hidden"/>
                             <div>
                                 <label>Логин:</label>
                                 <input id="username" name="username" type="text"/>
@@ -316,7 +328,7 @@
                                     <option id="opt_user" value="user">Пользователь</option>
                                 </select>
                             </div>
-                            <input type="submit" id="save" value="Сохранить" onclick="saveBtn();"/>
+                            <input type="submit" disabled id="save" value="Сохранить" onclick="saveBtn();"/>
                             <span id="result"></span>
                         </form>
                     </div>

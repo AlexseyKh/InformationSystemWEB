@@ -44,6 +44,9 @@
                 <section id="section" class="row">
                     <p><a href="registration.jsp">Создать новую компанию</a></p>
                     <p><a href="login.jsp">Войти в систему</a></p>
+                    <shiro:authenticated>
+                        <p><a href="/pages/changePassword.jsp">Сменить пароль</a></p>
+                    </shiro:authenticated>
                 </section>
             </main>
 

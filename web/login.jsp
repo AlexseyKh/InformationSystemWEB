@@ -41,17 +41,17 @@
                     <form name="loginform" action="" method="POST" accept-charset="UTF-8" role="form">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Username" name="username" type="text">
+                                <input class="form-control" placeholder="Логин" name="username" type="text">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                <input class="form-control" placeholder="Пароль" name="password" type="password" value="">
                             </div>
                             <!--<div class="checkbox">
                                 <label>
                                     <input name="rememberMe" type="checkbox" value="true"> Remember Me
                                 </label>
                             </div>-->
-                            <input type="submit" value="Login">
+                            <input type="submit" value="Войти">
                         </fieldset>
                     </form>
                 </shiro:notAuthenticated>

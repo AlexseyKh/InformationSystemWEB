@@ -10,6 +10,8 @@
 <%@page import="controller.ControllerDAO"%>
 <%@page import="model.Employee"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%long companyID = (Long) SecurityUtils.getSubject().getSession().getAttribute("companyID");
     String name = SecurityUtils.getSubject().getSession().getAttribute("companyName").toString();%>
@@ -44,9 +46,7 @@
                         --><li><a href="">Справка</a></li>
                     </ul>
                 </nav>
-                <shiro:authenticated>
-                    <a href="/InformationSystemWEB/logout">Выход</a>
-                </shiro:authenticated>
+                <a href="/InformationSystemWEB/logout">Выход</a>
             </header>
             <main>
                 <section class="row">

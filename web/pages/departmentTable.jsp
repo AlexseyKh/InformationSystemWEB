@@ -69,9 +69,7 @@
                         --><li><a href="">Справка</a></li>
                     </ul>
                 </nav>
-                <shiro:authenticated>
-                    <a href="/InformationSystemWEB/logout">Выход</a>
-                </shiro:authenticated>
+                <a href="/InformationSystemWEB/logout">Выход</a>
             </header>
             <main>
                 <script>CheckboxDepartmentDel = function () {

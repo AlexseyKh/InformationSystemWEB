@@ -14,6 +14,8 @@
 <%@page import="java.util.List"%>
 <%@page import="model.Employee"%>
 <%@page import="model.Employee"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%long companyID = (Long) SecurityUtils.getSubject().getSession().getAttribute("companyID");
@@ -36,7 +38,7 @@
                 <nav class="nav primary-nav">
                     <ul>
                         <li><a href="/InformationSystemWEB/index.jsp">Главная</a></li>
-                        <shiro:hasRole name="owner">
+                            <shiro:hasRole name="owner">
                             <li><a href="/InformationSystemWEB/pages/main.jsp">Список пользователей</a></li>
                         </shiro:hasRole><!--
                         --><li><a href="/InformationSystemWEB/pages/departmentTable.jsp">Список отделов</a></li><!--
@@ -44,9 +46,9 @@
                         --><li><a href="">Справка</a></li>
                     </ul>
                 </nav>
-                <shiro:authenticated>
-                    <a href="/InformationSystemWEB/logout">Выход</a>
-                </shiro:authenticated>
+
+                <a href="/InformationSystemWEB/logout">Выход</a>
+
             </header>
             <main>
                 <section class="row">
