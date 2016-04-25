@@ -3,6 +3,7 @@
     Created on : 17.03.2016, 20:23:40
     Author     : Игорь
 --%>
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="model.Employee"%>
 <%@page import="controller.EmployeeDAO"%>
@@ -39,40 +40,31 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>main</title>
+        <title>Список сотрудников</title>
+        <link rel="stylesheet" href="/InformationSystemWEB/css/main.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
+        
     </head>
 
     <body>
-        <header>
-            <table width="849" border="0" align="center">
-                <tbody>
-                    <tr>
-                        <th scope="col"><img src="/InformationSystemWEB/images/nc-logo.jpg" width="200" height="55" alt=""/></th>
-                        <th scope="col"><h1><%=session.getAttribute("companyName")%></h1></th>
-                    </tr>
-                </tbody>
-            </table>
-            <main>
-            <table width="200" border="1" align="center">
-                <tbody>
-                    <tr>
-                        
-                        <td align="center"><a href="/InformationSystemWEB/pages/departmentTable.jsp"><img src="/InformationSystemWEB/images/department.png" width="198" height="200" alt=""/>
-                                <h3>Список отделов</h3><a></td>
-                                <td align="center"><a href="/InformationSystemWEB/pages/employeeTable.jsp"><img src="/InformationSystemWEB/images/employee.png" width="200" height="200" alt=""/>
-                                <h3>Список сотрудников</h3><a></td>
-                        <td align="center"><img src="/InformationSystemWEB/images/help.png" width="200" height="200" alt=""/>
-                            <h3>Справка</h3></td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
+         <div style="background: #dcf2ff; max-width: 1024px; margin: 0 auto;">
+        <header class="primary-header container group">
+            <img src="/InformationSystemWEB/images/nc-logo.png" width="30%" align="center" class="logo">
+            </img>
+            <h1 class="tagline">Компания <%=session.getAttribute("companyName")%></h1>
+            <nav class="nav primary-nav">
+                <ul>
+                    <li><a href="/InformationSystemWEB/index.jsp">Главная</a></li><!--
+                    --><li><a href="/InformationSystemWEB/pages/departmentTable.jsp">Список отделов</a></li><!--
+                    --><li><a href="/InformationSystemWEB/pages/employeeTable.jsp">Список сотрудников</a></li><!--
+                    --><li><a href="">Справка</a></li>
+                </ul>
+            </nav>
         </header>
         <main>
-            <blockquote>
+            <section class="row">
                 <h2 style="text-align: center">Таблица сотрудников</h2>
-            </blockquote>
-            <form method="POST" action="/InformationSystemWEB/searchInEmployee">
+            <div align="center"><form method="POST" action="/InformationSystemWEB/searchInEmployee">
                     
                     <p><input type="search" name="search" <%String search = request.getParameter("search");
     if (search == null) {
@@ -84,22 +76,26 @@
                               <%}%>> > 
                         <input type="submit" value="Найти"></p>
                 </form>
+            </div>
                     
-            <form name="tableForm" method="POST" action="/InformationSystemWEB/searchEmployeeByPattern">
+            
                 
-                <p style="text-align: center"><button type="submit">Искать</button></p>
-            <table width="500" border="1" align="center" cellpadding="10" cellspacing="0">
+                
+            
+            <table width="1024" tableborder="1" align="center" cellpadding="10" cellspacing="0">
                 <%
-                        ControllerDAO con = ControllerDAO.getInstance();
-                        CompanyDAO compDAO = con.getCompanyDAO();
-                        DepartmentDAO depDAO = con.getDepartmentDAO();
-                        EmployeeDAO empDAO = con.getEmployeeDAO();
+                        InitialContext ic = new InitialContext();
+                        ControllerDAO controller = (ControllerDAO)ic.lookup("controller.ControllerDAO");
+                        CompanyDAO compDAO = controller.getCompanyDAO();
+                        DepartmentDAO depDAO = controller.getDepartmentDAO();
+                        EmployeeDAO empDAO = controller.getEmployeeDAO();
 
                         
                         List<Employee> list = null;
                         
                     %>
                 <tbody>
+                <thead>
                     <tr>
                         <td align="center">Фамилия </td>
                         <td align="center">Имя</td>
@@ -109,18 +105,19 @@
                         <td align="center">Редактировать</td>
                         <td align="center">Удалить</td>
                     </tr>
+                </thead>
                     <tr>
-                        <td align="center" rowspan="2"><input type="text" name="lastName" value="<%=pLastName%>"></td>
-                        <td align="center" rowspan="2"><input type="text" name="firstName" value="<%=pFirstName%>"></td>
-                        <td align="center" rowspan="2"><input type="text" name="function" value="<%=pFunction%>"></td>
-                        <td align="center">MIN:<input type="number" id="salMin" name="salaryMin" min="0" max="1000000" value="<%=salaryMin%>"></td>
-                        <td align="center" rowspan="2"><input type="text" name="department" value="<%=pDepartment%>"></td>
+                        <td align="center" rowspan="2"><input class="inputwidth" type="text" name="lastName" value="<%=pLastName%>"></td>
+                        <td align="center" rowspan="2"><input class="inputwidth" type="text" name="firstName" value="<%=pFirstName%>"></td>
+                        <td align="center" rowspan="2"><input class="inputwidth" type="text" name="function" value="<%=pFunction%>"></td>
+                        <td align="center">MIN:<input class="inputwidth" type="number" id="salMin" name="salaryMin" min="0" max="1000000" value="<%=salaryMin%>"></td>
+                        <td align="center" rowspan="2"><input class="inputwidth" type="text" name="department" value="<%=pDepartment%>"></td>
                         <td align="center" rowspan="2"></td>
                         <td align="center" rowspan="2"></td>
                     </tr>
                     <tr>
                         <td align="center"> MAX:                       
-                            <input type="number" id="salMax" name="salaryMax" min="0" max="1000000" value="<%=salaryMax%>">
+                            <input class="inputwidth" type="number" id="salMax" name="salaryMax" min="0" max="1000000" value="<%=salaryMax%>">
                         </td>
                     </tr>
 
@@ -179,20 +176,28 @@
                         <td align="center"><%=function%></td>
                         <td align="center"><%=e.getSalary()%></td>
                         <td align="center"><%=e.getDepartment().getName()%></td>
-                        <td align="center"><a href="<%=edit.toString()%>">редактировать</a></td>
-                        <td align="center"><a href="<%=delete%>">удалить</a></td>
+                        <td align="center"><a href="<%=edit.toString()%>">Редактировать</a></td>
+                        <td align="center"><a href="<%=delete%>">Удалить</a></td>
                     </tr>
                     <%}%>
                     
                 </tbody>
-            </table> 
-            </form>
-                    <div align="right"><a href="/InformationSystemWEB/pages/employee.jsp?goal=add">Добавить сотрудника</a></div>
-                    <div align="left"><a href="/InformationSystemWEB/pages/departmentTable.jsp">К отделам</a></div>
-                    <div align="left"><a href="/InformationSystemWEB/index.jsp">На главную</a></div>
+            </table>
+                    <div align="center"><p><form name="tableForm" method="POST" action="/InformationSystemWEB/searchEmployeeByPattern"><button class="btn btn-default" type="submit">Искать</button></form><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/employee.jsp?goal=add';">Добавить сотрудника</button></p></div>
+            
+                    
+                    
+        </section>    
         </main>
         <footer>
-            <p style="text-align: center"> 2016 год</p>
+            <nav class="navfoot">
+                <ul>
+                  <li><a href="/InformationSystemWEB/pages/departmentTable.jsp">К отделам</a></li><!--
+                  --><li><a href="/InformationSystemWEB/index.jsp">На главную</a></li>
+                </ul>
+	</nav>
+            <p style="text-align: center">2016 год</p>
         </footer>
+         </div>
     </body>
 </html>

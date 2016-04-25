@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<departments>
+    <department id="6" name="Охрана">
+        <employee id="10" firstName="Петр" lastName="Начальник охраны" function="Попов" salary="1800"/>
+        <director id="10" firstName="Петр" lastName="Начальник охраны" function="Попов" salary="1800"/>
+    </department>
+</departments>

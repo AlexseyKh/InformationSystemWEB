@@ -6,6 +6,8 @@
 package controller;
 
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Remote;
 import model.Company;
 import model.Department;
 import model.Employee;
@@ -14,6 +16,7 @@ import model.Employee;
  *
  * @author Alexey
  */
+@Remote
 public interface EmployeeDAO {
     /**
      * Добавление сотрудника в отдел

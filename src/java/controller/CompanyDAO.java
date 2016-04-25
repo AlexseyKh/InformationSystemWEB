@@ -6,12 +6,15 @@
 package controller;
 
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Remote;
 import model.*;
 
 /**
  *
  * @author Alexey
  */
+@Remote
 public interface CompanyDAO {
     /**
      * Добавляет компанию
@@ -45,4 +48,6 @@ public interface CompanyDAO {
      * @return саисок всех компаний
      */
     public List<Company> getAllCompany();
+    
+    public List<Company> getFullAllCompany();
 }

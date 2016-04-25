@@ -6,7 +6,9 @@
 package servlets;
 
 import controller.ControllerDAO;
+import controller.ControllerDAOImpl;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,13 +23,15 @@ import model.Company;
  */
 @WebServlet(urlPatterns = {"/servlets/ChangeCompany"})
 public class ChangeCompany extends HttpServlet{
+    @EJB
+    ControllerDAO controller;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Company c = (Company) req.getSession().getAttribute("company");
         String name = req.getParameter("name");
         c.setName(name);
-        ControllerDAO.getInstance().getCompanyDAO().updateCompany(c);
+        controller.getCompanyDAO().updateCompany(c);
         RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
         rd.forward(req, resp); // Redisplay JSP.SP.
     }    

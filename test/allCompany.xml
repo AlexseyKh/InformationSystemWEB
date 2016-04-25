@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="cp1251" standalone="yes"?>
+<companys>
+    <company id="1" name="Шоколадная фабрика">
+        <department id="2" name="Темный шоколад">
+            <employee id="2" firstName="Ольга" lastName="Начальник отдела Темный шоколад" function="Сафина" salary="1500"/>
+            <employee id="5" firstName="Антон" lastName="Начальник производства" function="Зорин" salary="1800"/>
+            <employee id="4" firstName="Валентин" lastName="Дегустатор" function="Митрофанов" salary="1000"/>
+            <director id="2" firstName="Ольга" lastName="Начальник отдела Темный шоколад" function="Сафина" salary="1500"/>
+        </department>
+        <department id="1" name="Белый шоколад">
+            <employee id="1" firstName="Наталья" lastName="Начальник отдела Белый шоколад" function="Сафина" salary="2000"/>
+            <employee id="3" firstName="Мария" lastName="Дегустатор" function="Никифорова" salary="1000"/>
+            <director id="1" firstName="Наталья" lastName="Начальник отдела Белый шоколад" function="Сафина" salary="2000"/>
+        </department>
+    </company>
+    <company id="2" name="Магазин муз. инструментов">
+        <department id="5" name="Арфы">
+            <employee id="9" firstName="Мария" lastName="Продавец" function="Петрова" salary="900"/>
+            <director id="6" firstName="Андрей" lastName="Директор" function="Чернов" salary="2000"/>
+        </department>
+        <department id="3" name="Гитары">
+            <employee id="7" firstName="Дмитрий" lastName="Продавец" function="Прокофьев" salary="1000"/>
+            <director id="6" firstName="Андрей" lastName="Директор" function="Чернов" salary="2000"/>
+        </department>
+        <department id="4" name="Струны">
+            <employee id="8" firstName="Анна" lastName="Продавец" function="Гаврилюк" salary="1000"/>
+            <director id="6" firstName="Андрей" lastName="Директор" function="Чернов" salary="2000"/>
+        </department>
+    </company>
+    <company id="3" name="Школа">
+        <department id="8" name="Учителя">
+            <employee id="16" firstName="Елена" lastName="Учитель франц. яз." function="Пигарева" salary="1400"/>
+            <employee id="15" firstName="Ирина" lastName="Учитель информатики" function="Исайчева" salary="1400"/>
+            <employee id="14" firstName="Наталья" lastName="Учитель музыки" function="Волкова" salary="1400"/>
+            <director id="13" firstName="Дмитрий" lastName="Завуч по учебн. работе" function="Шилов" salary="1500"/>
+        </department>
+        <department id="6" name="Охрана">
+            <employee id="10" firstName="Петр" lastName="Начальник охраны" function="Попов" salary="1800"/>
+            <director id="10" firstName="Петр" lastName="Начальник охраны" function="Попов" salary="1800"/>
+        </department>
+        <department id="7" name="Завучи">
+            <employee id="12" firstName="Елена" lastName="Завуч по восп. работе" function="Мистюкова" salary="1500"/>
+            <employee id="13" firstName="Дмитрий" lastName="Завуч по учебн. работе" function="Шилов" salary="1500"/>
+            <director id="11" firstName="Светлана" lastName="Директор школы" function="Миронова" salary="2000"/>
+        </department>
+    </company>
+    <company id="4" name="Таксопарк">
+        <department id="9" name="Диспетчеры">
+            <employee id="18" firstName="Данил" lastName="Диспетчер" function="Абрамов" salary="1400"/>
+            <employee id="17" firstName="Виктор" lastName="Диспетчер" function="Пигарев" salary="1400"/>
+        </department>
+        <department id="10" name="Водители">
+            <employee id="19" firstName="Антон" lastName="Водитель" function="Коробов" salary="1200"/>
+            <employee id="21" firstName="Максим" lastName="Водитель" function="Руднев" salary="1200"/>
+            <employee id="20" firstName="Дмитрий" lastName="Водитель" function="Шкалин" salary="1200"/>
+        </department>
+    </company>
+</companys>
