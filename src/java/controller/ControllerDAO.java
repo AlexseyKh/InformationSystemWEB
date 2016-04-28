@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.xml.bind.JAXBException;
 import model.Companies;
