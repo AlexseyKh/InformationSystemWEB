@@ -4,6 +4,7 @@
     Author     : Игорь
 --%>
 
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="org.apache.shiro.SecurityUtils"%>
 <%@page import="model.Company"%>
 <%@page import="controller.EmployeeDAO"%>
@@ -52,7 +53,8 @@
             </header>
             <main>
                 <section class="row">
-                    <%  ControllerDAO con = ControllerDAO.getInstance();
+                    <%  InitialContext ic = new InitialContext();
+                        ControllerDAO con = (ControllerDAO) ic.lookup("controller.ControllerDAO");
                         CompanyDAO compDAO = con.getCompanyDAO();
                         DepartmentDAO depDAO = con.getDepartmentDAO();
                         EmployeeDAO empDAO = con.getEmployeeDAO();
