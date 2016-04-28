@@ -7,6 +7,7 @@ package controller;
 
 import java.util.List;
 import java.util.Set;
+import javax.ejb.Stateless;
 import model.Company;
 import model.Department;
 import model.Employee;
@@ -18,6 +19,7 @@ import org.hibernate.Transaction;
  *
  * @author Alexey
  */
+@Stateless
 public class CompanyDAOImpl implements CompanyDAO{
 
     @Override
