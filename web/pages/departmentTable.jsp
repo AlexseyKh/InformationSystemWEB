@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="org.apache.shiro.SecurityUtils"%>
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="model.Employee"%>
 <%@page import="controller.EmployeeDAO"%>
 <%@page import="controller.DepartmentDAO"%>
@@ -91,75 +92,76 @@
                         });
 
                     }</script>
-                    <%
-                        ControllerDAO con = ControllerDAO.getInstance();
-                        CompanyDAO compDAO = con.getCompanyDAO();
-                        DepartmentDAO depDAO = con.getDepartmentDAO();
-                        List<Department> list = null;
-                    %>
-                <section class="row">
-                    <h2 style="text-align: center">Таблица отделов</h2>
-
-                    <table id="table" width="600">                
-
-                        <thead>
-                            <tr>
-                                <shiro:hasAnyRoles name="admin, owner"><td align="center"></td></shiro:hasAnyRoles>
-                                    <td align="center">Название</td>
-                                    <td align="center">Директор</td>
-                                <shiro:hasAnyRoles name="admin, owner">
-                                    <td align="center">Изменить</td>
-                                </shiro:hasAnyRoles>
-                            </tr>
-                        </thead>
-                        <tbody>
                             <%
-                                List<Department> deps = (List<Department>) request.getSession().getAttribute("searchDepartments");
-                                request.getSession().setAttribute("searchDepartments", null);
-                                if (deps != null) {
-                                    list = deps;
-                                } else {
-                                    deps = (List<Department>) request.getSession().getAttribute("departments");
-                                    request.getSession().setAttribute("departments", null);
-                                    if (deps == null) {
-                                        list = depDAO.getDepartmentByCompany(compDAO.getCompanyById(companyID));
-                                    } else {
-                                        list = deps;
-                                    }
-                                }
-                                for (Department d : list) {
-                                    String dName = null;
-                                    dName = d.getName();
-                                    String director = (d.getDirector() != null) ? (d.getDirector().getFirstName() + " " + d.getDirector().getLastName()) : ("null");
-
+                                InitialContext ic = new InitialContext();
+                                ControllerDAO controller = (ControllerDAO) ic.lookup("controller.ControllerDAO");
+                                CompanyDAO compDAO = controller.getCompanyDAO();
+                                DepartmentDAO depDAO = controller.getDepartmentDAO();
+                                List<Department> list = null;
                             %>
-                            <tr>
-                                <shiro:hasAnyRoles name="admin, owner">   
-                                    <td align="center"><input type="checkbox" class="departmentsCheckbox" value="<%=d.getId()%>"></td>
-                                    </shiro:hasAnyRoles>
-                                <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?departmentID=<%=d.getId()%>"><%=dName%></a></td>
-                                <td><%=director%></td>
-                                <shiro:hasAnyRoles name="admin, owner">
-                                    <td><a href="/InformationSystemWEB/pages/changeDepartment.jsp?&departmentID=<%=d.getId()%>">Изменить</a></td>
-                                </shiro:hasAnyRoles>
-                            </tr>
-                            <%}
-                            %>
+                        <section class="row">
+                            <h2 style="text-align: center">Таблица отделов</h2>
 
-                        </tbody>
-                    </table>
-                    <shiro:hasAnyRoles name="admin, owner"><p><div align="center"><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/createDepartment.jsp?';">Добавить отдел</button><button class="btn btn-default" margin-left="5" onclick="CheckboxDepartmentDel();">Удалить отмеченное</button></div></p></shiro:hasAnyRoles>
-                </section>
-            </main>
-            <footer>
-                <nav class="navfoot">
-                    <ul>
-                        <li><a href="/InformationSystemWEB/index.jsp">К списку компаний</a></li><!--
-                        --><li><a href="/InformationSystemWEB/index.jsp">На главную</a></li>
-                    </ul>
-                </nav>
-                <p style="text-align: center">2016 год</p>
-            </footer>
-        </div>
-    </body>
-</html>
+                            <table id="table" width="600">                
+
+                                <thead>
+                                    <tr>
+                                        <shiro:hasAnyRoles name="admin, owner"><td align="center"></td></shiro:hasAnyRoles>
+                                            <td align="center">Название</td>
+                                            <td align="center">Директор</td>
+                                        <shiro:hasAnyRoles name="admin, owner">
+                                            <td align="center">Изменить</td>
+                                        </shiro:hasAnyRoles>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        List<Department> deps = (List<Department>) request.getSession().getAttribute("searchDepartments");
+                                        request.getSession().setAttribute("searchDepartments", null);
+                                        if (deps != null) {
+                                            list = deps;
+                                        } else {
+                                            deps = (List<Department>) request.getSession().getAttribute("departments");
+                                            request.getSession().setAttribute("departments", null);
+                                            if (deps == null) {
+                                                list = depDAO.getDepartmentByCompany(compDAO.getCompanyById(companyID));
+                                            } else {
+                                                list = deps;
+                                            }
+                                        }
+                                        for (Department d : list) {
+                                            String dName = null;
+                                            dName = d.getName();
+                                            String director = (d.getDirector() != null) ? (d.getDirector().getFirstName() + " " + d.getDirector().getLastName()) : ("null");
+
+                                    %>
+                                    <tr>
+                                        <shiro:hasAnyRoles name="admin, owner">   
+                                            <td align="center"><input type="checkbox" class="departmentsCheckbox" value="<%=d.getId()%>"></td>
+                                            </shiro:hasAnyRoles>
+                                        <td><a href="/InformationSystemWEB/pages/employeeTable.jsp?departmentID=<%=d.getId()%>"><%=dName%></a></td>
+                                        <td><%=director%></td>
+                                        <shiro:hasAnyRoles name="admin, owner">
+                                            <td><a href="/InformationSystemWEB/pages/changeDepartment.jsp?&departmentID=<%=d.getId()%>">Изменить</a></td>
+                                        </shiro:hasAnyRoles>
+                                    </tr>
+                                    <%}
+                                    %>
+
+                                </tbody>
+                            </table>
+                            <shiro:hasAnyRoles name="admin, owner"><p><div align="center"><button class="btn btn-default" onclick="location.href = '/InformationSystemWEB/pages/createDepartment.jsp?';">Добавить отдел</button><button class="btn btn-default" margin-left="5" onclick="CheckboxDepartmentDel();">Удалить отмеченное</button></div></p></shiro:hasAnyRoles>
+                        </section>
+                        </main>
+                        <footer>
+                            <nav class="navfoot">
+                                <ul>
+                                    <li><a href="/InformationSystemWEB/index.jsp">К списку компаний</a></li><!--
+                                    --><li><a href="/InformationSystemWEB/index.jsp">На главную</a></li>
+                                </ul>
+                            </nav>
+                            <p style="text-align: center">2016 год</p>
+                        </footer>
+                        </div>
+                        </body>
+                        </html>

@@ -4,6 +4,7 @@
     Author     : Игорь
 --%>
 <%@page import="org.apache.shiro.SecurityUtils"%>
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="model.Employee"%>
 <%@page import="controller.EmployeeDAO"%>
@@ -100,9 +101,9 @@
                         --><li><a href="">Справка</a></li>
                     </ul>
                 </nav>
-
+                
                 <a href="/InformationSystemWEB/logout">Выход</a>
-
+                
             </header>
             <main>
                 <section class="row">
@@ -111,10 +112,11 @@
 
                     <table id="table">
                         <%
-                            ControllerDAO con = ControllerDAO.getInstance();
-                            CompanyDAO compDAO = con.getCompanyDAO();
-                            DepartmentDAO depDAO = con.getDepartmentDAO();
-                            EmployeeDAO empDAO = con.getEmployeeDAO();
+                            InitialContext ic = new InitialContext();
+                        ControllerDAO controller = (ControllerDAO)ic.lookup("controller.ControllerDAO");
+                        CompanyDAO compDAO = controller.getCompanyDAO();
+                        DepartmentDAO depDAO = controller.getDepartmentDAO();
+                        EmployeeDAO empDAO = controller.getEmployeeDAO();
 
                             List<Employee> list = null;
 

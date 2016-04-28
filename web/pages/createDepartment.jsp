@@ -4,6 +4,7 @@
     Author     : Игорь
 --%>
 
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="org.apache.shiro.SecurityUtils"%>
 <%@page import="model.Company"%>
 <%@page import="java.util.List"%>
@@ -21,7 +22,8 @@
         <meta charset="utf-8">
         <title>Создание отдела</title>
         <%
-            ControllerDAO controller = ControllerDAO.getInstance();
+            InitialContext ic = new InitialContext();
+            ControllerDAO controller = (ControllerDAO)ic.lookup("controller.ControllerDAO");
             Company c = controller.getCompanyDAO().getCompanyById(companyID);
             session.setAttribute("company", c);
         %>
@@ -63,7 +65,7 @@
                                     <td>
                                         <select name="directorID">                         
                                             <%
-                                                List<Employee> emps = ControllerDAO.getInstance().getEmployeeDAO().getlEmployeeByCompany(c);
+                                                List<Employee> emps = controller.getEmployeeDAO().getlEmployeeByCompany(c);
                                                 for (Employee e : emps) {
                                             %>
                                             <option value="<%=e.getId()%>"><%=e.getFirstName() + " " + e.getLastName()%></option>

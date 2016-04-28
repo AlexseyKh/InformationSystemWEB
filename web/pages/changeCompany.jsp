@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="org.apache.shiro.SecurityUtils"%>
+<%@page import="javax.naming.InitialContext"%>
 <%@page import="model.Company"%>
 <%@page import="controller.ControllerDAO"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
@@ -17,7 +18,8 @@
         <title>Изменение компании</title>
         <%long companyID = (Long) SecurityUtils.getSubject().getSession().getAttribute("companyID");
             String name = SecurityUtils.getSubject().getSession().getAttribute("companyName").toString();
-            ControllerDAO con = ControllerDAO.getInstance();
+            InitialContext ic = new InitialContext();
+            ControllerDAO con = (ControllerDAO)ic.lookup("controller.ControllerDAO");
             Company c = con.getCompanyDAO().getCompanyById(companyID);
             SecurityUtils.getSubject().getSession().setAttribute("company", c);
         %>
