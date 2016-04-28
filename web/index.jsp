@@ -7,7 +7,15 @@
 <%@page import="org.apache.shiro.SecurityUtils"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.ejb.EJB"%>
+<%@page import="java.util.Locale"%>
+<%@page import="model.Employee"%>
+<%@page import="model.Department"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Company"%>
+<%@page import="controller.CompanyDAO"%>
+<%@page import="controller.ControllerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +23,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Справочная система</title>
         <link rel="stylesheet" href="/InformationSystemWEB/css/main.css">
+        <% 
+            InitialContext ic = new InitialContext();
+            ControllerDAO controller = (ControllerDAO)ic.lookup("controller.ControllerDAO");
+        %>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
 
     </head>
