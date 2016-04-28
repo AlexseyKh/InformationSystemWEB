@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,9 @@ import security.model.User;
  */
 @WebServlet(name = "main", urlPatterns = {"/main"})
 public class main extends HttpServlet {
+
+    @EJB
+    ControllerDAO controller;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -104,21 +108,20 @@ public class main extends HttpServlet {
             if (!userDAO.getUserByUsername(username).isEmpty()) {
                 response.getWriter().print("error");
             } else {
-                ControllerDAO con = ControllerDAO.getInstance();
-                CompanyDAO compDAO = con.getCompanyDAO();
+                CompanyDAO compDAO = controller.getCompanyDAO();
                 Session session = SecurityUtils.getSubject().getSession();
-                
+
                 User user = new User(username, password);
                 userDAO.addUser(user);
-                
+
                 Role role = roleDAO.getRoleByName(rolename).get(0);
                 userDAO.addRole(user, role);
-                          
+
                 long compName = (long) session.getAttribute("companyID");
 
                 role = new Role(String.valueOf(compName));
                 userDAO.addRole(user, roleDAO.getRoleByName(String.valueOf(compName)).get(0));
-                
+
                 response.getWriter().print(user.getId());
             }
         }

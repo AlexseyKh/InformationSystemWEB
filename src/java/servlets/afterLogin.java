@@ -9,6 +9,7 @@ import controller.ControllerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,28 +30,30 @@ import security.model.User;
 @WebServlet(name = "afterLogin", urlPatterns = {"/afterLogin"})
 public class afterLogin extends HttpServlet {
 
+    @EJB
+    ControllerDAO controller;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         Subject currentUser = SecurityUtils.getSubject();
-        ControllerDAO con = ControllerDAO.getInstance();
         SecurityControllerDAO sec = SecurityControllerDAO.getInstance();
         UserDAO userDAO = sec.getUserDAO();
         User user = userDAO.getUserByUsername(currentUser.getPrincipals().getPrimaryPrincipal().toString()).get(0);
         List<Role> roles = sec.getRoleDAO().getRolesByUser(user);
-                
+
         long companyID = 0;
         for (Role r : roles) {
-            if(!r.getName().equals("owner") &&
-                    !r.getName().equals("admin") &&
-                    !r.getName().equals("user")){
+            if (!r.getName().equals("owner")
+                    && !r.getName().equals("admin")
+                    && !r.getName().equals("user")) {
                 companyID = Long.parseLong(r.getName());
                 break;
             }
         }
         SecurityUtils.getSubject().getSession().setAttribute("companyID", companyID);
-        SecurityUtils.getSubject().getSession().setAttribute("companyName", con.getCompanyDAO().getCompanyById(companyID).getName());
+        SecurityUtils.getSubject().getSession().setAttribute("companyName", controller.getCompanyDAO().getCompanyById(companyID).getName());
 
         if (currentUser.hasRole("owner")) {
             request.getRequestDispatcher("/pages/main.jsp").forward(request, response);

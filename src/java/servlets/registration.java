@@ -10,6 +10,7 @@ import controller.ControllerDAO;
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,9 @@ import security.model.User;
  */
 @WebServlet(name = "registration", urlPatterns = {"/registration"})
 public class registration extends HttpServlet {
+
+    @EJB
+    ControllerDAO controller;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,8 +61,7 @@ public class registration extends HttpServlet {
         if (request.getParameter("request").equals("finish")) {
             String name = request.getParameter("companyName");
 
-            ControllerDAO con = ControllerDAO.getInstance();
-            CompanyDAO compDAO = con.getCompanyDAO();
+            CompanyDAO compDAO = controller.getCompanyDAO();
 
             if (!compDAO.getCompanyByName(name).isEmpty()) {
                 response.getWriter().print("error");
@@ -73,15 +76,14 @@ public class registration extends HttpServlet {
                 String password = (String) session.getAttribute("password");
                 User user = new User(username, password);
                 userDAO.addUser(user);
-                
+
                 Role role = roleDAO.getRoleByName("owner").get(0);
                 userDAO.addRole(user, role);
-                
+
                 role = new Role(String.valueOf(compDAO.getCompanyByName(name).get(0).getId()));
-                roleDAO.addRole(role); 
+                roleDAO.addRole(role);
                 userDAO.addRole(user, roleDAO.getRoleByName(String.valueOf(compDAO.getCompanyByName(name).get(0).getId())).get(0));
 
-                
                 UsernamePasswordToken token = new UsernamePasswordToken(username, password);
                 Subject currentUser = SecurityUtils.getSubject();
                 currentUser.login(token);

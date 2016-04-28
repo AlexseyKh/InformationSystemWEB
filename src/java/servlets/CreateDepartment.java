@@ -6,7 +6,9 @@
 package servlets;
 
 import controller.ControllerDAO;
+import controller.ControllerDAOImpl;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,24 +24,24 @@ import model.Department;
  */
 @WebServlet(urlPatterns = {"/servlets/CreateDepartment"})
 public class CreateDepartment extends HttpServlet{
-
+    @EJB
+    ControllerDAO controller;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String departmentName = req.getParameter("name");
         Department d = new Department(departmentName);
-        ControllerDAO con = ControllerDAO.getInstance();
         String str = req.getParameter("directorID");
         if(str != null){
             long directorID = Long.valueOf(str);
             if (directorID != -1) {
-            d.setDirector(con.getEmployeeDAO().getEmployeeById(directorID));
+            d.setDirector(controller.getEmployeeDAO().getEmployeeById(directorID));
         } else {
             d.setDirector(null);
         }
         }
         Company c = (Company) req.getSession().getAttribute("company");
         d.setCompany(c);
-        con.getDepartmentDAO().addDepartment(d, d.getCompany());
+        controller.getDepartmentDAO().addDepartment(d, d.getCompany());
         RequestDispatcher rd = req.getRequestDispatcher("/pages/departmentTable.jsp");
         rd.forward(req, resp); // Redisplay JSP.SP.    
     }

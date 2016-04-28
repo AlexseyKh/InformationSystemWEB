@@ -7,7 +7,7 @@ package servlets;
 
 import controller.ControllerDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,10 +23,12 @@ import org.apache.shiro.SecurityUtils;
 @WebServlet(name = "departmentTableServlet", urlPatterns = {"/departmentTable"})
 public class departmentTableServlet extends HttpServlet {
 
+    @EJB
+    ControllerDAO controller;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ControllerDAO con = ControllerDAO.getInstance();
         long companyID = (Long) SecurityUtils.getSubject().getSession().getAttribute("companyID");
 
         request.getRequestDispatcher("/pages/departmentTable.jsp").forward(request, response);

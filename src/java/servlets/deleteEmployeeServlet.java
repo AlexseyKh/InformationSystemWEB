@@ -8,7 +8,7 @@ package servlets;
 import controller.ControllerDAO;
 import controller.EmployeeDAO;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,12 +23,14 @@ import model.Employee;
 @WebServlet(name = "deleteEmployeeServlet", urlPatterns = {"/deleteEmployee"})
 public class deleteEmployeeServlet extends HttpServlet {
 
+    @EJB
+    ControllerDAO controller;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ControllerDAO con = ControllerDAO.getInstance();
-        EmployeeDAO empDAO = con.getEmployeeDAO();
-        Employee e = empDAO.getEmployeeById(Long.parseLong(request.getParameter("id")));
+        EmployeeDAO empDAO = controller.getEmployeeDAO();
+        Employee  e = empDAO.getEmployeeById(Long.parseLong(request.getParameter("id")));
         empDAO.deleteEmployee(e);
         request.getRequestDispatcher("/pages/departmentTable.jsp").forward(request, response);
     }
@@ -44,7 +46,6 @@ public class deleteEmployeeServlet extends HttpServlet {
             }
         }
         for (int j = 0; j < results.length; j++) {
-            ControllerDAO controller = ControllerDAO.getInstance();
             Employee e = controller.getEmployeeDAO().getEmployeeById(results[j]);
             controller.getEmployeeDAO().deleteEmployee(e);
         }

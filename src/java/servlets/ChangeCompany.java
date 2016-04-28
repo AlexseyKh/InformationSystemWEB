@@ -7,7 +7,7 @@ package servlets;
 
 import controller.ControllerDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,15 +21,19 @@ import org.apache.shiro.SecurityUtils;
  *
  * @author Игорь
  */
-@WebServlet(name = "ChangeCompany", urlPatterns = {"/servlets/ChangeCompany"})
-public class ChangeCompany extends HttpServlet {
+
+@WebServlet(urlPatterns = {"/servlets/ChangeCompany"})
+public class ChangeCompany extends HttpServlet{
+    @EJB
+    ControllerDAO controller;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Company c = (Company) SecurityUtils.getSubject().getSession().getAttribute("company");
         String name = req.getParameter("name");
         c.setName(name);
-        ControllerDAO.getInstance().getCompanyDAO().updateCompany(c);
-        req.getRequestDispatcher("/pages/main.jsp").forward(req, resp);
-    }
+        controller.getCompanyDAO().updateCompany(c);
+        RequestDispatcher rd = req.getRequestDispatcher("/pages/main.jsp");
+        rd.forward(req, resp); // Redisplay JSP.SP.
+    }    
 }

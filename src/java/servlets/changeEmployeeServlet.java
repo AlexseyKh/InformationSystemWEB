@@ -6,10 +6,12 @@
 package servlets;
 
 import controller.ControllerDAO;
+import controller.ControllerDAOImpl;
 import controller.DepartmentDAO;
 import controller.EmployeeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,13 +27,16 @@ import model.Employee;
 @WebServlet(name = "changeEmployeeServlet", urlPatterns = {"/changeEmployee"})
 public class changeEmployeeServlet extends HttpServlet {
 
+    
+    @EJB
+    ControllerDAO controller;
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ControllerDAO con = ControllerDAO.getInstance();
-        EmployeeDAO empDAO = con.getEmployeeDAO();
-        DepartmentDAO depDAO = con.getDepartmentDAO();
+        EmployeeDAO empDAO = controller.getEmployeeDAO();
+        DepartmentDAO depDAO = controller.getDepartmentDAO();
         Employee emp = empDAO.getEmployeeById(Long.parseLong(request.getParameter("id")));
         emp.setFirstName(request.getParameter("firstName"));
         emp.setLastName(request.getParameter("lastName"));

@@ -7,6 +7,7 @@ package servlets;
 
 import controller.ControllerDAO;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,14 +22,14 @@ import model.Department;
  */
 @WebServlet(urlPatterns = {"/servlets/ChangeDepartment"})
 public class ChangeDepartment extends HttpServlet {
-
+    @EJB
+    ControllerDAO controller;
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
-        Long directorID = Long.valueOf(req.getParameter("directorID"));
-        ControllerDAO controller = ControllerDAO.getInstance();
+        long directorID = Long.valueOf(req.getParameter("directorID"));
         Department d = (Department) req.getSession().getAttribute("department");
-
         d.setName(name);
         if (directorID != -1) {
             d.setDirector(controller.getEmployeeDAO().getEmployeeById(directorID));

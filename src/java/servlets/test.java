@@ -7,10 +7,12 @@ package servlets;
 
 import controller.CompanyDAO;
 import controller.ControllerDAO;
+import controller.ControllerDAOImpl;
 import controller.DepartmentDAO;
 import controller.EmployeeDAO;
 import java.io.File;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,8 +39,11 @@ public class test extends HttpServlet {
      * @throws IOException if an I/O error occurs
      * @throws org.apache.commons.fileupload.FileUploadException
      */
+    
+    @EJB
+    ControllerDAO controller;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        ControllerDAO controller = ControllerDAO.getInstance();
         CompanyDAO companyDAO = controller.getCompanyDAO();
         DepartmentDAO departmentDAO = controller.getDepartmentDAO();        
         EmployeeDAO employeeDAO = controller.getEmployeeDAO();
