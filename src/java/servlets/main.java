@@ -108,7 +108,6 @@ public class main extends HttpServlet {
             if (!userDAO.getUserByUsername(username).isEmpty()) {
                 response.getWriter().print("error");
             } else {
-                CompanyDAO compDAO = controller.getCompanyDAO();
                 Session session = SecurityUtils.getSubject().getSession();
 
                 User user = new User(username, password);
@@ -117,9 +116,7 @@ public class main extends HttpServlet {
                 Role role = roleDAO.getRoleByName(rolename).get(0);
                 userDAO.addRole(user, role);
 
-                long compName = (long) session.getAttribute("companyID");
-
-                role = new Role(String.valueOf(compName));
+                long compName = (long) session.getAttribute("companyID"); 
                 userDAO.addRole(user, roleDAO.getRoleByName(String.valueOf(compName)).get(0));
 
                 response.getWriter().print(user.getId());
